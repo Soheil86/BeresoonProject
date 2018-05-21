@@ -22,6 +22,8 @@
 		C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AC20B2DEA80044A6D0 /* Setup.swift */; };
 		C9A180AF20B2DF220044A6D0 /* FirebaseMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */; };
 		C9A180B120B2DFE80044A6D0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B020B2DFE80044A6D0 /* Extensions.swift */; };
+		C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B220B2EC270044A6D0 /* LoginController.swift */; };
+		C9A180B520B2EE980044A6D0 /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		C9A180AC20B2DEA80044A6D0 /* Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
 		C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMagic.swift; sourceTree = "<group>"; };
 		C9A180B020B2DFE80044A6D0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		C9A180B220B2EC270044A6D0 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				C9A180AA20B2DE550044A6D0 /* SignUpController.swift */,
+				C9A180B220B2EC270044A6D0 /* LoginController.swift */,
+				C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */,
 			);
 			path = Onboard;
 			sourceTree = "<group>";
@@ -303,6 +309,8 @@
 				C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */,
 				C9A180A220B2BDC50044A6D0 /* ProfileDatasourceController.swift in Sources */,
 				C9A180AB20B2DE550044A6D0 /* SignUpController.swift in Sources */,
+				C9A180B520B2EE980044A6D0 /* ForgotPasswordController.swift in Sources */,
+				C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */,
 				C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */,
 				C9A180A420B2BE1D0044A6D0 /* DummyAddPostViewController.swift in Sources */,
 				C9A1809820B2B33A0044A6D0 /* HomeDatasourceController.swift in Sources */,

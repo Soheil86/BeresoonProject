@@ -19,7 +19,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     button.imageView?.contentMode = .scaleAspectFill
     button.layer.masksToBounds = true
     button.layer.cornerRadius = profilePictureWidth * 0.5
-    button.layer.borderColor = UIColor.black.cgColor
+    button.layer.borderColor = Setup.greyColor.cgColor
     button.layer.borderWidth = 2.0
     button.layer.zPosition = 2
     button.addTarget(self, action: #selector(handleAddProfilePictureButtonTapped), for: .touchUpInside)
@@ -106,7 +106,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     label.text = "- or -"
     label.textAlignment = .center
     label.font = UIFont.boldSystemFont(ofSize: 13)
-    label.textColor = Setup.greyFontColor
+    label.textColor = Setup.greyColor
     return label
   }()
   
@@ -126,6 +126,21 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
   
   @objc func handleFacebookButtonTapped() {
     
+  }
+  
+  let loginButton: UIButton = {
+    let button = UIButton(type: .system)
+    let attributedTitle = NSMutableAttributedString(string: "Already have an account?  ", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: Setup.lightGreyColor])
+    attributedTitle.append(NSMutableAttributedString(string: "Login", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: Setup.blueColor]))
+    button.setAttributedTitle(attributedTitle, for: .normal)
+    button.addTarget(self, action: #selector(handleLoginButtonTapped), for: .touchUpInside)
+    return button
+  }()
+  
+  @objc func handleLoginButtonTapped() {
+    let loginController = LoginController()
+    let loginNavController = UINavigationController(rootViewController: loginController)
+    present(loginNavController, animated: true, completion: nil)
   }
   
   @objc func checkAllTextFields() {
@@ -175,17 +190,20 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     view.addSubview(passwordTextField)
     view.addSubview(orTextLabel)
     view.addSubview(facebookButton)
+    view.addSubview(loginButton)
     
     addProfilePictureButton.anchor(view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 32, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: profilePictureWidth, heightConstant: profilePictureWidth)
     addProfilePictureButton.anchorCenterXToSuperview()
     
-    nameTextField.anchor(addProfilePictureButton.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 0)
-    emailTextField.anchor(nameTextField.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 0)
-    usernameTextField.anchor(emailTextField.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 0)
-    passwordTextField.anchor(usernameTextField.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 0)
+    nameTextField.anchor(addProfilePictureButton.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: textFieldHeight)
+    emailTextField.anchor(nameTextField.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: textFieldHeight)
+    usernameTextField.anchor(emailTextField.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: textFieldHeight)
+    passwordTextField.anchor(usernameTextField.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: textFieldHeight)
     
     orTextLabel.anchor(passwordTextField.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 24, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 0)
     
     facebookButton.anchor(orTextLabel.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 24, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 50)
+    
+    loginButton.anchor(nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 36, rightConstant: 0, widthConstant: 0, heightConstant: 50)
   }
 }
