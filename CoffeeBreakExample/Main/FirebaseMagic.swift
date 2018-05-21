@@ -37,18 +37,36 @@ class FirebaseMagic {
     }
   }
   
-  static func signUpUserWithEmail(in viewController: UIViewController) {
+  static func signUpUserWithEmail(in viewController: UIViewController, email: String?, password: String?) {
+    guard let email = email, email.count > 0,
+      let password = password, password.count > 5
+      else {
+      Service.showAlert(on: viewController, style: .alert, title: "Format error", message: "Please, enter valid values for the required fields and try again")
+      return
+    }
     let hud = JGProgressHUD(style: .light)
     showHud(hud, in: viewController, text: "Signing up with email...")
     
-    hud.dismiss(afterDelay: 3, animated: true)
+    Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
+      if let err = err {
+        print("Failed to create Firebase user:", err)
+        hud.dismiss(animated: true)
+        Service.showAlert(on: viewController, style: .alert, title: "Sign up error", message: err.localizedDescription)
+        return
+      }
+      guard let result = result else { return }
+      print("Successfully created firebase user:", result.user.uid )
+      saveUserIntoFirebase(user: result.user)
+    }
   }
   
+  private static func saveUserIntoFirebase(user: User?) {
+    
+  }
   
-  private static func showHud(_ hud: JGProgressHUD,in viewController: UIViewController, text: String) {
+  private static func showHud(_ hud: JGProgressHUD, in viewController: UIViewController, text: String) {
     hud.textLabel.text = text
     hud.show(in: viewController.view, animated: true)
   }
-  
   
 }

@@ -186,7 +186,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     guard let profileImage = addProfilePictureButton.imageView?.image else { return }
     
     // Mark: FirebaseMagic - Sign up user with email
-    FirebaseMagic.signUpUserWithEmail(in: self)
+    FirebaseMagic.signUpUserWithEmail(in: self, email: emailTextField.text, password: passwordTextField.text)
   }
   
   override func viewDidLoad() {
