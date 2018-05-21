@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainTabBarController.swift
 //  CoffeeBreakExample
 //
 //  Created by Alex Nagy on 21/05/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainTabBarController: UITabBarController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
