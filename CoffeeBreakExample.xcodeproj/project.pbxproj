@@ -18,7 +18,6 @@
 		C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */; };
 		C9A180A220B2BDC50044A6D0 /* ProfileDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A120B2BDC50044A6D0 /* ProfileDatasourceController.swift */; };
 		C9A180A420B2BE1D0044A6D0 /* DummyAddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A320B2BE1D0044A6D0 /* DummyAddPostViewController.swift */; };
-		C9A180A820B2C31E0044A6D0 /* AddPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A720B2C31E0044A6D0 /* AddPostController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +36,6 @@
 		C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDatasourceController.swift; sourceTree = "<group>"; };
 		C9A180A120B2BDC50044A6D0 /* ProfileDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDatasourceController.swift; sourceTree = "<group>"; };
 		C9A180A320B2BE1D0044A6D0 /* DummyAddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyAddPostViewController.swift; sourceTree = "<group>"; };
-		C9A180A720B2C31E0044A6D0 /* AddPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				C9A180A320B2BE1D0044A6D0 /* DummyAddPostViewController.swift */,
-				C9A180A720B2C31E0044A6D0 /* AddPostController.swift */,
 			);
 			path = AddPost;
 			sourceTree = "<group>";
@@ -290,7 +287,6 @@
 				C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */,
 				C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */,
 				C9A1809320B2B1A10044A6D0 /* Service.swift in Sources */,
-				C9A180A820B2C31E0044A6D0 /* AddPostController.swift in Sources */,
 				C9A1809E20B2BD560044A6D0 /* SearchDatasourceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

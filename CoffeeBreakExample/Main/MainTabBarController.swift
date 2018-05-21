@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
+class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -71,20 +71,34 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
   
   func showChooseSourceTypeAlertController() {
     let photoLibraryAction = UIAlertAction(title: "Choose a Photo", style: .default) { (action) in
-      self.presentAddPostController(with: .photoLibrary)
+      self.showImagePickerController(sourceType: .photoLibrary)
     }
     let cameraAction = UIAlertAction(title: "Take a New Photo", style: .default) { (action) in
-      self.presentAddPostController(with: .camera)
+      self.showImagePickerController(sourceType: .camera)
     }
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
     Service.showAlert(on: self, style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
   }
   
-  func presentAddPostController(with sourceType: UIImagePickerControllerSourceType) {
-    let controller = AddPostController()
-    controller.sourceType = sourceType
-    let navController = UINavigationController(rootViewController: controller)
-    present(navController, animated: false, completion: nil)
+  func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
+    let imagePickerController = UIImagePickerController()
+    imagePickerController.delegate = self
+    imagePickerController.allowsEditing = true
+    imagePickerController.sourceType = sourceType
+    present(imagePickerController, animated: true, completion: nil)
+  }
+  
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+      
+    } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+      
+    }
+    dismiss(animated: true, completion: nil)
+  }
+  
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    dismiss(animated: true, completion: nil)
   }
 
 }
