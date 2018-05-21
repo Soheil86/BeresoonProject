@@ -6,12 +6,9 @@
 //  Copyright © 2018 Alex Nagy. All rights reserved.
 //
 
-import UIKit
 import LBTAComponents
 
 class Service {
-  static let mainTabBarItemUnselectedTintColor = UIColor(r: 0, g: 0, b: 0)
-  static let mainTabBarItemTintColor = UIColor(r: 0, g: 0, b: 0)
   
   static let notificationNameShouldDismissViewController = Notification.Name(rawValue: "shouldDismissViewController")
   

@@ -19,8 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     window = UIWindow()
     window?.makeKeyAndVisible()
-    let viewController = MainTabBarController()
-    window?.rootViewController = viewController
+    let viewController = SignUpController()
+    let navController = UINavigationController(rootViewController: viewController)
+    window?.rootViewController = navController
     
     return true
   }

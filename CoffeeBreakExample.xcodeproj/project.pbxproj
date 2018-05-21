@@ -18,6 +18,10 @@
 		C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */; };
 		C9A180A220B2BDC50044A6D0 /* ProfileDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A120B2BDC50044A6D0 /* ProfileDatasourceController.swift */; };
 		C9A180A420B2BE1D0044A6D0 /* DummyAddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A320B2BE1D0044A6D0 /* DummyAddPostViewController.swift */; };
+		C9A180AB20B2DE550044A6D0 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AA20B2DE550044A6D0 /* SignUpController.swift */; };
+		C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AC20B2DEA80044A6D0 /* Setup.swift */; };
+		C9A180AF20B2DF220044A6D0 /* FirebaseMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */; };
+		C9A180B120B2DFE80044A6D0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B020B2DFE80044A6D0 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +40,10 @@
 		C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDatasourceController.swift; sourceTree = "<group>"; };
 		C9A180A120B2BDC50044A6D0 /* ProfileDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDatasourceController.swift; sourceTree = "<group>"; };
 		C9A180A320B2BE1D0044A6D0 /* DummyAddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyAddPostViewController.swift; sourceTree = "<group>"; };
+		C9A180AA20B2DE550044A6D0 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
+		C9A180AC20B2DEA80044A6D0 /* Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
+		C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMagic.swift; sourceTree = "<group>"; };
+		C9A180B020B2DFE80044A6D0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +98,7 @@
 			children = (
 				C9A1809520B2B2D00044A6D0 /* Setup */,
 				C9A1809620B2B3010044A6D0 /* Main */,
+				C9A180A920B2DE410044A6D0 /* Onboard */,
 				C9A1809420B2B2BE0044A6D0 /* Home */,
 				C9A1809920B2BCEE0044A6D0 /* Search */,
 				C9A1809A20B2BD020044A6D0 /* AddPost */,
@@ -110,7 +119,7 @@
 		C9A1809520B2B2D00044A6D0 /* Setup */ = {
 			isa = PBXGroup;
 			children = (
-				C9A1809220B2B1A10044A6D0 /* Service.swift */,
+				C9A180AC20B2DEA80044A6D0 /* Setup.swift */,
 				C9A1808720B2AB490044A6D0 /* Assets.xcassets */,
 				C9A1808920B2AB490044A6D0 /* LaunchScreen.storyboard */,
 				C9A1808C20B2AB490044A6D0 /* Info.plist */,
@@ -121,6 +130,9 @@
 		C9A1809620B2B3010044A6D0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */,
+				C9A1809220B2B1A10044A6D0 /* Service.swift */,
+				C9A180B020B2DFE80044A6D0 /* Extensions.swift */,
 				C9A1808020B2AB470044A6D0 /* AppDelegate.swift */,
 				C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */,
 			);
@@ -157,6 +169,14 @@
 				C9A180A120B2BDC50044A6D0 /* ProfileDatasourceController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		C9A180A920B2DE410044A6D0 /* Onboard */ = {
+			isa = PBXGroup;
+			children = (
+				C9A180AA20B2DE550044A6D0 /* SignUpController.swift */,
+			);
+			path = Onboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,12 +302,16 @@
 			files = (
 				C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */,
 				C9A180A220B2BDC50044A6D0 /* ProfileDatasourceController.swift in Sources */,
+				C9A180AB20B2DE550044A6D0 /* SignUpController.swift in Sources */,
+				C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */,
 				C9A180A420B2BE1D0044A6D0 /* DummyAddPostViewController.swift in Sources */,
 				C9A1809820B2B33A0044A6D0 /* HomeDatasourceController.swift in Sources */,
 				C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */,
+				C9A180B120B2DFE80044A6D0 /* Extensions.swift in Sources */,
 				C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */,
 				C9A1809320B2B1A10044A6D0 /* Service.swift in Sources */,
 				C9A1809E20B2BD560044A6D0 /* SearchDatasourceController.swift in Sources */,
+				C9A180AF20B2DF220044A6D0 /* FirebaseMagic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

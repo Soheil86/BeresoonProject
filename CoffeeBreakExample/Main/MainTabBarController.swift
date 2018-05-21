@@ -24,8 +24,8 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
   }
   
   func setupViewControllers() {
-    tabBar.unselectedItemTintColor = Service.mainTabBarItemUnselectedTintColor
-    tabBar.tintColor = Service.mainTabBarItemTintColor
+    tabBar.unselectedItemTintColor = Setup.mainTabBarItemUnselectedTintColor
+    tabBar.tintColor = Setup.mainTabBarItemTintColor
     
     let homeController = HomeDatasourceController()
     let searchController = SearchDatasourceController()
