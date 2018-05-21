@@ -10,6 +10,21 @@ import LBTAComponents
 
 class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
+  let headerImageViewHeight = ScreenSize.width * 0.3
+  let headerImageView: UIImageView = {
+    let view = UIImageView()
+    view.image = #imageLiteral(resourceName: "IconBG")
+    view.contentMode = .scaleToFill
+    return view
+  }()
+  
+  let headerIconImageView: UIImageView = {
+    let view = UIImageView()
+    view.image = #imageLiteral(resourceName: "IconBW")
+    view.contentMode = .scaleAspectFill
+    return view
+  }()
+  
   let profilePictureWidth = ScreenSize.width * 0.18
   lazy var addProfilePictureButton: UIButton = {
     var button = UIButton(type: .system)
@@ -183,6 +198,8 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
   }
   
   fileprivate func setupViews() {
+    view.addSubview(headerImageView)
+    headerImageView.addSubview(headerIconImageView)
     view.addSubview(addProfilePictureButton)
     view.addSubview(nameTextField)
     view.addSubview(emailTextField)
@@ -192,7 +209,11 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     view.addSubview(facebookButton)
     view.addSubview(loginButton)
     
-    addProfilePictureButton.anchor(view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 32, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: profilePictureWidth, heightConstant: profilePictureWidth)
+    headerImageView.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: headerImageViewHeight)
+    headerIconImageView.anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: headerImageViewHeight * 0.5, heightConstant: headerImageViewHeight * 0.5)
+    headerIconImageView.anchorCenterSuperview()
+    
+    addProfilePictureButton.anchor(view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, topConstant: headerImageViewHeight + 24, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: profilePictureWidth, heightConstant: profilePictureWidth)
     addProfilePictureButton.anchorCenterXToSuperview()
     
     nameTextField.anchor(addProfilePictureButton.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: textFieldHeight)
