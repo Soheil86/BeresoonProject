@@ -24,6 +24,7 @@
 		C9A180B120B2DFE80044A6D0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B020B2DFE80044A6D0 /* Extensions.swift */; };
 		C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B220B2EC270044A6D0 /* LoginController.swift */; };
 		C9A180B520B2EE980044A6D0 /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */; };
+		C9A180B720B2FEFC0044A6D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		C9A180B020B2DFE80044A6D0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C9A180B220B2EC270044A6D0 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
+		C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				C9A1809520B2B2D00044A6D0 /* Setup */,
+				C9A180B820B304590044A6D0 /* Helpers */,
 				C9A1809620B2B3010044A6D0 /* Main */,
 				C9A180A920B2DE410044A6D0 /* Onboard */,
 				C9A1809420B2B2BE0044A6D0 /* Home */,
@@ -127,6 +130,7 @@
 				C9A1808720B2AB490044A6D0 /* Assets.xcassets */,
 				C9A1808920B2AB490044A6D0 /* LaunchScreen.storyboard */,
 				C9A1808C20B2AB490044A6D0 /* Info.plist */,
+				C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */,
 			);
 			path = Setup;
 			sourceTree = "<group>";
@@ -183,6 +187,13 @@
 				C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */,
 			);
 			path = Onboard;
+			sourceTree = "<group>";
+		};
+		C9A180B820B304590044A6D0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +256,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9A180B720B2FEFC0044A6D0 /* GoogleService-Info.plist in Resources */,
 				C9A1808B20B2AB490044A6D0 /* LaunchScreen.storyboard in Resources */,
 				C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */,
 			);
@@ -281,8 +293,8 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/LBTAComponents/LBTAComponents.framework",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -290,8 +302,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LBTAComponents.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,10 +471,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R252PR8AVU;
 				INFOPLIST_FILE = "$(SRCROOT)/CoffeeBreakExample/Setup/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -478,10 +487,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R252PR8AVU;
 				INFOPLIST_FILE = "$(SRCROOT)/CoffeeBreakExample/Setup/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

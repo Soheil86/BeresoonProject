@@ -17,11 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     
+    // MARK: FirebaseMagic - Start
+    FirebaseMagic.start()
+    
     window = UIWindow()
     window?.makeKeyAndVisible()
-    let viewController = SignUpController()
-    let navController = UINavigationController(rootViewController: viewController)
-    window?.rootViewController = navController
+    let viewController = MainTabBarController()
+    window?.rootViewController = viewController
     
     return true
   }

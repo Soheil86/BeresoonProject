@@ -15,6 +15,10 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
     // Do any additional setup after loading the view, typically from a nib.
     view.backgroundColor = .white
     self.delegate = self
+    
+    // MARK: FirebaseMagic - check if user is signed in
+    FirebaseMagic.checkIfUserIsSignedIn(on: self, signUpViewController: SignUpController())
+    
     setupViewControllers()
   }
 

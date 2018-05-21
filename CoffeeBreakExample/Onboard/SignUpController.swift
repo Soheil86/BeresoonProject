@@ -36,7 +36,6 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     button.layer.cornerRadius = profilePictureWidth * 0.5
     button.layer.borderColor = Setup.greyColor.cgColor
     button.layer.borderWidth = 2.0
-    button.layer.zPosition = 2
     button.addTarget(self, action: #selector(handleAddProfilePictureButtonTapped), for: .touchUpInside)
     return button
   }()
@@ -185,6 +184,9 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     guard let username = usernameTextField.text, username.count > 0 else { return }
     guard let password = passwordTextField.text, password.count > 0 else { return }
     guard let profileImage = addProfilePictureButton.imageView?.image else { return }
+    
+    // Mark: FirebaseMagic - Sign up user with email
+    FirebaseMagic.signUpUserWithEmail(in: self)
   }
   
   override func viewDidLoad() {
