@@ -7,6 +7,7 @@
 //
 
 import LBTAComponents
+import JGProgressHUD
 
 class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
@@ -186,7 +187,21 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     guard let profileImage = addProfilePictureButton.imageView?.image else { return }
     
     // Mark: FirebaseMagic - Sign up user with email
-    FirebaseMagic.signUpUserWithEmail(in: self, email: emailTextField.text, password: passwordTextField.text)
+    let hud = JGProgressHUD(style: .light)
+    FirebaseMagic.showHud(hud, in: self, text: "Signing up with email...")
+    FirebaseMagic.signUpUserWithEmail(in: self, email: emailTextField.text, password: passwordTextField.text, profilePicture: addProfilePictureButton.imageView?.image) { (result, err) in
+      if let err = err {
+        hud.dismiss(animated: true)
+        Service.showAlert(on: self, style: .alert, title: "Sign up error", message: err.localizedDescription)
+        return
+      } else if result == false {
+        hud.textLabel.text = "Something went wrong..."
+        hud.dismiss(afterDelay: 1, animated: true)
+        return
+      }
+      print("Successfully signed up with email.")
+    }
+    
   }
   
   override func viewDidLoad() {
