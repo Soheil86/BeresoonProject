@@ -224,7 +224,6 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     DispatchQueue.main.async {
       mainTabBarController.setupViewControllers()
       self.dismiss(animated: true, completion: nil)
-//      self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
   }
   

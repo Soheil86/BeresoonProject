@@ -15,6 +15,7 @@ import JGProgressHUD
 class FirebaseMagic {
   
   static let Database_Users = Database.database().reference().child("users")
+  static let Database_Usernames = Database.database().reference().child("usernames")
   static let Storage_ProfileImages = Storage.storage().reference().child("profile_images")
   static let CurrentUserUid = Auth.auth().currentUser?.uid
   
@@ -130,7 +131,7 @@ class FirebaseMagic {
     }
     
     let uid = user.uid
-    var mutableUserDetails: [String : Any] = [keyUsername: username.lowercased().replacingOccurrences(of: " ", with: "_"), keyEmail : email]
+    var mutableUserDetails: [String : Any] = [keyUsername: username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_"), keyEmail : email]
     
     if let userDetails = userDetails {
       mutableUserDetails.update(with: userDetails)
@@ -152,21 +153,42 @@ class FirebaseMagic {
           mutableUserDetails.updateValue(imageUrl, forKey: keyProfileImageUrl)
           mutableUserDetails.removeValue(forKey: keyProfileImage)
           
-          updateValues(at: Database_Users.child(uid), with: mutableUserDetails, completion: { (result, err) in
+          updateUserValues(uid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
             completion(result, err)
-          })
+          }
+          
         }
       } else {
-        updateValues(at: Database_Users.child(uid), with: mutableUserDetails, completion: { (result, err) in
+        
+        updateUserValues(uid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
           completion(result, err)
-        })
+        }
+        
       }
     } else {
-      updateValues(at: Database_Users.child(uid), with: mutableUserDetails, completion: { (result, err) in
+      
+      updateUserValues(uid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
         completion(result, err)
-      })
+      }
+      
     }
     
+  }
+  
+  private static func updateUserValues(uid: String, with dictionary: [String : Any], username: String, email: String,  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+    
+    updateValues(at: Database_Users.child(uid), with: dictionary, completion: { (result, err) in
+      if let err = err {
+        completion(false, err)
+        return
+      } else if result == false {
+        completion(false, nil)
+        return
+      }
+      updateValues(at: Database_Usernames, with: [username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_") : email], completion: { (result, err) in
+        completion(result, err)
+      })
+    })
   }
   
   private static func updateValues(at path: DatabaseReference, with dictionary: [String : Any],  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
