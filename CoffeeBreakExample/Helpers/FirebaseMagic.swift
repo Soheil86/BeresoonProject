@@ -39,16 +39,13 @@ class FirebaseMagic {
     }
   }
   
-  static func logout(in viewController: UIViewController, destinationViewController: UIViewController, completion: @escaping (_ result: Bool) ->()) {
+  static func logout(in viewController: UIViewController, completion: @escaping (_ error: Error?) ->()) {
     do {
       try Auth.auth().signOut()
-      let navController = UINavigationController(rootViewController: destinationViewController)
-      viewController.present(navController, animated: true, completion: nil)
-      completion(true)
+      completion(nil)
     } catch let err {
       print("Failed to sign out with error:", err)
-      Service.showAlert(on: viewController, style: .alert, title: "Logout Error", message: err.localizedDescription)
-      completion(false)
+      completion(err)
     }
   }
   

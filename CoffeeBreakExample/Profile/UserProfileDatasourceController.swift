@@ -8,6 +8,7 @@
 
 import LBTAComponents
 import Firebase
+import JGProgressHUD
 
 class UserProfileDatasourceController: DatasourceController {
   
@@ -21,10 +22,20 @@ class UserProfileDatasourceController: DatasourceController {
   @objc func handleLogoutBarButtonItemTapped() {
     let logOutAction = UIAlertAction(title: "Logout", style: .destructive) { (action) in
       // MARK: FirebaseMagic - Log out
-      FirebaseMagic.logout(in: self, destinationViewController: SignUpController(), completion: { (result) in
-        if result {
-          self.deleteCurrentUserSession()
+      let hud = JGProgressHUD(style: .light)
+      FirebaseMagic.showHud(hud, in: self, text: "Logging out...")
+      FirebaseMagic.logout(in: self, completion: { (err) in
+        hud.dismiss(animated: true)
+        
+        if let err = err {
+          Service.showAlert(on: self, style: .alert, title: "Logout Error", message: err.localizedDescription)
+          return
         }
+        
+        self.deleteCurrentUserSession()
+        let controller = SignUpController()
+        let navController = UINavigationController(rootViewController: controller)
+        self.present(navController, animated: true, completion: nil)
       })
     }
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
