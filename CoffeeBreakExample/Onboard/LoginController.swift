@@ -7,6 +7,7 @@
 //
 
 import LBTAComponents
+import JGProgressHUD
 
 class LoginController: UIViewController {
   
@@ -93,12 +94,32 @@ class LoginController: UIViewController {
   }
   
   @objc func handleLoginBarButtonItemTapped() {
-    if usernameOrEmailTextField.text?.range(of: "@") != nil {
-      print("Signing in with email:", usernameOrEmailTextField.text!)
-//      signInWith(email: usernameOrEmailTextField.text!, password: passwordTextField.text!)
-    } else {
-      print("Signing in with username:", usernameOrEmailTextField.text!)
-//      signInWith(username: usernameOrEmailTextField.text!, password: passwordTextField.text!)
+    
+    // Mark: FirebaseMagic - Log in user with email
+    let hud = JGProgressHUD(style: .light)
+    FirebaseMagic.showHud(hud, in: self, text: "Logging in with email...")
+    FirebaseMagic.signIn(with: usernameOrEmailTextField.text, password: passwordTextField.text) { (result, err) in
+      if let err = err {
+        hud.dismiss(animated: true)
+        Service.showAlert(on: self, style: .alert, title: "Log in error", message: err.localizedDescription)
+        return
+      } else if result == false {
+        hud.textLabel.text = "Something went wrong..."
+        hud.dismiss(afterDelay: 1, animated: true)
+        return
+      }
+      print("Successfully logged in with email or username.")
+      self.dismissLoginController()
+    }
+    
+  }
+  
+  func dismissLoginController() {
+    guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else { return }
+    DispatchQueue.main.async {
+      mainTabBarController.setupViewControllers()
+      self.dismiss(animated: true, completion: nil)
+      self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
   }
   

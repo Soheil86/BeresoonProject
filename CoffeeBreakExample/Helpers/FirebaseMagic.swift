@@ -56,6 +56,61 @@ class FirebaseMagic {
     }
   }
   
+  static func signIn(with usernameOrEmail: String?, password: String?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+    guard let usernameOrEmail = usernameOrEmail, let password = password else {
+      completion(false, nil)
+      return
+    }
+    
+    if usernameOrEmail.range(of: "@") != nil {
+      print("Signing in with email:", usernameOrEmail)
+      signInWith(email: usernameOrEmail, password: password) { (result, err) in
+        completion(result, err)
+      }
+      
+    } else {
+      print("Signing in with username:", usernameOrEmail)
+      signInWith(username: usernameOrEmail, password: password) { (result, err) in
+        completion(result, err)
+      }
+    }
+    
+    
+  }
+  
+  static func signInWith(username: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+    Database_Usernames.child(username).observeSingleEvent(of: .value, with: { (snapshot) in
+      guard let email = snapshot.value as? String else {
+        print("Failed to fetch username: invalid username")
+        completion(false, nil)
+        return
+      }
+      signInWith(email: email, password: password) { (result, err) in
+        completion(result, err)
+      }
+    }) { (err) in
+      print("Failed to fetch username:", err)
+      completion(false, err)
+    }
+  }
+  
+  static func signInWith(email: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+    Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
+      if let err = err {
+        print("Failed to sign in with email:", err)
+        completion(false, err)
+        return
+      }
+      
+      guard let result = result else {
+        completion(false, nil)
+        return
+      }
+      print("Successfully logged back in with user:", result.user.uid)
+      completion(true, nil)
+    }
+  }
+  
   static func signUpUserWithEmail(in viewController: UIViewController, userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     guard let username = userCredentials[keyUsername] as? String else {
       completion(false, nil)
