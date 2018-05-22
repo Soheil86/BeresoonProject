@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: FirebaseMagic - Start
     FirebaseMagic.start()
+    
+    IQKeyboardManager.shared.enable = true
     
     window = UIWindow()
     window?.makeKeyAndVisible()

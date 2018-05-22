@@ -9,11 +9,16 @@
 
 import UIKit
 import Firebase
-import IQKeyboardManagerSwift
 import JGProgressHUD
 
 class FirebaseMagic {
   
+//  // for testing
+//  static let Database_Users = Database.database().reference().child("test").child("users")
+//  static let Database_Usernames = Database.database().reference().child("test").child("usernames")
+//  static let Storage_ProfileImages = Storage.storage().reference().child("test").child("profile_images")
+  
+  // for live
   static let Database_Users = Database.database().reference().child("users")
   static let Database_Usernames = Database.database().reference().child("usernames")
   static let Storage_ProfileImages = Storage.storage().reference().child("profile_images")
@@ -23,7 +28,6 @@ class FirebaseMagic {
   static var fetchedCurrentUserPosts = [Post]()
   
   static func start() {
-    IQKeyboardManager.shared.enable = true
     FirebaseApp.configure()
   }
   
