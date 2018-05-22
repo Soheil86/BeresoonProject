@@ -20,6 +20,14 @@ class Service {
     on.present(alert, animated: true, completion: completion)
   }
   
+  static func showAlert(onCollectionViewController: UICollectionViewController, style: UIAlertControllerStyle, title: String?, message: String?, actions: [UIAlertAction] = [UIAlertAction(title: "Ok", style: .cancel, handler: nil)], completion: (() -> Swift.Void)? = nil) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+    for action in actions {
+      alert.addAction(action)
+    }
+    onCollectionViewController.present(alert, animated: true, completion: completion)
+  }
+  
   static func showAlert(on: UIViewController, style: UIAlertControllerStyle, title: String?, message: String?, textFields: [UITextField], completion: @escaping ([String]) -> ()) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: style)
     

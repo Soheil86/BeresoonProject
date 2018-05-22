@@ -35,13 +35,13 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
     let searchController = SearchDatasourceController()
     let dummyAddPostController = DummyAddPostViewController()
     let activityController = ActivityDatasourceController()
-    let profileController = ProfileDatasourceController()
+    let userProfileController = UserProfileDatasourceController()
     
     let homeNavController = UINavigationController(rootViewController: homeController)
     let searchNavController = UINavigationController(rootViewController: searchController)
     let dummyNavAddPostController = UINavigationController(rootViewController: dummyAddPostController)// is overriden above in tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController)
     let activityNavController = UINavigationController(rootViewController: activityController)
-    let profileNavController = UINavigationController(rootViewController: profileController)
+    let userProfileNavController = UINavigationController(rootViewController: userProfileController)
     
     homeNavController.tabBarItem.image = #imageLiteral(resourceName: "MainTabBarItemHomeUnselected").withRenderingMode(.alwaysTemplate)
     homeNavController.tabBarItem.selectedImage = #imageLiteral(resourceName: "MainTabBarItemHomeSelected").withRenderingMode(.alwaysTemplate)
@@ -51,10 +51,10 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
     dummyNavAddPostController.tabBarItem.selectedImage = #imageLiteral(resourceName: "MainTabBarItemAddPost").withRenderingMode(.alwaysTemplate)
     activityNavController.tabBarItem.image = #imageLiteral(resourceName: "MainTabBarItemActivityUnselected").withRenderingMode(.alwaysTemplate)
     activityNavController.tabBarItem.selectedImage = #imageLiteral(resourceName: "MainTabBarItemActivitySelected").withRenderingMode(.alwaysTemplate)
-    profileNavController.tabBarItem.image = #imageLiteral(resourceName: "MainTabBarItemProfileUnselected").withRenderingMode(.alwaysTemplate)
-    profileNavController.tabBarItem.selectedImage = #imageLiteral(resourceName: "MainTabBarItemProfileSelected").withRenderingMode(.alwaysTemplate)
+    userProfileNavController.tabBarItem.image = #imageLiteral(resourceName: "MainTabBarItemProfileUnselected").withRenderingMode(.alwaysTemplate)
+    userProfileNavController.tabBarItem.selectedImage = #imageLiteral(resourceName: "MainTabBarItemProfileSelected").withRenderingMode(.alwaysTemplate)
     
-    viewControllers = [homeNavController, searchNavController, dummyNavAddPostController, activityNavController, profileNavController]
+    viewControllers = [homeNavController, searchNavController, dummyNavAddPostController, activityNavController, userProfileNavController]
     
     guard let items = tabBar.items else { return }
     for item in items {

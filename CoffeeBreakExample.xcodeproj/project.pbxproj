@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		A0895C999051C522D905DC9F /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
+		C978CF4D20B44DFE003863AF /* UserProfileDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */; };
+		C978CF4F20B44E0D003863AF /* UserProfilePostDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */; };
+		C978CF5120B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */; };
+		C978CF5320B450CD003863AF /* FirebaseMagicModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */; };
 		C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808020B2AB470044A6D0 /* AppDelegate.swift */; };
 		C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
 		C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
@@ -16,7 +20,7 @@
 		C9A1809820B2B33A0044A6D0 /* HomeDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809720B2B33A0044A6D0 /* HomeDatasourceController.swift */; };
 		C9A1809E20B2BD560044A6D0 /* SearchDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809D20B2BD560044A6D0 /* SearchDatasourceController.swift */; };
 		C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */; };
-		C9A180A220B2BDC50044A6D0 /* ProfileDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A120B2BDC50044A6D0 /* ProfileDatasourceController.swift */; };
+		C9A180A220B2BDC50044A6D0 /* UserProfileDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A120B2BDC50044A6D0 /* UserProfileDatasourceController.swift */; };
 		C9A180A420B2BE1D0044A6D0 /* DummyAddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A320B2BE1D0044A6D0 /* DummyAddPostViewController.swift */; };
 		C9A180AB20B2DE550044A6D0 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AA20B2DE550044A6D0 /* SignUpController.swift */; };
 		C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AC20B2DEA80044A6D0 /* Setup.swift */; };
@@ -31,6 +35,10 @@
 		073BAAE7FDF5729E579F602C /* Pods-CoffeeBreakExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeBreakExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample.release.xcconfig"; sourceTree = "<group>"; };
 		12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoffeeBreakExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AF14DD06DD21CE14437E88A /* Pods-CoffeeBreakExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeBreakExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample.debug.xcconfig"; sourceTree = "<group>"; };
+		C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileDatasource.swift; sourceTree = "<group>"; };
+		C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePostDatasourceCell.swift; sourceTree = "<group>"; };
+		C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderDatasourceCell.swift; sourceTree = "<group>"; };
+		C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMagicModels.swift; sourceTree = "<group>"; };
 		C9A1807D20B2AB470044A6D0 /* CoffeeBreakExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeBreakExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A1808020B2AB470044A6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -41,7 +49,7 @@
 		C9A1809720B2B33A0044A6D0 /* HomeDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDatasourceController.swift; sourceTree = "<group>"; };
 		C9A1809D20B2BD560044A6D0 /* SearchDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDatasourceController.swift; sourceTree = "<group>"; };
 		C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDatasourceController.swift; sourceTree = "<group>"; };
-		C9A180A120B2BDC50044A6D0 /* ProfileDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDatasourceController.swift; sourceTree = "<group>"; };
+		C9A180A120B2BDC50044A6D0 /* UserProfileDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileDatasourceController.swift; sourceTree = "<group>"; };
 		C9A180A320B2BE1D0044A6D0 /* DummyAddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyAddPostViewController.swift; sourceTree = "<group>"; };
 		C9A180AA20B2DE550044A6D0 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		C9A180AC20B2DEA80044A6D0 /* Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
@@ -138,9 +146,6 @@
 		C9A1809620B2B3010044A6D0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */,
-				C9A1809220B2B1A10044A6D0 /* Service.swift */,
-				C9A180B020B2DFE80044A6D0 /* Extensions.swift */,
 				C9A1808020B2AB470044A6D0 /* AppDelegate.swift */,
 				C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */,
 			);
@@ -174,7 +179,10 @@
 		C9A1809C20B2BD180044A6D0 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				C9A180A120B2BDC50044A6D0 /* ProfileDatasourceController.swift */,
+				C9A180A120B2BDC50044A6D0 /* UserProfileDatasourceController.swift */,
+				C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */,
+				C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */,
+				C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -192,6 +200,10 @@
 		C9A180B820B304590044A6D0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */,
+				C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */,
+				C9A1809220B2B1A10044A6D0 /* Service.swift */,
+				C9A180B020B2DFE80044A6D0 /* Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -319,14 +331,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */,
-				C9A180A220B2BDC50044A6D0 /* ProfileDatasourceController.swift in Sources */,
+				C978CF5120B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift in Sources */,
+				C9A180A220B2BDC50044A6D0 /* UserProfileDatasourceController.swift in Sources */,
 				C9A180AB20B2DE550044A6D0 /* SignUpController.swift in Sources */,
 				C9A180B520B2EE980044A6D0 /* ForgotPasswordController.swift in Sources */,
 				C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */,
+				C978CF4F20B44E0D003863AF /* UserProfilePostDatasourceCell.swift in Sources */,
 				C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */,
+				C978CF5320B450CD003863AF /* FirebaseMagicModels.swift in Sources */,
 				C9A180A420B2BE1D0044A6D0 /* DummyAddPostViewController.swift in Sources */,
 				C9A1809820B2B33A0044A6D0 /* HomeDatasourceController.swift in Sources */,
 				C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */,
+				C978CF4D20B44DFE003863AF /* UserProfileDatasource.swift in Sources */,
 				C9A180B120B2DFE80044A6D0 /* Extensions.swift in Sources */,
 				C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */,
 				C9A1809320B2B1A10044A6D0 /* Service.swift in Sources */,
@@ -471,7 +487,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R252PR8AVU;
 				INFOPLIST_FILE = "$(SRCROOT)/CoffeeBreakExample/Setup/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -487,7 +506,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R252PR8AVU;
 				INFOPLIST_FILE = "$(SRCROOT)/CoffeeBreakExample/Setup/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

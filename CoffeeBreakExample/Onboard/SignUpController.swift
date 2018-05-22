@@ -180,16 +180,30 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
   }()
 
   @objc fileprivate func handleNextBarButtonItemTapped() {
-    guard let name = nameTextField.text, name.count > 0 else { return }
-    guard let email = emailTextField.text, email.count > 0 else { return }
-    guard let username = usernameTextField.text, username.count > 0 else { return }
-    guard let password = passwordTextField.text, password.count > 0 else { return }
-    guard let profileImage = addProfilePictureButton.imageView?.image else { return }
+    
+    guard let email = emailTextField.text, email.count > 0,
+      let password = passwordTextField.text, password.count > 5,
+      let name = nameTextField.text, name.count > 0,
+      let username = usernameTextField.text?.lowercased().replacingOccurrences(of: " ", with: "_"), username.count > 2,
+      let profileImage = addProfilePictureButton.imageView?.image else {
+        Service.showAlert(on: self, style: .alert, title: "Format error", message: "Please, enter valid values for the required fields and try again")
+        return
+    }
+    
+    let userCredentials = [keyEmail: email,
+                           keyPassword: password] as [String : Any]
+                            
+    let userDetails = [keyName: name,
+                       keyUsername: username,
+                       keyProfileImage: profileImage,
+                       keyNumberOfFollowers: 0,
+                       keyNumberOfFollowing: 0,
+                       keyNumberOfPosts: 0] as [String : Any]
     
     // Mark: FirebaseMagic - Sign up user with email
     let hud = JGProgressHUD(style: .light)
     FirebaseMagic.showHud(hud, in: self, text: "Signing up with email...")
-    FirebaseMagic.signUpUserWithEmail(in: self, email: emailTextField.text, password: passwordTextField.text, profilePicture: addProfilePictureButton.imageView?.image) { (result, err) in
+    FirebaseMagic.signUpUserWithEmail(in: self, userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
       if let err = err {
         hud.dismiss(animated: true)
         Service.showAlert(on: self, style: .alert, title: "Sign up error", message: err.localizedDescription)
@@ -200,8 +214,18 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         return
       }
       print("Successfully signed up with email.")
+      self.dismissSignUpController()
     }
     
+  }
+  
+  func dismissSignUpController() {
+    guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else { return }
+    DispatchQueue.main.async {
+      mainTabBarController.setupViewControllers()
+      self.dismiss(animated: true, completion: nil)
+//      self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+    }
   }
   
   override func viewDidLoad() {

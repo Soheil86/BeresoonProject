@@ -31,3 +31,11 @@ struct DeviceType {
   static let isiPadPro = UIDevice.current.userInterfaceIdiom == .pad && ScreenSize.maxLength == 1366.0
   
 }
+
+extension Dictionary {
+  mutating func update(with other:Dictionary) {
+    for (key,value) in other {
+      self.updateValue(value, forKey:key)
+    }
+  }
+}
