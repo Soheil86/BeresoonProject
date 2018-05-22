@@ -56,6 +56,40 @@ class FirebaseMagic {
   }
   
   static func signUpUserWithEmail(in viewController: UIViewController, userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+    guard let username = userCredentials[keyUsername] as? String else {
+      completion(false, nil)
+      return
+    }
+    fetchUserWithUsername(searchText: username.lowercased().replacingOccurrences(of: " ", with: "_"), in: viewController, limitedToFirst: 1) { (user) in
+      if user == nil {
+        
+        FirebaseMagic.signUpUniqueUserWithEmail(in: viewController, userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
+          completion(result, err)
+        }
+        
+      } else {
+        
+        let textField = UITextField()
+        textField.placeholder = "New Username"
+        textField.autocapitalizationType = .none
+        
+        Service.showAlert(on: viewController, style: .alert, title: "Sign Up Error", message: "The username '\(username.lowercased())' is already taken. Please, choose another one.", textFields: [textField], completion: { (usernames) in
+          guard let usernames = usernames, let username = usernames.first else {
+            completion(false, nil)
+            return
+          }
+          var mutableUserCredentials = userCredentials
+          mutableUserCredentials.updateValue(username, forKey: keyUsername)
+          signUpUserWithEmail(in: viewController, userCredentials: mutableUserCredentials, userDetails: userDetails, completion: { (result, err) in
+            completion(result, err)
+          })
+        })
+        
+      }
+    }
+  }
+  
+  private static func signUpUniqueUserWithEmail(in viewController: UIViewController, userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     guard let email = userCredentials[keyEmail] as? String,
       let password = userCredentials[keyPassword] as? String else {
         completion(false, nil)
@@ -74,7 +108,7 @@ class FirebaseMagic {
         return
       }
       print("Successfully created Firebase user:", result.user.uid )
-      saveUserIntoFirebase(user: result.user, userDetails: userDetails, completion: { (result, err) in
+      saveUserIntoFirebase(user: result.user, userCredentials: userCredentials, userDetails: userDetails, completion: { (result, err) in
         if let err = err {
           completion(false, err)
           return
@@ -87,15 +121,16 @@ class FirebaseMagic {
     }
   }
   
-  private static func saveUserIntoFirebase(user: User?, userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  private static func saveUserIntoFirebase(user: User?, userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     guard let user = user,
-      let email = user.email else {
+      let email = user.email,
+      let username = userCredentials[keyUsername] as? String else {
       completion(false, nil)
       return
     }
     
     let uid = user.uid
-    var mutableUserDetails: [String : Any] = [keyEmail : email]
+    var mutableUserDetails: [String : Any] = [keyUsername: username.lowercased().replacingOccurrences(of: " ", with: "_"), keyEmail : email]
     
     if let userDetails = userDetails {
       mutableUserDetails.update(with: userDetails)
@@ -171,6 +206,46 @@ class FirebaseMagic {
         print("Successfully uploaded image into Firebase storage with URL:", imageUrl)
         completion(imageUrl, true, nil)
       })
+    }
+  }
+  
+  static func fetchUserWithUsername(searchText: String, in viewController: UIViewController, limitedToFirst: Int, completion: @escaping ([CurrentUser]?) -> ()) {
+    
+    print("Search text:", searchText)
+    var filteredUsers: [CurrentUser] = []
+    let lowerCasedSearchText = searchText.lowercased()
+    let userRef = Database_Users.queryLimited(toFirst: UInt(limitedToFirst)).queryOrdered(byChild: keyUsername).queryStarting(atValue: lowerCasedSearchText).queryEnding(atValue: lowerCasedSearchText+"\u{f8ff}")
+    
+    userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+      
+      if snapshot.exists() {
+        guard let dictionaries = snapshot.value as? [String: Any] else { return }
+        
+        dictionaries.forEach({ (key, value) in
+          if key == currentUserUid() {
+            return
+          }
+          guard let userDictionary = value as? [String: Any] else { return }
+          let user = CurrentUser(uid: key, dictionary: userDictionary)
+          
+          let isContained = filteredUsers.contains(where: { (containedUser) -> Bool in
+            return user.uid == containedUser.uid
+          })
+          if !isContained {
+            filteredUsers.append(user)
+          }
+          
+        })
+        print("Filtered users:", filteredUsers)
+        completion(filteredUsers)
+      } else {
+        print("No users available")
+        completion(nil)
+      }
+      
+    }) { (err) in
+      print("Failed to fetch users:", err)
+      Service.showAlert(on: viewController, style: .alert, title: "Fetch error", message: err.localizedDescription)
     }
   }
   

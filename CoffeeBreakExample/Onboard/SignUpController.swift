@@ -184,17 +184,17 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     guard let email = emailTextField.text, email.count > 0,
       let password = passwordTextField.text, password.count > 5,
       let name = nameTextField.text, name.count > 0,
-      let username = usernameTextField.text?.lowercased().replacingOccurrences(of: " ", with: "_"), username.count > 2,
+      let username = usernameTextField.text, username.count > 2,
       let profileImage = addProfilePictureButton.imageView?.image else {
         Service.showAlert(on: self, style: .alert, title: "Format error", message: "Please, enter valid values for the required fields and try again")
         return
     }
     
     let userCredentials = [keyEmail: email,
-                           keyPassword: password] as [String : Any]
+                           keyPassword: password,
+                           keyUsername: username] as [String : Any]
                             
     let userDetails = [keyName: name,
-                       keyUsername: username,
                        keyProfileImage: profileImage,
                        keyNumberOfFollowers: 0,
                        keyNumberOfFollowing: 0,

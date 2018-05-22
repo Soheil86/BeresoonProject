@@ -28,7 +28,7 @@ class Service {
     onCollectionViewController.present(alert, animated: true, completion: completion)
   }
   
-  static func showAlert(on: UIViewController, style: UIAlertControllerStyle, title: String?, message: String?, textFields: [UITextField], completion: @escaping ([String]) -> ()) {
+  static func showAlert(on: UIViewController, style: UIAlertControllerStyle, title: String?, message: String?, textFields: [UITextField], completion: @escaping ([String]?) -> ()) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: style)
     
     for textField in textFields {
@@ -50,7 +50,9 @@ class Service {
     }
     alert.addAction(textFieldAction)
     
-    let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+    let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
+      completion(nil)
+    }
     alert.addAction(cancelAction)
     
     on.present(alert, animated: true, completion: nil)

@@ -58,8 +58,6 @@ struct Post {
   let creationDate: Date
   var ownerId: String
   
-  var hasLiked = false
-  
   init(user: CurrentUser, dictionary: [String : Any]) {
     self.user = user as CurrentUser
     self.thumbnailUrl = dictionary[keyThumbnailUrl] as? String ?? ""
