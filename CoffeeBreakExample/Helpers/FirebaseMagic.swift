@@ -56,6 +56,54 @@ class FirebaseMagic {
     }
   }
   
+  static func resetPassword(with usernameOrEmail: String?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+    guard let usernameOrEmail = usernameOrEmail else {
+      completion(false, nil)
+      return
+    }
+    
+    if usernameOrEmail.range(of: "@") != nil {
+      print("Reseting password with email:", usernameOrEmail)
+      resetPasswordWith(email: usernameOrEmail) { (result, err) in
+        completion(result, err)
+      }
+      
+    } else {
+      print("Reseting password with username:", usernameOrEmail)
+      resetPasswordWith(username: usernameOrEmail) { (result, err) in
+        completion(result, err)
+      }
+    }
+  }
+  
+  private static func resetPasswordWith(username: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+    Database_Usernames.child(username).observeSingleEvent(of: .value, with: { (snapshot) in
+      guard let email = snapshot.value as? String else {
+        print("Failed to fetch username: invalid username")
+        completion(false, nil)
+        return
+      }
+      resetPasswordWith(email: email) { (result, err) in
+        completion(result, err)
+      }
+    }) { (err) in
+      print("Failed to fetch username:", err)
+      completion(false, err)
+    }
+  }
+  
+  private static func resetPasswordWith(email: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+    Auth.auth().sendPasswordReset(withEmail: email) { (err) in
+      if let err = err {
+        print("Failed to reset password with email:", err)
+        completion(false, err)
+        return
+      }
+      print("Successfully sent reset password to email:", email)
+      completion(true, nil)
+    }
+  }
+  
   static func signIn(with usernameOrEmail: String?, password: String?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     guard let usernameOrEmail = usernameOrEmail, let password = password else {
       completion(false, nil)
@@ -75,10 +123,9 @@ class FirebaseMagic {
       }
     }
     
-    
   }
   
-  static func signInWith(username: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  private static func signInWith(username: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     Database_Usernames.child(username).observeSingleEvent(of: .value, with: { (snapshot) in
       guard let email = snapshot.value as? String else {
         print("Failed to fetch username: invalid username")
@@ -94,7 +141,7 @@ class FirebaseMagic {
     }
   }
   
-  static func signInWith(email: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  private static func signInWith(email: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
       if let err = err {
         print("Failed to sign in with email:", err)

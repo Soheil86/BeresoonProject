@@ -7,6 +7,7 @@
 //
 
 import LBTAComponents
+import JGProgressHUD
 
 class ForgotPasswordController: UIViewController {
   
@@ -65,12 +66,31 @@ class ForgotPasswordController: UIViewController {
   }
   
   @objc func handleResetPasswordBarButtonItemTapped() {
-    if usernameOrEmailTextField.text?.range(of: "@") != nil {
-      print("Reseting password with email")
-//      resetPasswordWith(email: usernameOrEmailTextField.text!)
-    } else {
-      print("Reseting password with username")
-//      resetPasswordWith(username: usernameOrEmailTextField.text!)
+    // MARK: FirebaseMagic - reset password
+    let hud = JGProgressHUD(style: .light)
+    FirebaseMagic.showHud(hud, in: self, text: "Sending email...")
+    FirebaseMagic.resetPassword(with: usernameOrEmailTextField.text) { (result, err) in
+      if let err = err {
+        hud.dismiss(animated: true)
+        Service.showAlert(on: self, style: .alert, title: "Reset password error", message: err.localizedDescription)
+        return
+      } else if result == false {
+        hud.textLabel.text = "Something went wrong..."
+        hud.dismiss(afterDelay: 1, animated: true)
+        return
+      }
+      print("Successfully sent email to reset your password.")
+      let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+        self.dismissForgotPasswordController()
+      })
+      Service.showAlert(on: self, style: .alert, title: "Success", message: "Successfully sent email to reset your password", actions: [okAction], completion: nil)
+      
+    }
+  }
+  
+  func dismissForgotPasswordController() {
+    DispatchQueue.main.async {
+      self.handleCancelBarButtonItemTapped()
     }
   }
   
