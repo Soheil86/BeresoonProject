@@ -194,8 +194,8 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
                            keyPassword: password,
                            keyUsername: username] as [String : Any]
                             
-    let userDetails = [keyName: name,
-                       keyProfileImage: profileImage,
+    let userDetails = [keyProfileImage: profileImage,
+                       keyName: name,
                        keyNumberOfFollowers: 0,
                        keyNumberOfFollowing: 0,
                        keyNumberOfPosts: 0] as [String : Any]
