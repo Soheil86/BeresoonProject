@@ -31,19 +31,11 @@ class FirebaseMagic {
     FirebaseApp.configure()
   }
   
-  static func checkIfUserIsSignedIn(on viewController: UIViewController, signUpViewController: UIViewController) {
+  static func checkIfUserIsSignedIn(completion: @escaping (_ result: Bool) ->()) {
     if Auth.auth().currentUser == nil {
-      DispatchQueue.main.async {
-        
-        // clear old data
-        // TODO:
-        //        Service.fetchedPosts.removeAll()
-        //        Service.fetchedCurrentUserPosts.removeAll()
-        
-        let navController = UINavigationController(rootViewController: signUpViewController)
-        viewController.present(navController, animated: false, completion: nil)
-      }
-      return
+      completion(false)
+    } else {
+      completion(true)
     }
   }
   

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -17,9 +18,21 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
     self.delegate = self
     
     // MARK: FirebaseMagic - check if user is signed in
-    FirebaseMagic.checkIfUserIsSignedIn(on: self, signUpViewController: SignUpController())
+    let hud = JGProgressHUD(style: .light)
+    FirebaseMagic.showHud(hud, in: self, text: "Loading...")
+    FirebaseMagic.checkIfUserIsSignedIn { (result) in
+      DispatchQueue.main.async {
+        hud.dismiss(animated: true)
+        if result == false {
+          let controller = SignUpController()
+          let navController = UINavigationController(rootViewController: controller)
+          self.present(navController, animated: false, completion: nil)
+        } else {
+          self.setupViewControllers()
+        }
+      }
+    }
     
-    setupViewControllers()
   }
 
   override func didReceiveMemoryWarning() {
