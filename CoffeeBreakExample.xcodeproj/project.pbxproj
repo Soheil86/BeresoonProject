@@ -12,6 +12,7 @@
 		C978CF4F20B44E0D003863AF /* UserProfilePostDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */; };
 		C978CF5120B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */; };
 		C978CF5320B450CD003863AF /* FirebaseMagicModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */; };
+		C978CF7320B59035003863AF /* SharePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF7220B59035003863AF /* SharePostViewController.swift */; };
 		C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808020B2AB470044A6D0 /* AppDelegate.swift */; };
 		C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
 		C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 		C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePostDatasourceCell.swift; sourceTree = "<group>"; };
 		C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderDatasourceCell.swift; sourceTree = "<group>"; };
 		C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMagicModels.swift; sourceTree = "<group>"; };
+		C978CF7220B59035003863AF /* SharePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePostViewController.swift; sourceTree = "<group>"; };
 		C9A1807D20B2AB470044A6D0 /* CoffeeBreakExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeBreakExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A1808020B2AB470044A6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				C9A180A320B2BE1D0044A6D0 /* DummyAddPostViewController.swift */,
+				C978CF7220B59035003863AF /* SharePostViewController.swift */,
 			);
 			path = AddPost;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */,
 				C978CF4F20B44E0D003863AF /* UserProfilePostDatasourceCell.swift in Sources */,
 				C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */,
+				C978CF7320B59035003863AF /* SharePostViewController.swift in Sources */,
 				C978CF5320B450CD003863AF /* FirebaseMagicModels.swift in Sources */,
 				C9A180A420B2BE1D0044A6D0 /* DummyAddPostViewController.swift in Sources */,
 				C9A1809820B2B33A0044A6D0 /* HomeDatasourceController.swift in Sources */,
@@ -487,7 +491,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R252PR8AVU;
 				INFOPLIST_FILE = "$(SRCROOT)/CoffeeBreakExample/Setup/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -503,7 +510,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R252PR8AVU;
 				INFOPLIST_FILE = "$(SRCROOT)/CoffeeBreakExample/Setup/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

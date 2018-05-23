@@ -18,11 +18,11 @@ let keyNumberOfFollowers = "numberOfFollowers"
 let keyNumberOfFollowing = "numberOfFollowing"
 let keyNumberOfPosts = "numberOfPosts"
 
-let keyThumbnailUrl = "thumbnailUrl"
+let keyId = "id"
+let keyOwnerId = "ownerId"
 let keyImageUrl = "imageUrl"
 let keyCaption = "caption"
 let keyCreationDate = "creationDate"
-let keyOwnerId = "ownerId"
 
 struct CurrentUser {
   
@@ -52,18 +52,14 @@ struct Post {
   var id: String?
   
   let user: CurrentUser
-  let thumbnailUrl: String
   let imageUrl: String
   let caption: String
   let creationDate: Date
-  var ownerId: String
   
   init(user: CurrentUser, dictionary: [String : Any]) {
     self.user = user as CurrentUser
-    self.thumbnailUrl = dictionary[keyThumbnailUrl] as? String ?? ""
     self.imageUrl = dictionary[keyImageUrl] as? String ?? ""
     self.caption = dictionary[keyCaption] as? String ?? ""
-    self.ownerId = dictionary[keyOwnerId] as? String ?? ""
     
     let secondsSince1970 = dictionary[keyCreationDate] as? Double ?? 0
     self.creationDate = Date(timeIntervalSince1970: secondsSince1970)

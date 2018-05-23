@@ -21,7 +21,15 @@ class FirebaseMagic {
   // for live
   static let Database_Users = Database.database().reference().child("users")
   static let Database_Usernames = Database.database().reference().child("usernames")
+  static let Database_Posts = Database.database().reference().child("posts")
+  static let Database_UserPosts = Database.database().reference().child("userPosts")
+  static let Database_UserFeed = Database.database().reference().child("userFeed")
+  static let Database_UserFollowers = Database.database().reference().child("userFollowers")
+  static let Database_UserFollowing = Database.database().reference().child("userFollowing")
+  
   static let Storage_ProfileImages = Storage.storage().reference().child("profile_images")
+  static let Storage_PostImages = Storage.storage().reference().child("post_images")
+  
   static let CurrentUserUid = Auth.auth().currentUser?.uid
   
   static var fetchedPosts = [Post]()
@@ -160,7 +168,7 @@ class FirebaseMagic {
     fetchUserWithUsername(searchText: username.lowercased().replacingOccurrences(of: " ", with: "_"), in: viewController, limitedToFirst: 1) { (user) in
       if user == nil {
         
-        FirebaseMagic.signUpUniqueUserWithEmail(in: viewController, userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
+        signUpUniqueUserWithEmail(in: viewController, userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
           completion(result, err)
         }
         
@@ -249,21 +257,21 @@ class FirebaseMagic {
           mutableUserDetails.updateValue(imageUrl, forKey: keyProfileImageUrl)
           mutableUserDetails.removeValue(forKey: keyProfileImage)
           
-          updateUserValues(uid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
+          updateUserValues(currentUserUid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
             completion(result, err)
           }
           
         }
       } else {
         
-        updateUserValues(uid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
+        updateUserValues(currentUserUid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
           completion(result, err)
         }
         
       }
     } else {
       
-      updateUserValues(uid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
+      updateUserValues(currentUserUid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
         completion(result, err)
       }
       
@@ -271,9 +279,9 @@ class FirebaseMagic {
     
   }
   
-  private static func updateUserValues(uid: String, with dictionary: [String : Any], username: String, email: String,  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  private static func updateUserValues(currentUserUid: String, with dictionary: [String : Any], username: String, email: String,  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     
-    updateValues(at: Database_Users.child(uid), with: dictionary, completion: { (result, err) in
+    updateValues(at: Database_Users.child(currentUserUid), with: dictionary, completion: { (result, err) in
       if let err = err {
         completion(false, err)
         return
@@ -282,7 +290,17 @@ class FirebaseMagic {
         return
       }
       updateValues(at: Database_Usernames, with: [username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_") : email], completion: { (result, err) in
-        completion(result, err)
+        if let err = err {
+          completion(false, err)
+          return
+        } else if result == false {
+          completion(false, nil)
+          return
+        }
+        let values = [currentUserUid : 1]
+        updateValues(at: Database_UserFollowers.child(currentUserUid), with: values, completion: { (result, err) in
+          completion(result, err)
+        })
       })
     })
   }
@@ -290,12 +308,20 @@ class FirebaseMagic {
   private static func updateValues(at path: DatabaseReference, with dictionary: [String : Any],  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     path.updateChildValues(dictionary) { (err, ref) in
       if let err = err {
-        print("Failed to save user info into Firebase database with error:", err)
+        print("Failed to update Firebase database with error:", err)
         completion(false, err)
         return
       }
-      print("Successfully saved user info into Firebase database")
+      print("Successfully updated Firebase database at path: '\(path)' with values: '\(dictionary)'")
       completion(true, nil)
+    }
+  }
+  
+  private static func observeValues(at path: DatabaseReference, eventType: DataEventType,  completion: @escaping (_ snapshot: DataSnapshot?, _ error: Error?) ->()) {
+    path.observe(eventType, with: { (snapshot) in
+      completion(snapshot, nil)
+    }) { (err) in
+      completion(nil, err)
     }
   }
   
@@ -380,6 +406,82 @@ class FirebaseMagic {
       print("Failed to fetch user:", err)
       Service.showAlert(on: collectionViewController, style: .alert, title: "Fetch error", message: err.localizedDescription)
       completion(nil)
+    }
+  }
+  
+  static func fetchUserWith(_ uid: String, in viewController: UIViewController, completion: @escaping (CurrentUser?) -> ()) {
+    Database_Users.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+      guard let dictionary = snapshot.value as? [String : Any] else { return }
+      let user = CurrentUser(uid: uid, dictionary: dictionary)
+      completion(user)
+    }) { (err) in
+      print("Failed to fetch user:", err)
+      Service.showAlert(on: viewController, style: .alert, title: "Fetch error", message: err.localizedDescription)
+      completion(nil)
+    }
+  }
+  
+  static func sharePost(in viewController: UIViewController, caption: String, image: UIImage, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+    saveImage(image, path: Storage_PostImages) { (imageUrl, result, err) in
+      if let err = err {
+        completion(false, err)
+        return
+      } else if result == false {
+        completion(false, nil)
+        return
+      }
+      guard let imageUrl = imageUrl, let currentUserUid = currentUserUid() else {
+        completion(false, nil)
+        return
+      }
+      let postRef = Database_Posts.childByAutoId()
+      let postId = postRef.key
+      let values = [keyCaption: caption,
+                    keyImageUrl: imageUrl,
+                    keyOwnerId: currentUserUid,
+                    keyId: postId,
+                    keyCreationDate : Date().timeIntervalSince1970] as [String : Any]
+      
+      updateValues(at: postRef, with: values, completion: { (result, err) in
+        if let err = err {
+          completion(false, err)
+          return
+        } else if result == false {
+          completion(false, nil)
+          return
+        }
+        
+        let values = [postId : 1]
+        updateValues(at: Database_UserPosts.child(currentUserUid), with: values, completion: { (result, err) in
+          if let err = err {
+            completion(false, err)
+            return
+          } else if result == false {
+            completion(false, nil)
+            return
+          }
+          
+          observeValues(at: Database_UserFollowers.child(currentUserUid), eventType: .childAdded, completion: { (snapshot, err) in
+            if let err = err {
+              completion(false, err)
+              return
+            } else if snapshot == nil {
+              completion(false, nil)
+              return
+            }
+            guard let snapshot = snapshot else {
+              completion(false, nil)
+              return
+            }
+            
+            let followerUid = snapshot.key
+            let values = [postId : 1]
+            updateValues(at: Database_UserFeed.child(followerUid), with: values, completion: { (result, err) in
+              completion(result, err)
+            })
+          })
+        })
+      })
     }
   }
   

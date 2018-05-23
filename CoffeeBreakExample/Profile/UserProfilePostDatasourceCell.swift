@@ -10,7 +10,7 @@ import LBTAComponents
 
 class UserProfilePostDatasourceCell: DatasourceCell {
   
-  lazy var mediaImageView: CachedImageView = {
+  lazy var imageView: CachedImageView = {
     let imageView = CachedImageView()
     imageView.backgroundColor = Service.randomColor()
     imageView.contentMode = .scaleAspectFill
@@ -29,7 +29,7 @@ class UserProfilePostDatasourceCell: DatasourceCell {
   override var datasourceItem: Any? {
     didSet {
       guard let post = datasourceItem as? Post else { return }
-      mediaImageView.loadImage(urlString: post.thumbnailUrl) {
+      imageView.loadImage(urlString: post.imageUrl) {
         
       }
     }
@@ -38,9 +38,9 @@ class UserProfilePostDatasourceCell: DatasourceCell {
   override func setupViews() {
     super.setupViews()
     
-    self.addSubview(mediaImageView)
+    self.addSubview(imageView)
     
-    mediaImageView.fillSuperview()
+    imageView.fillSuperview()
   }
   
 }

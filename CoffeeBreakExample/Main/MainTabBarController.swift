@@ -106,12 +106,23 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
   }
   
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-    if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
-      
-    } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-      
+    
+    dismiss(animated: true) {
+      DispatchQueue.main.async {
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+          self.presentPublishPostViewController(with: editedImage)
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+          self.presentPublishPostViewController(with: originalImage)
+        }
+      }
     }
-    dismiss(animated: true, completion: nil)
+  }
+  
+  func presentPublishPostViewController(with image: UIImage) {
+    let controller = SharePostViewController()
+    controller.image = image
+    let navController = UINavigationController(rootViewController: controller)
+    present(navController, animated: true, completion: nil)
   }
   
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
