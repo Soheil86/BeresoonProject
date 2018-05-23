@@ -387,4 +387,9 @@ class FirebaseMagic {
     hud.show(in: viewController.view, animated: true)
   }
   
+  static func showHud(_ hud: JGProgressHUD, in collectionViewController: UICollectionViewController, text: String) {
+    hud.textLabel.text = text
+    hud.show(in: collectionViewController.view, animated: true)
+  }
+  
 }

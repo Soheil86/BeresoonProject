@@ -14,6 +14,11 @@ class UserProfileDatasourceController: DatasourceController {
   
   let userProfileDatasource = UserProfileDatasource()
   
+  lazy var refreshControl : UIRefreshControl = {
+    var rc = self.getRefreshControl()
+    return rc
+  }()
+  
   lazy var logoutBarButtonItem: UIBarButtonItem = {
     var item = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(handleLogoutBarButtonItemTapped))
     return item
@@ -46,12 +51,12 @@ class UserProfileDatasourceController: DatasourceController {
     super.viewDidLoad()
     
     datasource = userProfileDatasource
+    collectionView?.refreshControl = refreshControl
     
     setupController()
     
-    fetchCurrentUser { (currentUser) in
-      guard let currentUser = currentUser else { return }
-      print("Current user fetched:", currentUser.username)
+    userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
+      self.navigationItem.title = currentUser.username
     }
   }
   
@@ -66,11 +71,23 @@ class UserProfileDatasourceController: DatasourceController {
     
   }
   
-  fileprivate func fetchCurrentUser(completion: @escaping (CurrentUser?) -> ()) {
-    // MARK: FirebaseMagic - Fetch Current User
-    guard let uid = FirebaseMagic.currentUserUid() else { return }
-    FirebaseMagic.fetchUserWith(uid, in: self) { (currentUser) in
-      completion(currentUser)
-    }
+  
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    return CGSize(width: ScreenSize.width, height: 170)
   }
+  
+  override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let width = (ScreenSize.width - 1) / 2
+    return CGSize(width: width, height: width * 0.7)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return 1
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 1
+  }
+  
 }

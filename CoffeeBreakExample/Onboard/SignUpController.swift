@@ -36,7 +36,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     button.layer.masksToBounds = true
     button.layer.cornerRadius = profilePictureWidth * 0.5
     button.layer.borderColor = Setup.greyColor.cgColor
-    button.layer.borderWidth = 2.0
+    button.layer.borderWidth = 0.5
     button.addTarget(self, action: #selector(handleAddProfilePictureButtonTapped), for: .touchUpInside)
     return button
   }()

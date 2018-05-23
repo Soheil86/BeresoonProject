@@ -7,6 +7,7 @@
 //
 
 import LBTAComponents
+import JGProgressHUD
 
 class UserProfileDatasource: Datasource {
   
@@ -38,14 +39,24 @@ class UserProfileDatasource: Datasource {
     return FirebaseMagic.fetchedCurrentUserPosts.count
   }
   
-//  func fetchUser(uid: String, in collectionViewController: UICollectionViewController, completion: @escaping (CurrentUser) -> ()) {
-//    
-////    Service.fetchUserWith(uid, in: collectionViewController) { (user) in
-////      self.user = user
-////      collectionViewController.collectionView?.reloadData()
-////      completion(user)
-////    }
-//    
-//  }
+  func fetchCurrentUser(in collectionViewController: UICollectionViewController, completion: @escaping (CurrentUser) -> ()) {
+    // MARK: FirebaseMagic - Fetch Current User
+    guard let uid = FirebaseMagic.currentUserUid() else { return }
+    let hud = JGProgressHUD(style: .light)
+    FirebaseMagic.showHud(hud, in: collectionViewController, text: "Fetching user...")
+    FirebaseMagic.fetchUserWith(uid, in: collectionViewController) { (currentUser) in
+      guard let user = currentUser else {
+        hud.textLabel.text = "Something went wrong..."
+        hud.dismiss(afterDelay: 1, animated: true)
+        return
+      }
+      print("Successfully fetched user:", user.username)
+      
+      hud.dismiss(animated: true)
+      self.user = user
+      collectionViewController.collectionView?.reloadData()
+      completion(user)
+    }
+  }
   
 }

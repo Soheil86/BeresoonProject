@@ -6,6 +6,7 @@
 //  Copyright © 2018 Alex Nagy. All rights reserved.
 //
 
+import UIKit
 import LBTAComponents
 
 class Service {
@@ -56,6 +57,10 @@ class Service {
     alert.addAction(cancelAction)
     
     on.present(alert, animated: true, completion: nil)
+  }
+  
+  static func randomColor() -> UIColor {
+    return UIColor(r: CGFloat.random(0, max: 255), g: CGFloat.random(0, max: 255), b: CGFloat.random(0, max: 255))
   }
   
 }

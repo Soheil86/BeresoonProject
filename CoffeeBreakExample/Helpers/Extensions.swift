@@ -39,3 +39,15 @@ extension Dictionary {
     }
   }
 }
+
+public extension CGFloat {
+  
+  public static func random() -> CGFloat {
+    return CGFloat(CGFloat(arc4random()) / 0xFFFFFFFF)
+  }
+  
+  public static func random(_ min: CGFloat, max: CGFloat) -> CGFloat {
+    return CGFloat.random() * (max - min) + min
+  }
+  
+}
