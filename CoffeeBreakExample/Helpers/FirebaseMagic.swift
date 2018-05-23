@@ -399,7 +399,18 @@ class FirebaseMagic {
   
   static func fetchUserWith(_ uid: String, in collectionViewController: UICollectionViewController, completion: @escaping (CurrentUser?) -> ()) {
     Database_Users.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-      guard let dictionary = snapshot.value as? [String : Any] else { return }
+      guard let dictionary = snapshot.value as? [String : Any] else {
+        completion(nil)
+        return
+      }
+      
+      fetchUserStats(uid, in: collectionViewController, completion: { (userStats, err) in
+        if let err = err {
+          completion(nil)
+        }
+        
+      })
+      
       let user = CurrentUser(uid: uid, dictionary: dictionary)
       completion(user)
     }) { (err) in
@@ -409,9 +420,44 @@ class FirebaseMagic {
     }
   }
   
+  static func fetchUserStats(_ uid: String, in collectionViewController: UICollectionViewController, completion: @escaping (_ userStatsDictionary: [String : Any]?, _ error: Error?) -> ()) {
+    var userStats: [String : Any] = [:]
+    Database_UserPosts.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+      let postsCount = snapshot.childrenCount
+      userStats.update(with: [keyPostsCount: postsCount])
+      
+      Database_UserFollowers.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+        let followersCount = snapshot.childrenCount
+        userStats.update(with: [keyFollowersCount: followersCount])
+        
+        Database_UserFollowing.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+          let followingCount = snapshot.childrenCount
+          userStats.update(with: [keyFollowingCount: followingCount])
+          completion(userStats, nil)
+          
+        }, withCancel: { (err) in
+          print("Failed to fetch user following for count:", err)
+          completion(nil, err)
+        })
+        
+      }, withCancel: { (err) in
+        print("Failed to fetch user followers for count:", err)
+        completion(nil, err)
+      })
+      
+    }, withCancel:{ (err) in
+      print("Failed to fetch user posts for count:", err)
+      completion(nil, err)
+    })
+  }
+  
   static func fetchUserWith(_ uid: String, in viewController: UIViewController, completion: @escaping (CurrentUser?) -> ()) {
     Database_Users.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-      guard let dictionary = snapshot.value as? [String : Any] else { return }
+      guard let dictionary = snapshot.value as? [String : Any] else {
+        completion(nil)
+        return
+      }
+      
       let user = CurrentUser(uid: uid, dictionary: dictionary)
       completion(user)
     }) { (err) in

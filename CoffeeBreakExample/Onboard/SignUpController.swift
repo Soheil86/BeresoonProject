@@ -195,10 +195,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
                            keyUsername: username] as [String : Any]
                             
     let userDetails = [keyProfileImage: profileImage,
-                       keyName: name,
-                       keyNumberOfFollowers: 0,
-                       keyNumberOfFollowing: 0,
-                       keyNumberOfPosts: 0] as [String : Any]
+                       keyName: name] as [String : Any]
     
     // Mark: FirebaseMagic - Sign up user with email
     let hud = JGProgressHUD(style: .light)

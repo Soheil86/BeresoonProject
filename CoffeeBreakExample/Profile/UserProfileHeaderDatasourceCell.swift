@@ -127,17 +127,17 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
       nameLabel.backgroundColor = .clear
       nameLabel.text = user.name
       
-      let numberOfPosts = user.numberOfPosts
+      let numberOfPosts = user.postsCount
       let attributedTitle3 = NSMutableAttributedString(string: "\(numberOfPosts)\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
       attributedTitle3.append(NSMutableAttributedString(string: "posts", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black]))
       postsButton.setAttributedTitle(attributedTitle3, for: .normal)
       
-      let numberOfFollowers = user.numberOfFollowers
+      let numberOfFollowers = user.followersCount
       let attributedTitle = NSMutableAttributedString(string: "\(numberOfFollowers)\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
       attributedTitle.append(NSMutableAttributedString(string: "followers", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black]))
       followersButton.setAttributedTitle(attributedTitle, for: .normal)
       
-      let numberOfFollowing = user.numberOfFollowing
+      let numberOfFollowing = user.followingCount
       let attributedTitle2 = NSMutableAttributedString(string: "\(numberOfFollowing)\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
       attributedTitle2.append(NSMutableAttributedString(string: "following", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black]))
       followingButton.setAttributedTitle(attributedTitle2, for: .normal)
