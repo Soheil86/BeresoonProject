@@ -55,6 +55,11 @@ class UserProfileDatasourceController: DatasourceController {
     
     setupController()
     
+    // removing current posts if any
+    FirebaseMagic.fetchedCurrentUserPosts.removeAll()
+    FirebaseMagic.fetchedCurrentUserPostsCurrentKey = nil
+    collectionView?.reloadData()
+    
     userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
       self.navigationItem.title = currentUser.username
     }
@@ -74,7 +79,7 @@ class UserProfileDatasourceController: DatasourceController {
   
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    return CGSize(width: ScreenSize.width, height: 170)
+    return CGSize(width: ScreenSize.width, height: 180)
   }
   
   override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

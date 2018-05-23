@@ -26,6 +26,7 @@ class FirebaseMagic {
   
   static var fetchedPosts = [Post]()
   static var fetchedCurrentUserPosts = [Post]()
+  static var fetchedCurrentUserPostsCurrentKey: String?
   
   static func start() {
     FirebaseApp.configure()

@@ -7,7 +7,6 @@
 //
 
 import LBTAComponents
-import ActiveLabel
 
 class UserProfileHeaderDatasourceCell: DatasourceCell {
   
@@ -41,7 +40,7 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
   
   lazy var followersButton: UIButton = {
     let button = UIButton(type: .system)
-    let attributedTitle = NSMutableAttributedString(string: "\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
+    let attributedTitle = NSMutableAttributedString(string: "\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
     attributedTitle.append(NSMutableAttributedString(string: "followers", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: Setup.lightGreyColor]))
     button.setAttributedTitle(attributedTitle, for: .normal)
     button.titleLabel?.numberOfLines = 0
@@ -57,7 +56,7 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
   
   lazy var followingButton: UIButton = {
     let button = UIButton(type: .system)
-    let attributedTitle = NSMutableAttributedString(string: "\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
+    let attributedTitle = NSMutableAttributedString(string: "\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
     attributedTitle.append(NSMutableAttributedString(string: "following", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: Setup.lightGreyColor]))
     button.setAttributedTitle(attributedTitle, for: .normal)
     button.titleLabel?.numberOfLines = 0
@@ -84,10 +83,6 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
     let button = UIButton(type: .system)
     let attributedTitle = NSMutableAttributedString(string: "Edit Profile", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
     button.setAttributedTitle(attributedTitle, for: .normal)
-//    button.backgroundColor = UIColor(r: 88, g: 86, b: 214)
-//    button.setImage(#imageLiteral(resourceName: "FacebookButton").withRenderingMode(.alwaysTemplate), for: .normal)
-//    button.tintColor = .white
-//    button.contentMode = .scaleAspectFit
     button.layer.masksToBounds = true
     button.layer.cornerRadius = 5
     button.layer.borderColor = Setup.greyColor.cgColor
@@ -108,13 +103,20 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
     return label
   }()
   
-  let bioLabel: ActiveLabel = {
-    let label = ActiveLabel()
+  let bioLabel: UILabel = {
+    let label = UILabel()
     label.font = UIFont.systemFont(ofSize: 13)
     label.text = " "
+    label.lineBreakMode = .byWordWrapping
     label.numberOfLines = 0
     label.backgroundColor = Setup.lightGreyColor
     return label
+  }()
+  
+  let dividerView: UIView = {
+    let view = UIView()
+    view.backgroundColor = Setup.lightGreyColor
+    return view
   }()
   
   override var datasourceItem: Any? {
@@ -126,18 +128,18 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
       nameLabel.text = user.name
       
       let numberOfPosts = user.numberOfPosts
-      let attributedTitle3 = NSMutableAttributedString(string: "\(numberOfPosts)\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
-      attributedTitle3.append(NSMutableAttributedString(string: "Posts", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black]))
+      let attributedTitle3 = NSMutableAttributedString(string: "\(numberOfPosts)\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
+      attributedTitle3.append(NSMutableAttributedString(string: "posts", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black]))
       postsButton.setAttributedTitle(attributedTitle3, for: .normal)
       
       let numberOfFollowers = user.numberOfFollowers
-      let attributedTitle = NSMutableAttributedString(string: "\(numberOfFollowers)\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
-      attributedTitle.append(NSMutableAttributedString(string: "Followers", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black]))
+      let attributedTitle = NSMutableAttributedString(string: "\(numberOfFollowers)\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
+      attributedTitle.append(NSMutableAttributedString(string: "followers", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black]))
       followersButton.setAttributedTitle(attributedTitle, for: .normal)
       
       let numberOfFollowing = user.numberOfFollowing
-      let attributedTitle2 = NSMutableAttributedString(string: "\(numberOfFollowing)\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
-      attributedTitle2.append(NSMutableAttributedString(string: "Following", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black]))
+      let attributedTitle2 = NSMutableAttributedString(string: "\(numberOfFollowing)\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
+      attributedTitle2.append(NSMutableAttributedString(string: "following", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black]))
       followingButton.setAttributedTitle(attributedTitle2, for: .normal)
       
       bioLabel.backgroundColor = .clear
@@ -154,14 +156,14 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
     addSubview(userStatsStackView)
     addSubview(settingsButton)
     addSubview(bioLabel)
-    
+    addSubview(dividerView)
     
     profileImageView.anchor(safeAreaLayoutGuide.topAnchor, left: safeAreaLayoutGuide.leftAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: profileImageViewHeight, heightConstant: profileImageViewHeight)
     nameLabel.anchor(profileImageView.bottomAnchor, left: profileImageView.leftAnchor, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 18)
     userStatsStackView.anchor(safeAreaLayoutGuide.topAnchor, left: profileImageView.rightAnchor, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
     settingsButton.anchor(userStatsStackView.bottomAnchor, left: userStatsStackView.leftAnchor, bottom: nil, right: userStatsStackView.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 24)
-    bioLabel.anchor(nameLabel.bottomAnchor, left: nameLabel.leftAnchor, bottom: bottomAnchor, right: nameLabel.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-    
+    bioLabel.anchor(nameLabel.bottomAnchor, left: nameLabel.leftAnchor, bottom: bottomAnchor, right: nameLabel.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+    dividerView.anchor(nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0.5)
   }
   
 }
