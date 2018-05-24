@@ -57,7 +57,7 @@ class SharePostViewController: UIViewController {
       // Mark: FirebaseMagic - Share post
       let hud = JGProgressHUD(style: .light)
       FirebaseMagic.showHud(hud, in: self, text: "Sharing...")
-      FirebaseMagic.sharePost(in: self, caption: caption, image: image) { (result, err) in
+      FirebaseMagic.sharePost(withCaption: caption, image: image) { (result, err) in
         if let err = err {
           hud.dismiss(animated: true)
           Service.showAlert(on: self, style: .alert, title: "Share error", message: err.localizedDescription)

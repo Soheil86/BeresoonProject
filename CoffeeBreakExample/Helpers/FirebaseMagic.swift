@@ -52,7 +52,7 @@ class FirebaseMagic {
     }
   }
   
-  static func logout(in viewController: UIViewController, completion: @escaping (_ error: Error?) ->()) {
+  static func logout(completion: @escaping (_ error: Error?) ->()) {
     do {
       try Auth.auth().signOut()
       completion(nil)
@@ -62,7 +62,7 @@ class FirebaseMagic {
     }
   }
   
-  static func resetPassword(with usernameOrEmail: String?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  static func resetPassword(withUsernameOrEmail usernameOrEmail: String?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     guard let usernameOrEmail = usernameOrEmail else {
       completion(false, nil)
       return
@@ -70,26 +70,26 @@ class FirebaseMagic {
     
     if usernameOrEmail.range(of: "@") != nil {
       print("Reseting password with email:", usernameOrEmail)
-      resetPasswordWith(email: usernameOrEmail) { (result, err) in
+      resetPassword(withEmail: usernameOrEmail) { (result, err) in
         completion(result, err)
       }
       
     } else {
       print("Reseting password with username:", usernameOrEmail)
-      resetPasswordWith(username: usernameOrEmail) { (result, err) in
+      resetPassword(withUserName: usernameOrEmail) { (result, err) in
         completion(result, err)
       }
     }
   }
   
-  private static func resetPasswordWith(username: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  private static func resetPassword(withUserName username: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     Database_Usernames.child(username).observeSingleEvent(of: .value, with: { (snapshot) in
       guard let email = snapshot.value as? String else {
         print("Failed to fetch username: invalid username")
         completion(false, nil)
         return
       }
-      resetPasswordWith(email: email) { (result, err) in
+      resetPassword(withEmail: email) { (result, err) in
         completion(result, err)
       }
     }) { (err) in
@@ -98,7 +98,7 @@ class FirebaseMagic {
     }
   }
   
-  private static func resetPasswordWith(email: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  private static func resetPassword(withEmail email: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     Auth.auth().sendPasswordReset(withEmail: email) { (err) in
       if let err = err {
         print("Failed to reset password with email:", err)
@@ -110,7 +110,7 @@ class FirebaseMagic {
     }
   }
   
-  static func signIn(with usernameOrEmail: String?, password: String?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  static func signIn(withUsernameOrEmail usernameOrEmail: String?, password: String?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     guard let usernameOrEmail = usernameOrEmail, let password = password else {
       completion(false, nil)
       return
@@ -118,27 +118,27 @@ class FirebaseMagic {
     
     if usernameOrEmail.range(of: "@") != nil {
       print("Signing in with email:", usernameOrEmail)
-      signInWith(email: usernameOrEmail, password: password) { (result, err) in
+      signIn(withEmail: usernameOrEmail, password: password) { (result, err) in
         completion(result, err)
       }
       
     } else {
       print("Signing in with username:", usernameOrEmail)
-      signInWith(username: usernameOrEmail, password: password) { (result, err) in
+      signIn(withUsername: usernameOrEmail, password: password) { (result, err) in
         completion(result, err)
       }
     }
     
   }
   
-  private static func signInWith(username: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  private static func signIn(withUsername username: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     Database_Usernames.child(username).observeSingleEvent(of: .value, with: { (snapshot) in
       guard let email = snapshot.value as? String else {
         print("Failed to fetch username: invalid username")
         completion(false, nil)
         return
       }
-      signInWith(email: email, password: password) { (result, err) in
+      signIn(withEmail: email, password: password) { (result, err) in
         completion(result, err)
       }
     }) { (err) in
@@ -147,7 +147,7 @@ class FirebaseMagic {
     }
   }
   
-  private static func signInWith(email: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  private static func signIn(withEmail email: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
       if let err = err {
         print("Failed to sign in with email:", err)
@@ -169,10 +169,14 @@ class FirebaseMagic {
       completion(false, nil)
       return
     }
-    fetchUserWithUsername(searchText: username.lowercased().replacingOccurrences(of: " ", with: "_"), in: viewController, limitedToFirst: 1) { (user) in
-      if user == nil {
+    fetchUser(withUsername: username, limitedToFirst: 1) { (users, err) in
+      if let err = err {
+        completion(false, err)
+      }
+      
+      if users == nil {
         
-        signUpUniqueUserWithEmail(in: viewController, userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
+        signUpUniqueUserWithEmail(userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
           completion(result, err)
         }
         
@@ -196,9 +200,10 @@ class FirebaseMagic {
         
       }
     }
+    
   }
   
-  private static func signUpUniqueUserWithEmail(in viewController: UIViewController, userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  private static func signUpUniqueUserWithEmail(userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     guard let email = userCredentials[keyEmail] as? String,
       let password = userCredentials[keyPassword] as? String else {
         completion(false, nil)
@@ -245,7 +250,7 @@ class FirebaseMagic {
       mutableUserDetails.update(with: userDetails)
       
       if let profileImage = mutableUserDetails[keyProfileImage] as? UIImage {
-        saveImage(profileImage, path: Storage_ProfileImages) { (imageUrl, result, err) in
+        saveImage(profileImage, atPath: Storage_ProfileImages) { (imageUrl, result, err) in
           if let err = err {
             completion(false, err)
             return
@@ -261,21 +266,21 @@ class FirebaseMagic {
           mutableUserDetails.updateValue(imageUrl, forKey: keyProfileImageUrl)
           mutableUserDetails.removeValue(forKey: keyProfileImage)
           
-          updateUserValues(currentUserUid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
+          updateUserValues(forCurrentUserUid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
             completion(result, err)
           }
           
         }
       } else {
         
-        updateUserValues(currentUserUid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
+        updateUserValues(forCurrentUserUid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
           completion(result, err)
         }
         
       }
     } else {
       
-      updateUserValues(currentUserUid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
+      updateUserValues(forCurrentUserUid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
         completion(result, err)
       }
       
@@ -283,9 +288,9 @@ class FirebaseMagic {
     
   }
   
-  private static func updateUserValues(currentUserUid: String, with dictionary: [String : Any], username: String, email: String,  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  private static func updateUserValues(forCurrentUserUid currentUserUid: String, with dictionary: [String : Any], username: String, email: String,  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     
-    updateValues(at: Database_Users.child(currentUserUid), with: dictionary, completion: { (result, err) in
+    updateValues(atPath: Database_Users.child(currentUserUid), with: dictionary, completion: { (result, err) in
       if let err = err {
         completion(false, err)
         return
@@ -293,7 +298,7 @@ class FirebaseMagic {
         completion(false, nil)
         return
       }
-      updateValues(at: Database_Usernames, with: [username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_") : email], completion: { (result, err) in
+      updateValues(atPath: Database_Usernames, with: [username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_") : email], completion: { (result, err) in
         if let err = err {
           completion(false, err)
           return
@@ -302,14 +307,14 @@ class FirebaseMagic {
           return
         }
         let values = [currentUserUid : 1]
-        updateValues(at: Database_UserFollowers.child(currentUserUid), with: values, completion: { (result, err) in
+        updateValues(atPath: Database_UserFollowers.child(currentUserUid), with: values, completion: { (result, err) in
           completion(result, err)
         })
       })
     })
   }
   
-  private static func updateValues(at path: DatabaseReference, with dictionary: [String : Any],  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  private static func updateValues(atPath path: DatabaseReference, with dictionary: [String : Any],  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     path.updateChildValues(dictionary) { (err, ref) in
       if let err = err {
         print("Failed to update Firebase database with error:", err)
@@ -321,7 +326,7 @@ class FirebaseMagic {
     }
   }
   
-  private static func observeValues(at path: DatabaseReference, eventType: DataEventType,  completion: @escaping (_ snapshot: DataSnapshot?, _ error: Error?) ->()) {
+  private static func observeValues(atPath path: DatabaseReference, eventType: DataEventType,  completion: @escaping (_ snapshot: DataSnapshot?, _ error: Error?) ->()) {
     path.observe(eventType, with: { (snapshot) in
       completion(snapshot, nil)
     }) { (err) in
@@ -329,7 +334,7 @@ class FirebaseMagic {
     }
   }
   
-  private static func saveImage(_ image: UIImage, path: StorageReference, completion: @escaping (_ imageUrl: String?, _ result: Bool, _ error: Error?) ->()) {
+  private static func saveImage(_ image: UIImage,atPath path: StorageReference, completion: @escaping (_ imageUrl: String?, _ result: Bool, _ error: Error?) ->()) {
     guard let imageUploadData = UIImageJPEGRepresentation(image, 0.3) else {
       completion(nil, false, nil)
       return
@@ -357,11 +362,10 @@ class FirebaseMagic {
     }
   }
   
-  static func fetchUserWithUsername(searchText: String, in viewController: UIViewController, limitedToFirst: Int, completion: @escaping ([CurrentUser]?) -> ()) {
+  static func fetchUser(withUsername username: String, limitedToFirst: Int, completion: @escaping (_ users: [CurrentUser]?, _ error: Error?) -> ()) {
     
-    print("Search text:", searchText)
     var filteredUsers: [CurrentUser] = []
-    let lowerCasedSearchText = searchText.lowercased()
+    let lowerCasedSearchText = username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_")
     let userRef = Database_Users.queryLimited(toFirst: UInt(limitedToFirst)).queryOrdered(byChild: keyUsername).queryStarting(atValue: lowerCasedSearchText).queryEnding(atValue: lowerCasedSearchText+"\u{f8ff}")
     
     userRef.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -385,15 +389,15 @@ class FirebaseMagic {
           
         })
         print("Filtered users:", filteredUsers)
-        completion(filteredUsers)
+        completion(filteredUsers, nil)
       } else {
         print("No users available")
-        completion(nil)
+        completion(nil, nil)
       }
       
     }) { (err) in
       print("Failed to fetch users:", err)
-      Service.showAlert(on: viewController, style: .alert, title: "Fetch error", message: err.localizedDescription)
+      completion(nil, err)
     }
   }
   
@@ -401,14 +405,14 @@ class FirebaseMagic {
     return Auth.auth().currentUser?.uid
   }
   
-  static func fetchUser(forUid uid: String, completion: @escaping (_ user: CurrentUser?, _ error: Error?) -> ()) {
+  static func fetchUser(withUid uid: String, completion: @escaping (_ user: CurrentUser?, _ error: Error?) -> ()) {
     Database_Users.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
       guard let dictionary = snapshot.value as? [String : Any] else {
         completion(nil, nil)
         return
       }
       
-      fetchUserStats(for: uid, completion: { (userStats, err) in
+      fetchUserStats(forUid: uid, completion: { (userStats, err) in
         if let err = err {
           print("Failed to fetch user stats:", err)
           completion(nil, err)
@@ -424,7 +428,7 @@ class FirebaseMagic {
     }
   }
   
-  static func fetchUserStats(for uid: String, completion: @escaping (_ userStatsDictionary: [String : Any]?, _ error: Error?) -> ()) {
+  static func fetchUserStats(forUid uid: String, completion: @escaping (_ userStatsDictionary: [String : Any]?, _ error: Error?) -> ()) {
     var userStats: [String : Any] = [:]
     Database_UserPosts.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
       let postsCount = snapshot.childrenCount
@@ -455,8 +459,8 @@ class FirebaseMagic {
     })
   }
   
-  static func sharePost(in viewController: UIViewController, caption: String, image: UIImage, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
-    saveImage(image, path: Storage_PostImages) { (imageUrl, result, err) in
+  static func sharePost(withCaption caption: String, image: UIImage, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+    saveImage(image, atPath: Storage_PostImages) { (imageUrl, result, err) in
       if let err = err {
         completion(false, err)
         return
@@ -476,7 +480,7 @@ class FirebaseMagic {
                     keyId: postId,
                     keyCreationDate : Date().timeIntervalSince1970] as [String : Any]
       
-      updateValues(at: postRef, with: values, completion: { (result, err) in
+      updateValues(atPath: postRef, with: values, completion: { (result, err) in
         if let err = err {
           completion(false, err)
           return
@@ -486,7 +490,7 @@ class FirebaseMagic {
         }
         
         let values = [postId : 1]
-        updateValues(at: Database_UserPosts.child(currentUserUid), with: values, completion: { (result, err) in
+        updateValues(atPath: Database_UserPosts.child(currentUserUid), with: values, completion: { (result, err) in
           if let err = err {
             completion(false, err)
             return
@@ -495,7 +499,7 @@ class FirebaseMagic {
             return
           }
           
-          observeValues(at: Database_UserFollowers.child(currentUserUid), eventType: .childAdded, completion: { (snapshot, err) in
+          observeValues(atPath: Database_UserFollowers.child(currentUserUid), eventType: .childAdded, completion: { (snapshot, err) in
             if let err = err {
               completion(false, err)
               return
@@ -510,7 +514,7 @@ class FirebaseMagic {
             
             let followerUid = snapshot.key
             let values = [postId : 1]
-            updateValues(at: Database_UserFeed.child(followerUid), with: values, completion: { (result, err) in
+            updateValues(atPath: Database_UserFeed.child(followerUid), with: values, completion: { (result, err) in
               completion(result, err)
             })
           })

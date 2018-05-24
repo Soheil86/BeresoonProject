@@ -44,7 +44,7 @@ class UserProfileDatasource: Datasource {
     guard let uid = FirebaseMagic.currentUserUid() else { return }
     let hud = JGProgressHUD(style: .light)
     FirebaseMagic.showHud(hud, in: collectionViewController, text: "Fetching user...")
-    FirebaseMagic.fetchUser(forUid: uid) { (user, err) in
+    FirebaseMagic.fetchUser(withUid: uid) { (user, err) in
       if let err = err {
         hud.dismiss(animated: true)
         Service.showAlert(onCollectionViewController: collectionViewController, style: .alert, title: "Error fetching user", message: err.localizedDescription)

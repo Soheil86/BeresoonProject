@@ -29,7 +29,7 @@ class UserProfileDatasourceController: DatasourceController {
       // MARK: FirebaseMagic - Log out
       let hud = JGProgressHUD(style: .light)
       FirebaseMagic.showHud(hud, in: self, text: "Logging out...")
-      FirebaseMagic.logout(in: self, completion: { (err) in
+      FirebaseMagic.logout(completion: { (err) in
         hud.dismiss(animated: true)
         
         if let err = err {

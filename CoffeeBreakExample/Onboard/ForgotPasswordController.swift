@@ -69,7 +69,7 @@ class ForgotPasswordController: UIViewController {
     // MARK: FirebaseMagic - reset password
     let hud = JGProgressHUD(style: .light)
     FirebaseMagic.showHud(hud, in: self, text: "Sending email...")
-    FirebaseMagic.resetPassword(with: usernameOrEmailTextField.text) { (result, err) in
+    FirebaseMagic.resetPassword(withUsernameOrEmail: usernameOrEmailTextField.text) { (result, err) in
       if let err = err {
         hud.dismiss(animated: true)
         Service.showAlert(on: self, style: .alert, title: "Reset password error", message: err.localizedDescription)
