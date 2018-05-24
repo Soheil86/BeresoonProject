@@ -27,8 +27,8 @@ class UserProfileDatasource: Datasource {
   
   override func item(_ indexPath: IndexPath) -> Any? {
     // MARK: FirebaseMagic - insert item
-    if indexPath.item < FirebaseMagic.fetchedCurrentUserPosts.count {
-      return FirebaseMagic.fetchedCurrentUserPosts[indexPath.item]
+    if indexPath.item < FirebaseMagic.fetchedUserPosts.count {
+      return FirebaseMagic.fetchedUserPosts[indexPath.item]
     } else {
       return 0
     }
@@ -36,7 +36,7 @@ class UserProfileDatasource: Datasource {
   
   override func numberOfItems(_ section: Int) -> Int {
     // MARK: FirebaseMagic - number of items
-    return FirebaseMagic.fetchedCurrentUserPosts.count
+    return FirebaseMagic.fetchedUserPosts.count
   }
   
   func fetchCurrentUser(in collectionViewController: UICollectionViewController, completion: @escaping (CurrentUser) -> ()) {
@@ -44,8 +44,13 @@ class UserProfileDatasource: Datasource {
     guard let uid = FirebaseMagic.currentUserUid() else { return }
     let hud = JGProgressHUD(style: .light)
     FirebaseMagic.showHud(hud, in: collectionViewController, text: "Fetching user...")
-    FirebaseMagic.fetchUserWith(uid, in: collectionViewController) { (currentUser) in
-      guard let user = currentUser else {
+    FirebaseMagic.fetchUser(forUid: uid) { (user, err) in
+      if let err = err {
+        hud.dismiss(animated: true)
+        Service.showAlert(onCollectionViewController: collectionViewController, style: .alert, title: "Error fetching user", message: err.localizedDescription)
+        return
+      }
+      guard let user = user else {
         hud.textLabel.text = "Something went wrong..."
         hud.dismiss(afterDelay: 1, animated: true)
         return
@@ -57,6 +62,7 @@ class UserProfileDatasource: Datasource {
       collectionViewController.collectionView?.reloadData()
       completion(user)
     }
+    
   }
   
 }

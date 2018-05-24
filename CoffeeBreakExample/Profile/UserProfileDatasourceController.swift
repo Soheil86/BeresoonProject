@@ -56,12 +56,14 @@ class UserProfileDatasourceController: DatasourceController {
     setupController()
     
     // removing current posts if any
-    FirebaseMagic.fetchedCurrentUserPosts.removeAll()
-    FirebaseMagic.fetchedCurrentUserPostsCurrentKey = nil
+    FirebaseMagic.fetchedUserPosts.removeAll()
+    FirebaseMagic.fetchedUserPostsCurrentKey = nil
     collectionView?.reloadData()
     
     userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
       self.navigationItem.title = currentUser.username
+      // fetch user posts
+      
     }
   }
   

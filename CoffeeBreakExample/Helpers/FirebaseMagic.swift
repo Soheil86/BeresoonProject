@@ -33,8 +33,12 @@ class FirebaseMagic {
   static let CurrentUserUid = Auth.auth().currentUser?.uid
   
   static var fetchedPosts = [Post]()
-  static var fetchedCurrentUserPosts = [Post]()
-  static var fetchedCurrentUserPostsCurrentKey: String?
+  static var fetchedPostsCurrentKey: String?
+  static let paginationElementsLimitPosts: UInt = 3
+  
+  static var fetchedUserPosts = [Post]()
+  static var fetchedUserPostsCurrentKey: String?
+  static let paginationElementsLimitUserPosts: UInt = 12
   
   static func start() {
     FirebaseApp.configure()
@@ -397,30 +401,30 @@ class FirebaseMagic {
     return Auth.auth().currentUser?.uid
   }
   
-  static func fetchUserWith(_ uid: String, in collectionViewController: UICollectionViewController, completion: @escaping (CurrentUser?) -> ()) {
+  static func fetchUser(forUid uid: String, completion: @escaping (_ user: CurrentUser?, _ error: Error?) -> ()) {
     Database_Users.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
       guard let dictionary = snapshot.value as? [String : Any] else {
-        completion(nil)
+        completion(nil, nil)
         return
       }
       
-      fetchUserStats(uid, in: collectionViewController, completion: { (userStats, err) in
+      fetchUserStats(for: uid, completion: { (userStats, err) in
         if let err = err {
-          completion(nil)
+          print("Failed to fetch user stats:", err)
+          completion(nil, err)
         }
         
       })
       
       let user = CurrentUser(uid: uid, dictionary: dictionary)
-      completion(user)
+      completion(user, nil)
     }) { (err) in
       print("Failed to fetch user:", err)
-      Service.showAlert(on: collectionViewController, style: .alert, title: "Fetch error", message: err.localizedDescription)
-      completion(nil)
+      completion(nil, err)
     }
   }
   
-  static func fetchUserStats(_ uid: String, in collectionViewController: UICollectionViewController, completion: @escaping (_ userStatsDictionary: [String : Any]?, _ error: Error?) -> ()) {
+  static func fetchUserStats(for uid: String, completion: @escaping (_ userStatsDictionary: [String : Any]?, _ error: Error?) -> ()) {
     var userStats: [String : Any] = [:]
     Database_UserPosts.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
       let postsCount = snapshot.childrenCount
@@ -449,22 +453,6 @@ class FirebaseMagic {
       print("Failed to fetch user posts for count:", err)
       completion(nil, err)
     })
-  }
-  
-  static func fetchUserWith(_ uid: String, in viewController: UIViewController, completion: @escaping (CurrentUser?) -> ()) {
-    Database_Users.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-      guard let dictionary = snapshot.value as? [String : Any] else {
-        completion(nil)
-        return
-      }
-      
-      let user = CurrentUser(uid: uid, dictionary: dictionary)
-      completion(user)
-    }) { (err) in
-      print("Failed to fetch user:", err)
-      Service.showAlert(on: viewController, style: .alert, title: "Fetch error", message: err.localizedDescription)
-      completion(nil)
-    }
   }
   
   static func sharePost(in viewController: UIViewController, caption: String, image: UIImage, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
@@ -530,6 +518,109 @@ class FirebaseMagic {
       })
     }
   }
+  
+//  static func fetchCurrentUserPosts(uid: String, in collectionViewController: UICollectionViewController, completion: @escaping () -> ()) {
+//    print("Started fetching posts for current user with id:", uid)
+//    // guard let currentUid = Service.currentUserUid else { return }
+//
+//    if fetchedUserPostsCurrentKey == nil {
+//      // initial pull
+//      Database_UserPosts.child(uid).queryLimited(toLast: paginationElementsLimitUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
+//
+//        if snapshot.childrenCount == 0 {
+//          print("No posts to fetch for user.")
+//          completion()
+//        }
+//
+//        guard let first = snapshot.children.allObjects.first as? DataSnapshot else { return }
+//        guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
+//
+//        allObjects.forEach({ (snapshot) in
+//          let postId = snapshot.key
+//          Service.fetchCurrentUserPost(withPostId: postId, in: collectionViewController, completion: {
+//            completion()
+//          })
+//        })
+//
+//        Service.fetchedCurrentUserPostsCurrentKey = first.key
+//
+//      }) { (err) in
+//        print("Failed to query current user posts: ", err)
+//      }
+//
+//    } else {
+//      // paginate here
+//      Service.database.child(pathUserPosts).child(uid).queryOrderedByKey().queryEnding(atValue: Service.fetchedCurrentUserPostsCurrentKey).queryLimited(toLast: paginationElementsLimitCurrentUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
+//
+//        guard let first = snapshot.children.allObjects.first as? DataSnapshot else { return }
+//        guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
+//
+//        allObjects.forEach({ (snapshot) in
+//
+//          if snapshot.key != Service.fetchedCurrentUserPostsCurrentKey {
+//            let postId = snapshot.key
+//            Service.fetchCurrentUserPost(withPostId: postId, in: collectionViewController, completion: {
+//              completion()
+//            })
+//          }
+//
+//        })
+//
+//        Service.fetchedCurrentUserPostsCurrentKey = first.key
+//
+//      }) { (err) in
+//        print("Failed to query and paginate current user: ", err)
+//      }
+//    }
+//
+//  }
+  
+//  fileprivate static func fetchUserPost(with postId: String, in collectionViewController: UICollectionViewController, completion: @escaping () -> ()) {
+//
+//    Database.fetchPost(with: postId) { (post) in
+//
+//      fetchedCurrentUserPosts.insert(post, at: 0)
+//      self.fetchedCurrentUserPosts.sort(by: { (p1, p2) -> Bool in
+//        return p1.creationDate.compare(p2.creationDate) == .orderedDescending
+//      })
+//
+//      collectionViewController.collectionView?.reloadData()
+//      print("Fetched current user post with id:", postId)
+//
+//      completion()
+//    }
+//  }
+  
+//  static func fetchPost(with postId: String, completion: @escaping(Post) -> ()) {
+//    Database_Posts.child(postId).observeSingleEvent(of: .value) { (snapshot) in
+//      guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+//      guard let ownerUid = dictionary[keyOwnerId] as? String else { return }
+//
+//      fetch
+//
+//      fetchUserWith(ownerUid, completion: { (user) in
+//        guard let user = user else { return }
+//        var post = Post(user: user, dictionary: dictionary)
+//        post.id = postId
+//
+//        guard let uid = Service.currentUserUid else { return }
+//
+//        Service.database.child(pathPostLikes).child(postId).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+//          if let value = snapshot.value as? Int, value == 1 {
+//            post.hasLiked = true
+//          } else {
+//            post.hasLiked = false
+//          }
+//          completion(post)
+//        }, withCancel: { (err) in
+//          print("Failed to fetch like for post with error:", err)
+//        })
+//
+//
+//      })
+//
+//    }
+//  }
   
   static func showHud(_ hud: JGProgressHUD, in viewController: UIViewController, text: String) {
     hud.textLabel.text = text
