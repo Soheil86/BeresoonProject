@@ -14,7 +14,6 @@ class UserProfilePostDatasourceCell: DatasourceCell {
     let imageView = CachedImageView()
     imageView.backgroundColor = Service.randomColor()
     imageView.contentMode = .scaleAspectFill
-    imageView.layer.cornerRadius = 5
     imageView.clipsToBounds = true
     let tap = UITapGestureRecognizer(target: self, action: #selector(handleMediaImageViewTapped))
     imageView.addGestureRecognizer(tap)
