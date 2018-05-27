@@ -38,7 +38,7 @@ class FirebaseMagic {
   
   static var fetchedUserPosts = [Post]()
   static var fetchedUserPostsCurrentKey: String?
-  static let paginationElementsLimitUserPosts: UInt = 12
+  static let paginationElementsLimitUserPosts: UInt = 3
   
   static func start() {
     FirebaseApp.configure()
@@ -547,12 +547,17 @@ class FirebaseMagic {
         allObjects.forEach({ (snapshot) in
           let postId = snapshot.key
           fetchUserPost(withPostId: postId, in: collectionViewController, completion: { (result, err) in
-            completion(result, err)
+            if let err = err {
+              completion(result, err)
+            } else if result == false {
+              completion(result, err)
+            }
+            // not completing when (true, nil) because of pagination
           })
         })
 
         fetchedUserPostsCurrentKey = first.key
-
+        completion(true, nil)
       }) { (err) in
         print("Failed to query current user posts: ", err)
         completion(false, err)
@@ -577,14 +582,19 @@ class FirebaseMagic {
           if snapshot.key != fetchedUserPostsCurrentKey {
             let postId = snapshot.key
             fetchUserPost(withPostId: postId, in: collectionViewController, completion: { (result, err) in
-              completion(result, err)
+              if let err = err {
+                completion(result, err)
+              } else if result == false {
+                completion(result, err)
+              }
+              // not completing when (true, nil) because of pagination
             })
           }
 
         })
 
         fetchedUserPostsCurrentKey = first.key
-
+        completion(true, nil)
       }) { (err) in
         print("Failed to query and paginate current user: ", err)
         completion(false, err)
@@ -611,7 +621,7 @@ class FirebaseMagic {
 
       collectionViewController.collectionView?.reloadData()
       print("Fetched current user post with id:", postId)
-
+      
       completion(true, nil)
     }
   }

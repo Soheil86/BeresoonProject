@@ -12,6 +12,7 @@ import LBTAComponents
 class Service {
   
   static let notificationNameShouldDismissViewController = Notification.Name(rawValue: "shouldDismissViewController")
+  static let notificationNameUserSharedAPost = Notification.Name(rawValue: "userSharedAPost")
   
   static func showAlert(on: UIViewController, style: UIAlertControllerStyle, title: String?, message: String?, actions: [UIAlertAction] = [UIAlertAction(title: "Ok", style: .cancel, handler: nil)], completion: (() -> Swift.Void)? = nil) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: style)

@@ -68,6 +68,7 @@ class SharePostViewController: UIViewController {
           return
         }
         print("Successfully shared post.")
+        NotificationCenter.default.post(name: Service.notificationNameUserSharedAPost, object: nil, userInfo: nil)
         self.dismiss(animated: true, completion: nil)
       }
     }

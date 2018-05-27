@@ -47,8 +47,16 @@ class UserProfileDatasourceController: DatasourceController {
     Service.showAlert(onCollectionViewController: self, style: .actionSheet, title: nil, message: nil, actions: [logOutAction, cancelAction], completion: nil)
   }
   
+  @objc fileprivate func handleUserSharedAPost() {
+    reloadAllPosts { (result) in
+      print("Reloaded posts after user have shared a new post with result:", result)
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(handleUserSharedAPost), name: Service.notificationNameUserSharedAPost, object: nil)
     
     datasource = userProfileDatasource
     collectionView?.refreshControl = refreshControl
@@ -59,7 +67,9 @@ class UserProfileDatasourceController: DatasourceController {
     
     userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
       self.navigationItem.title = currentUser.username
-      self.fetchPosts()
+      self.fetchPosts(completion: { (result) in
+        print("Fetched post with result:", result)
+      })
     }
   }
   
@@ -77,7 +87,7 @@ class UserProfileDatasourceController: DatasourceController {
     collectionView?.reloadData()
   }
   
-  fileprivate func fetchPosts() {
+  fileprivate func fetchPosts(completion: @escaping (_ result: Bool) -> ()) {
     // MARK: FirebaseMagic - Fetch user posts
     let hud = JGProgressHUD(style: .light)
     FirebaseMagic.showHud(hud, in: self, text: "Fetching user posts...")
@@ -86,27 +96,47 @@ class UserProfileDatasourceController: DatasourceController {
         print("Failed to fetch user posts with err:", err)
         hud.dismiss(animated: true)
         Service.showAlert(onCollectionViewController: self, style: .alert, title: "Fetch error", message: "Failed to fetch user posts with err: \(err)")
+        completion(false)
         return
       } else if result == false {
         hud.textLabel.text = "Something went wrong..."
         hud.dismiss(afterDelay: 1, animated: true)
+        completion(false)
         return
       }
       print("Successfully fetched user posts")
       hud.dismiss(animated: true)
+      completion(true)
     })
   }
   
-  fileprivate func reloadAllPosts() {
+  fileprivate func reloadAllPosts(completion: @escaping (_ result: Bool) -> ()) {
     clearPosts()
-    fetchPosts()
+    fetchPosts { (result) in
+      completion(result)
+    }
   }
   
   override func handleRefresh() {
-    reloadAllPosts()
+    reloadAllPosts { (result) in
+      self.refreshControl.endRefreshing()
+    }
   }
   
   fileprivate func deleteCurrentUserSession() {
+    
+  }
+  
+  override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    
+    // MARK: FirebaseMagic - Trigger pagination when last item will be displayed
+    if FirebaseMagic.fetchedUserPosts.count > FirebaseMagic.paginationElementsLimitUserPosts - 1 {
+      if indexPath.row == FirebaseMagic.fetchedUserPosts.count - 1 {
+        fetchPosts { (result) in
+          print("Paginated user posts with result:", result)
+        }
+      }
+    }
     
   }
   
