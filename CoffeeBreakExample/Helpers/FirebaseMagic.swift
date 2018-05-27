@@ -45,6 +45,8 @@ class FirebaseMagic {
   static var fetchedUserPostsCurrentKey: String?
   static let paginationElementsLimitUserPosts: UInt = 12
   
+  static var searchUsersFetchLimit = 10
+  
   static func start() {
     FirebaseApp.configure()
   }
@@ -670,6 +672,175 @@ class FirebaseMagic {
       })
     }
   }
+  
+  static func isCurrentUserFollowing(userId: String, completion: @escaping (Bool?) -> ()) {
+    guard let currentLoggedInUserId = currentUserUid() else { completion(nil); return }
+    Database_UserFollowing.child(currentLoggedInUserId).child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+      if let isFollowing = snapshot.value as? Int, isFollowing == 1 {
+        // is already following user
+        completion(true)
+      } else {
+        // not following user
+        completion(false)
+      }
+    }, withCancel: { (err) in
+      print("Failed to fetch followed users with error:", err)
+      //Service.showErrorAlert(on: self, title: "Fetch Error", message: err.localizedDescription)
+      completion(nil)
+    })
+  }
+  
+  static func handleFollowButton(followingUserId: String, followedUserId: String, completion: @escaping () -> ()) {
+    
+    guard let currentLoggedInUserId = currentUserUid() else { return }
+    
+    let ref = Database_UserFollowing.child(followingUserId)
+    let values = [followedUserId: 1]
+    ref.updateChildValues(values) { (err, ref) in
+      if let err = err {
+        print("Failed to follow user with err:", err)
+        return
+      }
+      print("Successfully followed user with id:", followedUserId)
+      
+      let values = [followingUserId: 1]
+      Database_UserFollowers.child(followedUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
+        if let err = err {
+          print("Failed to follow user with err:", err)
+          return
+        }
+        print("Successfully saved new follower id:", followingUserId)
+        
+        // add followed user post into current user feed
+        Database_UserPosts.child(followedUserId).observe(.childAdded, with: { (snapshot) in
+          let postId = snapshot.key
+          Database_UserFeed.child(followingUserId).updateChildValues([postId: 1])
+        }, withCancel: { (err) in
+          print("Failed to add followed user post into current user feed with error:", err)
+          return
+        })
+        
+        Service.database.child(pathUsers).child(followingUserId).observeSingleEvent(of: .value, with: { (snapshot) in
+          guard let dictionary = snapshot.value as? [String : Any] else { return }
+          let user = CurrentUser(uid: followingUserId, dictionary: dictionary)
+          
+          var numberOfFollowing = user.numberOfFollowing
+          numberOfFollowing += 1
+          let values = [keyNumberOfFollowing: numberOfFollowing] as [String : Any]
+          Service.database.child(pathUsers).child(followingUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
+            if let err = err {
+              print("Failed to save user info into Firebase database with error:", err)
+              return
+            }
+            print("Sucessfully saved user info to following user's database")
+            
+            Service.database.child(pathUsers).child(followedUserId).observeSingleEvent(of: .value, with: { (snapshot) in
+              guard let dictionary = snapshot.value as? [String : Any] else { return }
+              let user = CurrentUser(uid: followedUserId, dictionary: dictionary)
+              
+              var numberOfFollowers = user.numberOfFollowers
+              numberOfFollowers += 1
+              let values = [keyNumberOfFollowers: numberOfFollowers] as [String : Any]
+              Service.database.child(pathUsers).child(followedUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
+                if let err = err {
+                  print("Failed to save user info into Firebase database with error:", err)
+                  return
+                }
+                print("Sucessfully saved user info to followed user's database.")
+                
+                Service.uploadActivityItem(type: .Follow, ownerId: followedUserId, doerId: followingUserId, postId: "", message: "", creationDate: Date(), on: nil)
+                
+                let userInfo = ["userInfo" : followedUserId]
+                NotificationCenter.default.post(name: Service.notificationNameFollowedUser, object: nil, userInfo: userInfo)
+                
+                if followingUserId != currentLoggedInUserId {
+                  Service.uploadActivityItem(type: .FollowRequestAccepted, ownerId: followedUserId, doerId: followingUserId, postId: "", message: "", creationDate: Date(), on: nil)
+                }
+                
+                completion()
+              })
+              
+            })
+            
+          })
+          
+        })
+        
+      })
+      
+    }
+  }
+  
+//  static func handleUnfollowButton(with userId: String, completion: @escaping () -> ()) {
+//    
+//    guard let currentLoggedInUserId = Service.currentUserUid else { return }
+//    //    guard let userId = userId else { return }
+//    Service.database.child(pathFollowing).child(currentLoggedInUserId).child(userId).removeValue { (err, ref) in
+//      if let err = err {
+//        print("Failed to unfollow user with err:", err)
+//        return
+//      }
+//      print("Successfully unfollowed user with id:", userId)
+//      
+//      Service.database.child(pathFollowers).child(userId).removeValue(completionBlock: { (err, ref) in
+//        if let err = err {
+//          print("Failed to follow user with err:", err)
+//          return
+//        }
+//        print("Successfully removed follower id:", currentLoggedInUserId)
+//        
+//        // remove unfollowed user posts from current user feed
+//        Service.database.child(pathUserPosts).child(userId).observe(.childAdded, with: { (snapshot) in
+//          let postId = snapshot.key
+//          Service.database.child(pathUserFeed).child(currentLoggedInUserId).child(postId).removeValue()
+//        }, withCancel: { (err) in
+//          print("Failed to add followed user post into current user feed with error:", err)
+//          return
+//        })
+//        
+//        Service.database.child(pathUsers).child(currentLoggedInUserId).observeSingleEvent(of: .value, with: { (snapshot) in
+//          guard let dictionary = snapshot.value as? [String : Any] else { return }
+//          let user = CurrentUser(uid: currentLoggedInUserId, dictionary: dictionary)
+//          
+//          var numberOfFollowing = user.numberOfFollowing
+//          numberOfFollowing -= 1
+//          let values = [keyNumberOfFollowing: numberOfFollowing] as [String : Any]
+//          Service.database.child(pathUsers).child(currentLoggedInUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
+//            if let err = err {
+//              print("Failed to save user info into Firebase database with error:", err)
+//              return
+//            }
+//            print("Sucessfully saved user info to following user's database.")
+//            
+//            Service.database.child(pathUsers).child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+//              guard let dictionary = snapshot.value as? [String : Any] else { return }
+//              let user = CurrentUser(uid: userId, dictionary: dictionary)
+//              
+//              var numberOfFollowers = user.numberOfFollowers
+//              numberOfFollowers -= 1
+//              let values = [keyNumberOfFollowers: numberOfFollowers] as [String : Any]
+//              Service.database.child(pathUsers).child(userId).updateChildValues(values, withCompletionBlock: { (err, ref) in
+//                if let err = err {
+//                  print("Failed to save user info into Firebase database with error:", err)
+//                  return
+//                }
+//                print("Sucessfully saved user info to followed user's database.")
+//                
+//                let userInfo = ["userInfo" : userId]
+//                NotificationCenter.default.post(name: Service.notificationNameUnfollowedUser, object: nil, userInfo: userInfo)
+//                completion()
+//              })
+//              
+//            })
+//            
+//          })
+//          
+//        })
+//        
+//      })
+//      
+//    }
+//  }
   
   static func showHud(_ hud: JGProgressHUD, in viewController: UIViewController, text: String) {
     hud.textLabel.text = text
