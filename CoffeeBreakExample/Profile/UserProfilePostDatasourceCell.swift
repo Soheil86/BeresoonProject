@@ -12,7 +12,7 @@ class UserProfilePostDatasourceCell: DatasourceCell {
   
   lazy var imageView: CachedImageView = {
     let imageView = CachedImageView()
-    imageView.backgroundColor = Service.randomColor()
+    imageView.backgroundColor = Setup.lightGreyColor
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
     let tap = UITapGestureRecognizer(target: self, action: #selector(handleMediaImageViewTapped))
