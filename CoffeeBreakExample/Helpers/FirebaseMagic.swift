@@ -378,20 +378,28 @@ class FirebaseMagic {
     userRef.observeSingleEvent(of: .value, with: { (snapshot) in
       
       if snapshot.exists() {
-        guard let dictionaries = snapshot.value as? [String: Any] else { return }
+        guard let dictionaries = snapshot.value as? [String: Any] else {
+          completion(nil, nil)
+          return
+        }
         
         dictionaries.forEach({ (key, value) in
           if key == currentUserUid() {
+            completion(nil, nil)
             return
           }
-          guard let userDictionary = value as? [String: Any] else { return }
+          guard let userDictionary = value as? [String: Any] else {
+            completion(nil, nil)
+            return
+          }
           
           var mutableDictionary = userDictionary
           fetchUserStats(forUid: key, completion: { (userStats, err) in
-            print(userStats)
+            
             if let err = err {
               print("Failed to fetch user stats:", err)
               completion(nil, err)
+              return
             }
             if let userStats = userStats {
               mutableDictionary.update(with: userStats)
@@ -438,11 +446,13 @@ class FirebaseMagic {
         if let err = err {
           print("Failed to fetch user stats:", err)
           completion(nil, err)
+          return
         }
         if let userStats = userStats {
           mutableDictionary.update(with: userStats)
           let user = CurrentUser(uid: uid, dictionary: mutableDictionary)
           completion(user, nil)
+          return
         } else {
           print("Failed to fetch user stats.")
           completion(nil, nil)

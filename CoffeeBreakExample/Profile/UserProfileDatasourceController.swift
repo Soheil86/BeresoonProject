@@ -57,6 +57,8 @@ class UserProfileDatasourceController: DatasourceController {
     super.viewDidLoad()
     
     NotificationCenter.default.addObserver(self, selector: #selector(handleUserSharedAPost), name: Service.notificationNameUserSharedAPost, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowersButtonTapped), name: Service.notificationNameShowFollowers, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowingButtonTapped), name: Service.notificationNameShowFollowing, object: nil)
     
     datasource = userProfileDatasource
     collectionView?.refreshControl = refreshControl
@@ -121,6 +123,18 @@ class UserProfileDatasourceController: DatasourceController {
     reloadAllPosts { (result) in
       self.refreshControl.endRefreshing()
     }
+  }
+  
+  @objc fileprivate func handleFollowersButtonTapped() {
+    let controller = UserStatsDatasourceController()
+    let navController = UINavigationController(rootViewController: controller)
+    self.navigationController?.present(navController, animated: true, completion: nil)
+  }
+  
+  @objc fileprivate func handleFollowingButtonTapped() {
+    let controller = UserStatsDatasourceController()
+    let navController = UINavigationController(rootViewController: controller)
+    self.navigationController?.present(navController, animated: true, completion: nil)
   }
   
   fileprivate func deleteCurrentUserSession() {

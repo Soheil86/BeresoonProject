@@ -16,6 +16,8 @@ class Service {
   static let notificationNameUpdateSearchDatasourceController = Notification.Name(rawValue: "updateSearchDatasourceController")
   static let notificationNameFollowedUser = Notification.Name(rawValue: "followedUser")
   static let notificationNameUnfollowedUser = Notification.Name(rawValue: "unfollowedUser")
+  static let notificationNameShowFollowers = Notification.Name(rawValue: "showFollowers")
+  static let notificationNameShowFollowing = Notification.Name(rawValue: "showFollowing")
   
   static func showAlert(on: UIViewController, style: UIAlertControllerStyle, title: String?, message: String?, actions: [UIAlertAction] = [UIAlertAction(title: "Ok", style: .cancel, handler: nil)], completion: (() -> Swift.Void)? = nil) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: style)

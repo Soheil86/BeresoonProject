@@ -17,6 +17,9 @@
 		C97A139020BABBBB00AA26CF /* HomePostDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A138F20BABBBB00AA26CF /* HomePostDatasourceCell.swift */; };
 		C97A139220BACB0800AA26CF /* SearchDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139120BACB0800AA26CF /* SearchDatasource.swift */; };
 		C97A139420BACB1B00AA26CF /* SearchDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139320BACB1B00AA26CF /* SearchDatasourceCell.swift */; };
+		C97A139720BB3A9A00AA26CF /* UserStatsDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139620BB3A9A00AA26CF /* UserStatsDatasourceController.swift */; };
+		C97A139920BB3AB900AA26CF /* UserStatsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139820BB3AB900AA26CF /* UserStatsDatasource.swift */; };
+		C97A139B20BB3AD500AA26CF /* UserStatsDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139A20BB3AD500AA26CF /* UserStatsDatasourceCell.swift */; };
 		C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808020B2AB470044A6D0 /* AppDelegate.swift */; };
 		C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
 		C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
@@ -49,6 +52,9 @@
 		C97A138F20BABBBB00AA26CF /* HomePostDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePostDatasourceCell.swift; sourceTree = "<group>"; };
 		C97A139120BACB0800AA26CF /* SearchDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDatasource.swift; sourceTree = "<group>"; };
 		C97A139320BACB1B00AA26CF /* SearchDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDatasourceCell.swift; sourceTree = "<group>"; };
+		C97A139620BB3A9A00AA26CF /* UserStatsDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsDatasourceController.swift; sourceTree = "<group>"; };
+		C97A139820BB3AB900AA26CF /* UserStatsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsDatasource.swift; sourceTree = "<group>"; };
+		C97A139A20BB3AD500AA26CF /* UserStatsDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsDatasourceCell.swift; sourceTree = "<group>"; };
 		C9A1807D20B2AB470044A6D0 /* CoffeeBreakExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeBreakExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A1808020B2AB470044A6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -97,6 +103,16 @@
 				073BAAE7FDF5729E579F602C /* Pods-CoffeeBreakExample.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C97A139520BB3A5D00AA26CF /* UserStats */ = {
+			isa = PBXGroup;
+			children = (
+				C97A139620BB3A9A00AA26CF /* UserStatsDatasourceController.swift */,
+				C97A139820BB3AB900AA26CF /* UserStatsDatasource.swift */,
+				C97A139A20BB3AD500AA26CF /* UserStatsDatasourceCell.swift */,
+			);
+			path = UserStats;
 			sourceTree = "<group>";
 		};
 		C9A1807420B2AB470044A6D0 = {
@@ -194,6 +210,7 @@
 		C9A1809C20B2BD180044A6D0 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				C97A139520BB3A5D00AA26CF /* UserStats */,
 				C9A180A120B2BDC50044A6D0 /* UserProfileDatasourceController.swift */,
 				C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */,
 				C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */,
@@ -353,6 +370,7 @@
 				C9A180B520B2EE980044A6D0 /* ForgotPasswordController.swift in Sources */,
 				C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */,
 				C978CF4F20B44E0D003863AF /* UserProfilePostDatasourceCell.swift in Sources */,
+				C97A139920BB3AB900AA26CF /* UserStatsDatasource.swift in Sources */,
 				C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */,
 				C97A139220BACB0800AA26CF /* SearchDatasource.swift in Sources */,
 				C978CF7320B59035003863AF /* SharePostViewController.swift in Sources */,
@@ -361,9 +379,11 @@
 				C9A180A420B2BE1D0044A6D0 /* DummyAddPostViewController.swift in Sources */,
 				C9A1809820B2B33A0044A6D0 /* HomeDatasourceController.swift in Sources */,
 				C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */,
+				C97A139B20BB3AD500AA26CF /* UserStatsDatasourceCell.swift in Sources */,
 				C978CF4D20B44DFE003863AF /* UserProfileDatasource.swift in Sources */,
 				C9A180B120B2DFE80044A6D0 /* Extensions.swift in Sources */,
 				C97A138E20BABBAD00AA26CF /* HomeDatasource.swift in Sources */,
+				C97A139720BB3A9A00AA26CF /* UserStatsDatasourceController.swift in Sources */,
 				C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */,
 				C9A1809320B2B1A10044A6D0 /* Service.swift in Sources */,
 				C9A1809E20B2BD560044A6D0 /* SearchDatasourceController.swift in Sources */,

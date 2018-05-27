@@ -51,7 +51,7 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
   }()
   
   @objc func handleFollowersButtonTapped() {
-    
+    NotificationCenter.default.post(name: Service.notificationNameShowFollowers, object: nil, userInfo: nil)
   }
   
   lazy var followingButton: UIButton = {
@@ -67,7 +67,7 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
   }()
   
   @objc func handleFollowingButtonTapped() {
-    
+    NotificationCenter.default.post(name: Service.notificationNameShowFollowing, object: nil, userInfo: nil)
   }
   
   lazy var userStatsStackView: UIStackView = {
