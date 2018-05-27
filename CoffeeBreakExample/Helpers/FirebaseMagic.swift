@@ -418,17 +418,23 @@ class FirebaseMagic {
         completion(nil, nil)
         return
       }
-      
+      var mutableDictionary = dictionary
       fetchUserStats(forUid: uid, completion: { (userStats, err) in
         if let err = err {
           print("Failed to fetch user stats:", err)
           completion(nil, err)
         }
+        if let userStats = userStats {
+          mutableDictionary.update(with: userStats)
+          let user = CurrentUser(uid: uid, dictionary: mutableDictionary)
+          completion(user, nil)
+        } else {
+          print("Failed to fetch user stats.")
+          completion(nil, nil)
+        }
         
       })
       
-      let user = CurrentUser(uid: uid, dictionary: dictionary)
-      completion(user, nil)
     }) { (err) in
       print("Failed to fetch user:", err)
       completion(nil, err)

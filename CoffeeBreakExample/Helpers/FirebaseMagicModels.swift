@@ -16,7 +16,7 @@ let keyProfileImage = "profileImage"
 let keyProfileImageUrl = "profileImageUrl"
 
 let keyFollowersCount = "followersCount"
-let keyFollowingCount = "nfollowingCount"
+let keyFollowingCount = "followingCount"
 let keyPostsCount = "postsCount"
 
 let keyId = "id"
@@ -33,9 +33,9 @@ struct CurrentUser {
   let profileImageUrl: String
   let email: String
   
-  let followersCount: Int
-  let followingCount: Int
-  let postsCount: Int
+  let followersCount: UInt
+  let followingCount: UInt
+  let postsCount: UInt
   
   init(uid: String, dictionary: [String : Any]) {
     self.uid = uid
@@ -44,9 +44,9 @@ struct CurrentUser {
     self.profileImageUrl = dictionary[keyProfileImageUrl] as? String ?? ""
     self.email = dictionary[keyEmail] as? String ?? ""
     
-    self.followersCount = dictionary[keyFollowersCount] as? Int ?? 0
-    self.followingCount = dictionary[keyFollowingCount] as? Int ?? 0
-    self.postsCount = dictionary[keyPostsCount] as? Int ?? 0
+    self.followersCount = dictionary[keyFollowersCount] as? UInt ?? 0
+    self.followingCount = dictionary[keyFollowingCount] as? UInt ?? 0
+    self.postsCount = dictionary[keyPostsCount] as? UInt ?? 0
   }
 }
 
