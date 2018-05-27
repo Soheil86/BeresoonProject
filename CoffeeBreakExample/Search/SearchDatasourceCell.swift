@@ -83,14 +83,14 @@ class SearchDatasourceCell: DatasourceCell {
   }
   
   func setupUnfollowStyle() {
-    NotificationCenter.default.post(name: Service.notificationNameFollowedUser, object: nil, userInfo: nil)
+//    NotificationCenter.default.post(name: Service.notificationNameFollowedUser, object: nil, userInfo: nil)
     followUnfollowButton.isEnabled = true
     followUnfollowButton.setTitle("UNFOLLOW", for: .normal)
     followUnfollowButton.setTitleColor(UIColor(r: 255, g: 45, b: 85), for: .normal)
   }
   
   func setupFollowStyle() {
-    NotificationCenter.default.post(name: Service.notificationNameUnfollowedUser, object: nil, userInfo: nil)
+//    NotificationCenter.default.post(name: Service.notificationNameUnfollowedUser, object: nil, userInfo: nil)
     followUnfollowButton.isEnabled = true
     followUnfollowButton.setTitle("FOLLOW", for: .normal)
     followUnfollowButton.setTitleColor(Setup.blueColor, for: .normal)

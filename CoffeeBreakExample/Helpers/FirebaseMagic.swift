@@ -37,6 +37,11 @@ class FirebaseMagic {
     case onUserProfile = 1
   }
   
+  enum StatFetchType: Int {
+    case followers = 0
+    case following = 1
+  }
+  
   static var fetchedPosts = [Post]()
   static var fetchedPostsCurrentKey: String?
   static let paginationElementsLimitPosts: UInt = 3
@@ -44,6 +49,14 @@ class FirebaseMagic {
   static var fetchedUserPosts = [Post]()
   static var fetchedUserPostsCurrentKey: String?
   static let paginationElementsLimitUserPosts: UInt = 12
+  
+  static var fetchedFollowerUsers = [CurrentUser]()
+  static var fetchedFollowerUsersCurrentKey: String?
+  static let paginationElementsLimitFollowerUsers: UInt = 3
+  
+  static var fetchedFollowingUsers = [CurrentUser]()
+  static var fetchedFollowingUsersCurrentKey: String?
+  static let paginationElementsLimitFollowingUsers: UInt = 3
   
   static var searchUsersFetchLimit = 10
   
@@ -806,6 +819,155 @@ class FirebaseMagic {
         
       })
       
+    }
+  }
+  
+  static func fetchUserStats(forUid uid: String?, fetchType: StatFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
+    guard let uid = uid else {
+      completion(false, nil)
+      return
+    }
+    print("Started fetching \(fetchType) for current user with id:", uid)
+    
+    if  (fetchType == .followers ? fetchedFollowerUsersCurrentKey : fetchedFollowingUsersCurrentKey) == nil {
+      // initial pull
+      let ref = fetchType == .followers ? Database_UserFollowers : Database_UserFollowing
+      ref.child(uid).queryLimited(toLast: fetchType == .followers ? paginationElementsLimitFollowerUsers : paginationElementsLimitFollowingUsers).observeSingleEvent(of: .value, with: { (snapshot) in
+        
+        if snapshot.childrenCount == 0 {
+          print("No follower / following users to fetch for current user.")
+          completion(false, nil)
+        }
+        
+        guard let allObjects = snapshot.children.allObjects as? [DataSnapshot], let first = snapshot.children.allObjects.first as? DataSnapshot else {
+          completion(false, nil)
+          return
+        }
+        
+        allObjects.forEach({ (snapshot) in
+          let uid = snapshot.key
+          fetchUserStats(withUid: uid, fetchType: fetchType, in: collectionViewController, completion: { (result, err) in
+            if let err = err {
+              completion(result, err)
+            } else if result == false {
+              completion(result, err)
+            }
+            // not completing when (true, nil) because of pagination
+          })
+        })
+        
+        if fetchType == .followers {
+          fetchedFollowerUsersCurrentKey = first.key
+        } else {
+          fetchedFollowingUsersCurrentKey = first.key
+        }
+        
+        completion(true, nil)
+      }) { (err) in
+        print("Failed to query current user follower / following users:", err)
+        completion(false, err)
+      }
+      
+    } else {
+      // paginate here
+      let ref = fetchType == .followers ? Database_UserFollowers : Database_UserFollowing
+      ref.child(uid).queryOrderedByKey().queryEnding(atValue: fetchType == .followers ? fetchedFollowerUsersCurrentKey : fetchedFollowingUsersCurrentKey).queryLimited(toLast: fetchType == .followers ? paginationElementsLimitFollowerUsers : paginationElementsLimitFollowingUsers).observeSingleEvent(of: .value, with: { (snapshot) in
+        
+        if snapshot.childrenCount == 0 {
+          print("No follower / following users to fetch for current user.")
+          completion(false, nil)
+        }
+        
+        guard let allObjects = snapshot.children.allObjects as? [DataSnapshot], let first = snapshot.children.allObjects.first as? DataSnapshot else {
+          completion(false, nil)
+          return
+        }
+        
+        allObjects.forEach({ (snapshot) in
+          
+          if snapshot.key != (fetchType == .followers ? fetchedFollowerUsersCurrentKey : fetchedFollowingUsersCurrentKey) {
+            let uid = snapshot.key
+            fetchUserStats(withUid: uid, fetchType: fetchType, in: collectionViewController, completion: { (result, err) in
+              if let err = err {
+                completion(result, err)
+              } else if result == false {
+                completion(result, err)
+              }
+              // not completing when (true, nil) because of pagination
+            })
+          }
+          
+        })
+        
+        if fetchType == .followers {
+          fetchedFollowerUsersCurrentKey = first.key
+        } else {
+          fetchedFollowingUsersCurrentKey = first.key
+        }
+        
+        completion(true, nil)
+      }) { (err) in
+        print("Failed to query and paginate current user follower / following users:", err)
+        completion(false, err)
+      }
+    }
+    
+  }
+  
+  fileprivate static func fetchUserStats(withUid uid: String, fetchType: StatFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
+    
+    if uid == currentUserUid() {
+      completion(false, nil)
+      return
+    }
+    
+    fetchUser(withUid: uid, fetchType: fetchType) { (user, err) in
+      if let err = err {
+        completion(false, err)
+        return
+      }
+      guard let user = user else {
+        completion(false, nil)
+        return
+      }
+      
+      switch fetchType {
+      case .followers:
+        fetchedFollowerUsers.insert(user, at: 0)
+//        self.fetchedFollowerUsers.sort(by: { (p1, p2) -> Bool in
+//          return p1.creationDate.compare(p2.creationDate) == .orderedDescending
+//        })
+      case .following:
+        fetchedFollowingUsers.insert(user, at: 0)
+//        self.fetchedFollowingUsers.sort(by: { (p1, p2) -> Bool in
+//          return p1.creationDate.compare(p2.creationDate) == .orderedDescending
+//        })
+      }
+      
+      collectionViewController.collectionView?.reloadData()
+      print("Fetched current user followers / following.")
+      
+      completion(true, nil)
+    }
+  }
+  
+  fileprivate static func fetchUser(withUid uid: String, fetchType: StatFetchType, completion: @escaping(_ user: CurrentUser?, _ error: Error?) -> ()) {
+    let ref = fetchType == .followers ? Database_UserFollowers : Database_UserFollowing
+    ref.child(uid).observeSingleEvent(of: .value) { (snapshot) in
+      let ownerUid = snapshot.key
+      
+      fetchUser(withUid: ownerUid, completion: { (user, err) in
+        if let err = err {
+          completion(nil, err)
+        }
+        
+        guard let user = user else {
+          completion(nil, nil)
+          return
+        }
+        
+        completion(user, nil)
+      })
     }
   }
   

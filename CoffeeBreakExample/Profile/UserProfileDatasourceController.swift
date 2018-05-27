@@ -53,12 +53,26 @@ class UserProfileDatasourceController: DatasourceController {
     }
   }
   
+  @objc fileprivate func handleFollowedUser() {
+    userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
+      print("Reloaded user stats after user has followed.")
+    }
+  }
+  
+  @objc fileprivate func handleUnfollowedUser() {
+    userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
+      print("Reloaded user stats after user has unfollowed.")
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     NotificationCenter.default.addObserver(self, selector: #selector(handleUserSharedAPost), name: Service.notificationNameUserSharedAPost, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(handleFollowersButtonTapped), name: Service.notificationNameShowFollowers, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(handleFollowingButtonTapped), name: Service.notificationNameShowFollowing, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowedUser), name: Service.notificationNameFollowedUser, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleUnfollowedUser), name: Service.notificationNameUnfollowedUser, object: nil)
     
     datasource = userProfileDatasource
     collectionView?.refreshControl = refreshControl
@@ -127,12 +141,14 @@ class UserProfileDatasourceController: DatasourceController {
   
   @objc fileprivate func handleFollowersButtonTapped() {
     let controller = UserStatsDatasourceController()
+    controller.statsType = .followers
     let navController = UINavigationController(rootViewController: controller)
     self.navigationController?.present(navController, animated: true, completion: nil)
   }
   
   @objc fileprivate func handleFollowingButtonTapped() {
     let controller = UserStatsDatasourceController()
+    controller.statsType = .following
     let navController = UINavigationController(rootViewController: controller)
     self.navigationController?.present(navController, animated: true, completion: nil)
   }

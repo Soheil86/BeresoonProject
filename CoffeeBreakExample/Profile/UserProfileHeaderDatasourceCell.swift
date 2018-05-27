@@ -132,7 +132,7 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
       attributedTitle3.append(NSMutableAttributedString(string: "posts", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black]))
       postsButton.setAttributedTitle(attributedTitle3, for: .normal)
       
-      let numberOfFollowers = user.followersCount
+      let numberOfFollowers = user.followersCount - 1 // removing self
       let attributedTitle = NSMutableAttributedString(string: "\(numberOfFollowers)\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black])
       attributedTitle.append(NSMutableAttributedString(string: "followers", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.black]))
       followersButton.setAttributedTitle(attributedTitle, for: .normal)

@@ -10,32 +10,29 @@ import LBTAComponents
 
 class UserStatsDatasource: Datasource {
   
-  var users = [CurrentUser]()
+  var statsType: FirebaseMagic.StatFetchType = .followers
   
   override func cellClasses() -> [DatasourceCell.Type] {
     return [UserStatsDatasourceCell.self]
   }
   
   override func item(_ indexPath: IndexPath) -> Any? {
-    return users[indexPath.item]
+    switch statsType {
+    case FirebaseMagic.StatFetchType.followers:
+      return FirebaseMagic.fetchedFollowerUsers[indexPath.item]
+    case FirebaseMagic.StatFetchType.following:
+      return FirebaseMagic.fetchedFollowingUsers[indexPath.item]
+    }
+    
   }
   
   override func numberOfItems(_ section: Int) -> Int {
-    return users.count
+    switch statsType {
+    case FirebaseMagic.StatFetchType.followers:
+      return FirebaseMagic.fetchedFollowerUsers.count
+    case FirebaseMagic.StatFetchType.following:
+      return FirebaseMagic.fetchedFollowingUsers.count
+    }
   }
-  
-//  func filterUsersWith(_ searchText: String, in collectionViewController: UICollectionViewController) {
-//    if searchText.isEmpty {
-//      filteredUsers = users
-//      collectionViewController.collectionView?.reloadData()
-//    } else {
-//      // MARK: FirebaseMagic - fetch filtered users with count limit
-//      FirebaseMagic.fetchUser(withUsername: searchText, limitedToFirst: FirebaseMagic.searchUsersFetchLimit) { (users, err) in
-//        guard let users = users else { return }
-//        self.filteredUsers = users
-//        collectionViewController.collectionView?.reloadData()
-//      }
-//    }
-//  }
   
 }

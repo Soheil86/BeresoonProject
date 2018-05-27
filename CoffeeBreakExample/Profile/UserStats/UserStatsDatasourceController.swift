@@ -7,9 +7,11 @@
 //
 
 import LBTAComponents
+import JGProgressHUD
 
 class UserStatsDatasourceController: DatasourceController, UISearchBarDelegate {
   
+  var statsType: FirebaseMagic.StatFetchType = .followers
   let userStatsDatasource = UserStatsDatasource()
   
   lazy var backBarButtonItem: UIBarButtonItem = {
@@ -29,11 +31,39 @@ class UserStatsDatasourceController: DatasourceController, UISearchBarDelegate {
     collectionView?.showsVerticalScrollIndicator = false
     guard let navBar = navigationController?.navigationBar else { return }
     navBar.barTintColor = .white
-    navigationItem.title = "Following"
+    navigationItem.title = statsType == .followers ? "Followers" : "Following"
     navigationItem.setLeftBarButton(backBarButtonItem, animated: false)
     
     datasource = userStatsDatasource
+    userStatsDatasource.statsType = statsType
     
+    fetchUsers(fetchType: statsType) { (result) in
+      print("Fetched \(self.statsType) with result:", result)
+    }
+    
+  }
+  
+  fileprivate func fetchUsers(fetchType: FirebaseMagic.StatFetchType, completion: @escaping (_ result: Bool) -> ()) {
+    // MARK: FirebaseMagic - Fetch user followers
+    let hud = JGProgressHUD(style: .light)
+    FirebaseMagic.showHud(hud, in: self, text: "Fetching user \(fetchType)...")
+    FirebaseMagic.fetchUserStats(forUid: FirebaseMagic.currentUserUid(), fetchType: fetchType, in: self) { (result, err) in
+      if let err = err {
+        print("Failed to fetch user \(fetchType) with err:", err)
+        hud.dismiss(animated: true)
+        Service.showAlert(onCollectionViewController: self, style: .alert, title: "Fetch error", message: "Failed to fetch user \(fetchType) with err: \(err)")
+        completion(false)
+        return
+      } else if result == false {
+        hud.textLabel.text = "Something went wrong..."
+        hud.dismiss(afterDelay: 1, animated: true)
+        completion(false)
+        return
+      }
+      print("Successfully fetched user \(fetchType)")
+      hud.dismiss(animated: true)
+      completion(true)
+    }
   }
   
   @objc func handleUpdateSearchDatasourceController() {

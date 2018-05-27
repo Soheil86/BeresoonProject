@@ -51,13 +51,6 @@ class HomeDatasourceController: DatasourceController {
     
     clearPosts()
     
-//    homeDatasource.fetchCurrentUser(in: self) { (currentUser) in
-//      self.navigationItem.title = currentUser.username
-//      self.fetchPosts(completion: { (result) in
-//        print("Fetched post with result:", result)
-//      })
-//    }
-    
     fetchPosts { (result) in
       print("Fetched posts with result:", result)
     }

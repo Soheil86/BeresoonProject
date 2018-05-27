@@ -14,4 +14,5 @@ class Setup {
   static let greyColor = UIColor(r: 160, g: 160, b: 160)
   static let lightGreyColor = UIColor(r: 190, g: 190, b: 190)
   static let blueColor = UIColor(r: 0, g: 122, b: 255)
+  static let redColor = UIColor(r: 255, g: 45, b: 85)
 }
