@@ -56,25 +56,41 @@ class SearchDatasourceCell: DatasourceCell {
       
       // MARK: FirebaseMagic - Follow user
       guard let currentLoggedInUserId = FirebaseMagic.currentUserUid() else { return }
-      Service.handleFollowButton(followingUserId: currentLoggedInUserId, followedUserId: user.uid) {
-        self.setupUnfollowStyle()
+      FirebaseMagic.handleFollowButton(followingUserId: currentLoggedInUserId, followedUserId: user.uid) { (result, err) in
+        if let err = err {
+          print("Failed to follow with error:", err)
+        } else if result == false {
+          print("Failed to follow.")
+        }
+        if !self.followUnfollowButton.isEnabled {
+          self.setupUnfollowStyle()
+        }
       }
       
     } else if followUnfollowButton.titleLabel?.text == "UNFOLLOW" {
       followUnfollowButton.isEnabled = false
-//      Service.handleUnfollowButton(with: user.uid, completion: {
-//        self.setupFollowStyle()
-//      })
+      FirebaseMagic.handleUnfollowButton(with: user.uid) { (result, err) in
+        if let err = err {
+          print("Failed to unfollow with error:", err)
+        } else if result == false {
+          print("Failed to unfollow.")
+        }
+        if !self.followUnfollowButton.isEnabled {
+          self.setupFollowStyle()
+        }
+      }
     }
   }
   
   func setupUnfollowStyle() {
+    NotificationCenter.default.post(name: Service.notificationNameFollowedUser, object: nil, userInfo: nil)
     followUnfollowButton.isEnabled = true
     followUnfollowButton.setTitle("UNFOLLOW", for: .normal)
     followUnfollowButton.setTitleColor(UIColor(r: 255, g: 45, b: 85), for: .normal)
   }
   
   func setupFollowStyle() {
+    NotificationCenter.default.post(name: Service.notificationNameUnfollowedUser, object: nil, userInfo: nil)
     followUnfollowButton.isEnabled = true
     followUnfollowButton.setTitle("FOLLOW", for: .normal)
     followUnfollowButton.setTitleColor(Setup.blueColor, for: .normal)
@@ -101,8 +117,10 @@ class SearchDatasourceCell: DatasourceCell {
     FirebaseMagic.isCurrentUserFollowing(userId: userId) { (result) in
       guard let result = result else { return }
       if result {
+        self.followUnfollowButton.setTitle("FOLLOW", for: .normal)
         self.setupUnfollowStyle()
       } else {
+        self.followUnfollowButton.setTitle("UNFOLLOW", for: .normal)
         self.setupFollowStyle()
       }
     }

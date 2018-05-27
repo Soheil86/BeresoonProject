@@ -535,12 +535,13 @@ class FirebaseMagic {
       completion(false, nil)
       return
     }
-    print("Started fetching posts for current user with id:", uid)
+    print("Started fetching (\(fetchType)) posts for current user with id:", uid)
 
     if  (fetchType == .onHome ? fetchedPostsCurrentKey : fetchedUserPostsCurrentKey) == nil {
       // initial pull
-      Database_UserPosts.child(uid).queryLimited(toLast: fetchType == .onHome ? paginationElementsLimitPosts : paginationElementsLimitUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
-
+      let ref = fetchType == .onHome ? Database_UserFeed : Database_UserPosts
+      ref.child(uid).queryLimited(toLast: fetchType == .onHome ? paginationElementsLimitPosts : paginationElementsLimitUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
+        
         if snapshot.childrenCount == 0 {
           print("No posts to fetch for user.")
           completion(false, nil)
@@ -577,7 +578,8 @@ class FirebaseMagic {
 
     } else {
       // paginate here
-      Database_UserPosts.child(uid).queryOrderedByKey().queryEnding(atValue: fetchType == .onHome ? fetchedPostsCurrentKey : fetchedUserPostsCurrentKey).queryLimited(toLast: fetchType == .onHome ? paginationElementsLimitPosts : paginationElementsLimitUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
+      let ref = fetchType == .onHome ? Database_UserFeed : Database_UserPosts
+      ref.child(uid).queryOrderedByKey().queryEnding(atValue: fetchType == .onHome ? fetchedPostsCurrentKey : fetchedUserPostsCurrentKey).queryLimited(toLast: fetchType == .onHome ? paginationElementsLimitPosts : paginationElementsLimitUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
         
         if snapshot.childrenCount == 0 {
           print("No posts to fetch for user.")
@@ -621,7 +623,7 @@ class FirebaseMagic {
   }
   
   fileprivate static func fetchUserPost(withPostId postId: String, fetchType: PostFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
-
+    
     fetchPost(withPostId: postId) { (post, err) in
       if let err = err {
         completion(false, err)
@@ -654,8 +656,10 @@ class FirebaseMagic {
   
   fileprivate static func fetchPost(withPostId postId: String, completion: @escaping(_ post: Post?, _ error: Error?) -> ()) {
     Database_Posts.child(postId).observeSingleEvent(of: .value) { (snapshot) in
-      guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
-      guard let ownerUid = dictionary[keyOwnerId] as? String else { return }
+      guard let dictionary = snapshot.value as? Dictionary<String, AnyObject>, let ownerUid = dictionary[keyOwnerId] as? String else {
+        completion(nil, nil)
+        return
+      }
 
       fetchUser(withUid: ownerUid, completion: { (user, err) in
         if let err = err {
@@ -690,15 +694,13 @@ class FirebaseMagic {
     })
   }
   
-  static func handleFollowButton(followingUserId: String, followedUserId: String, completion: @escaping () -> ()) {
+  static func handleFollowButton(followingUserId: String, followedUserId: String, completion: @escaping (_ result: Bool?, _ error: Error?) -> ()) {
     
-    guard let currentLoggedInUserId = currentUserUid() else { return }
-    
-    let ref = Database_UserFollowing.child(followingUserId)
     let values = [followedUserId: 1]
-    ref.updateChildValues(values) { (err, ref) in
+    Database_UserFollowing.child(followingUserId).updateChildValues(values) { (err, ref) in
       if let err = err {
         print("Failed to follow user with err:", err)
+        completion(nil, err)
         return
       }
       print("Successfully followed user with id:", followedUserId)
@@ -707,6 +709,7 @@ class FirebaseMagic {
       Database_UserFollowers.child(followedUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
         if let err = err {
           print("Failed to follow user with err:", err)
+          completion(nil, err)
           return
         }
         print("Successfully saved new follower id:", followingUserId)
@@ -714,56 +717,21 @@ class FirebaseMagic {
         // add followed user post into current user feed
         Database_UserPosts.child(followedUserId).observe(.childAdded, with: { (snapshot) in
           let postId = snapshot.key
-          Database_UserFeed.child(followingUserId).updateChildValues([postId: 1])
-        }, withCancel: { (err) in
-          print("Failed to add followed user post into current user feed with error:", err)
-          return
-        })
-        
-        Service.database.child(pathUsers).child(followingUserId).observeSingleEvent(of: .value, with: { (snapshot) in
-          guard let dictionary = snapshot.value as? [String : Any] else { return }
-          let user = CurrentUser(uid: followingUserId, dictionary: dictionary)
-          
-          var numberOfFollowing = user.numberOfFollowing
-          numberOfFollowing += 1
-          let values = [keyNumberOfFollowing: numberOfFollowing] as [String : Any]
-          Service.database.child(pathUsers).child(followingUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
+          let values = [postId: 1]
+          Database_UserFeed.child(followingUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
             if let err = err {
-              print("Failed to save user info into Firebase database with error:", err)
+              print("Failed to add followed user post into current user feed with error:", err)
+              completion(nil, err)
               return
             }
-            print("Sucessfully saved user info to following user's database")
             
-            Service.database.child(pathUsers).child(followedUserId).observeSingleEvent(of: .value, with: { (snapshot) in
-              guard let dictionary = snapshot.value as? [String : Any] else { return }
-              let user = CurrentUser(uid: followedUserId, dictionary: dictionary)
-              
-              var numberOfFollowers = user.numberOfFollowers
-              numberOfFollowers += 1
-              let values = [keyNumberOfFollowers: numberOfFollowers] as [String : Any]
-              Service.database.child(pathUsers).child(followedUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
-                if let err = err {
-                  print("Failed to save user info into Firebase database with error:", err)
-                  return
-                }
-                print("Sucessfully saved user info to followed user's database.")
-                
-                Service.uploadActivityItem(type: .Follow, ownerId: followedUserId, doerId: followingUserId, postId: "", message: "", creationDate: Date(), on: nil)
-                
-                let userInfo = ["userInfo" : followedUserId]
-                NotificationCenter.default.post(name: Service.notificationNameFollowedUser, object: nil, userInfo: userInfo)
-                
-                if followingUserId != currentLoggedInUserId {
-                  Service.uploadActivityItem(type: .FollowRequestAccepted, ownerId: followedUserId, doerId: followingUserId, postId: "", message: "", creationDate: Date(), on: nil)
-                }
-                
-                completion()
-              })
-              
-            })
+            completion(true, nil)
             
           })
-          
+        }, withCancel: { (err) in
+          print("Failed to observe followed with error:", err)
+          completion(nil, err)
+          return
         })
         
       })
@@ -771,76 +739,44 @@ class FirebaseMagic {
     }
   }
   
-//  static func handleUnfollowButton(with userId: String, completion: @escaping () -> ()) {
-//    
-//    guard let currentLoggedInUserId = Service.currentUserUid else { return }
-//    //    guard let userId = userId else { return }
-//    Service.database.child(pathFollowing).child(currentLoggedInUserId).child(userId).removeValue { (err, ref) in
-//      if let err = err {
-//        print("Failed to unfollow user with err:", err)
-//        return
-//      }
-//      print("Successfully unfollowed user with id:", userId)
-//      
-//      Service.database.child(pathFollowers).child(userId).removeValue(completionBlock: { (err, ref) in
-//        if let err = err {
-//          print("Failed to follow user with err:", err)
-//          return
-//        }
-//        print("Successfully removed follower id:", currentLoggedInUserId)
-//        
-//        // remove unfollowed user posts from current user feed
-//        Service.database.child(pathUserPosts).child(userId).observe(.childAdded, with: { (snapshot) in
-//          let postId = snapshot.key
-//          Service.database.child(pathUserFeed).child(currentLoggedInUserId).child(postId).removeValue()
-//        }, withCancel: { (err) in
-//          print("Failed to add followed user post into current user feed with error:", err)
-//          return
-//        })
-//        
-//        Service.database.child(pathUsers).child(currentLoggedInUserId).observeSingleEvent(of: .value, with: { (snapshot) in
-//          guard let dictionary = snapshot.value as? [String : Any] else { return }
-//          let user = CurrentUser(uid: currentLoggedInUserId, dictionary: dictionary)
-//          
-//          var numberOfFollowing = user.numberOfFollowing
-//          numberOfFollowing -= 1
-//          let values = [keyNumberOfFollowing: numberOfFollowing] as [String : Any]
-//          Service.database.child(pathUsers).child(currentLoggedInUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
-//            if let err = err {
-//              print("Failed to save user info into Firebase database with error:", err)
-//              return
-//            }
-//            print("Sucessfully saved user info to following user's database.")
-//            
-//            Service.database.child(pathUsers).child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
-//              guard let dictionary = snapshot.value as? [String : Any] else { return }
-//              let user = CurrentUser(uid: userId, dictionary: dictionary)
-//              
-//              var numberOfFollowers = user.numberOfFollowers
-//              numberOfFollowers -= 1
-//              let values = [keyNumberOfFollowers: numberOfFollowers] as [String : Any]
-//              Service.database.child(pathUsers).child(userId).updateChildValues(values, withCompletionBlock: { (err, ref) in
-//                if let err = err {
-//                  print("Failed to save user info into Firebase database with error:", err)
-//                  return
-//                }
-//                print("Sucessfully saved user info to followed user's database.")
-//                
-//                let userInfo = ["userInfo" : userId]
-//                NotificationCenter.default.post(name: Service.notificationNameUnfollowedUser, object: nil, userInfo: userInfo)
-//                completion()
-//              })
-//              
-//            })
-//            
-//          })
-//          
-//        })
-//        
-//      })
-//      
-//    }
-//  }
+  static func handleUnfollowButton(with userId: String, completion: @escaping (_ result: Bool?, _ error: Error?) -> ()) {
+    
+    guard let currentLoggedInUserId = currentUserUid() else {
+      completion(false, nil)
+      return
+    }
+    Database_UserFollowing.child(currentLoggedInUserId).child(userId).removeValue { (err, ref) in
+      if let err = err {
+        print("Failed to unfollow user with err:", err)
+        completion(false, err)
+        return
+      }
+      print("Successfully unfollowed user with id:", userId)
+      
+      Database_UserFollowers.child(userId).removeValue(completionBlock: { (err, ref) in
+        if let err = err {
+          print("Failed to follow user with err:", err)
+          completion(false, err)
+          return
+        }
+        print("Successfully removed follower id:", currentLoggedInUserId)
+        
+        // remove unfollowed user posts from current user feed
+        Database_UserPosts.child(userId).observe(.childAdded, with: { (snapshot) in
+          let postId = snapshot.key
+          Database_UserFeed.child(currentLoggedInUserId).child(postId).removeValue()
+        }, withCancel: { (err) in
+          print("Failed to remove followed user post into current user feed with error:", err)
+          completion(false, err)
+          return
+        })
+        
+        completion(true, nil)
+        
+      })
+      
+    }
+  }
   
   static func showHud(_ hud: JGProgressHUD, in viewController: UIViewController, text: String) {
     hud.textLabel.text = text

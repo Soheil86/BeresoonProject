@@ -25,10 +25,24 @@ class HomeDatasourceController: DatasourceController {
     }
   }
   
+  @objc fileprivate func handleFollowedUser() {
+    reloadAllPosts { (result) in
+      print("Reloaded posts after user has followed with result:", result)
+    }
+  }
+  
+  @objc fileprivate func handleUnfollowedUser() {
+    reloadAllPosts { (result) in
+      print("Reloaded posts after user has unfollowed with result:", result)
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     NotificationCenter.default.addObserver(self, selector: #selector(handleUserSharedAPost), name: Service.notificationNameUserSharedAPost, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowedUser), name: Service.notificationNameFollowedUser, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleUnfollowedUser), name: Service.notificationNameUnfollowedUser, object: nil)
     
     datasource = homeDatasource
     collectionView?.refreshControl = refreshControl
