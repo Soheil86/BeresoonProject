@@ -38,7 +38,7 @@ class FirebaseMagic {
   
   static var fetchedUserPosts = [Post]()
   static var fetchedUserPostsCurrentKey: String?
-  static let paginationElementsLimitUserPosts: UInt = 3
+  static let paginationElementsLimitUserPosts: UInt = 12
   
   static func start() {
     FirebaseApp.configure()
