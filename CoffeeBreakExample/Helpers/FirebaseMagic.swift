@@ -385,18 +385,33 @@ class FirebaseMagic {
             return
           }
           guard let userDictionary = value as? [String: Any] else { return }
-          let user = CurrentUser(uid: key, dictionary: userDictionary)
           
-          let isContained = filteredUsers.contains(where: { (containedUser) -> Bool in
-            return user.uid == containedUser.uid
+          var mutableDictionary = userDictionary
+          fetchUserStats(forUid: key, completion: { (userStats, err) in
+            print(userStats)
+            if let err = err {
+              print("Failed to fetch user stats:", err)
+              completion(nil, err)
+            }
+            if let userStats = userStats {
+              mutableDictionary.update(with: userStats)
+              let user = CurrentUser(uid: key, dictionary: mutableDictionary)
+              let isContained = filteredUsers.contains(where: { (containedUser) -> Bool in
+                return user.uid == containedUser.uid
+              })
+              if !isContained {
+                filteredUsers.append(user)
+              }
+              print("Filtered users:", filteredUsers)
+              completion(filteredUsers, nil)
+            } else {
+              print("Failed to fetch user stats.")
+              completion(nil, nil)
+            }
+            
           })
-          if !isContained {
-            filteredUsers.append(user)
-          }
           
         })
-        print("Filtered users:", filteredUsers)
-        completion(filteredUsers, nil)
       } else {
         print("No users available")
         completion(nil, nil)
