@@ -91,7 +91,7 @@ class UserProfileDatasourceController: DatasourceController {
     // MARK: FirebaseMagic - Fetch user posts
     let hud = JGProgressHUD(style: .light)
     FirebaseMagic.showHud(hud, in: self, text: "Fetching user posts...")
-    FirebaseMagic.fetchUserPosts(forUid: FirebaseMagic.currentUserUid(), in: self, completion: { (result, err) in
+    FirebaseMagic.fetchUserPosts(forUid: FirebaseMagic.currentUserUid(), fetchType: .onUserProfile, in: self, completion: { (result, err) in
       if let err = err {
         print("Failed to fetch user posts with err:", err)
         hud.dismiss(animated: true)
@@ -145,7 +145,7 @@ class UserProfileDatasourceController: DatasourceController {
   }
   
   override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let width = (ScreenSize.width - 1) / 2
+    let width = (ScreenSize.width - 2) / 3
     return CGSize(width: width, height: width)
   }
   

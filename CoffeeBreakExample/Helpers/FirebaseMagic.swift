@@ -32,6 +32,11 @@ class FirebaseMagic {
   
   static let CurrentUserUid = Auth.auth().currentUser?.uid
   
+  enum PostFetchType: Int {
+    case onHome = 0
+    case onUserProfile = 1
+  }
+  
   static var fetchedPosts = [Post]()
   static var fetchedPostsCurrentKey: String?
   static let paginationElementsLimitPosts: UInt = 3
@@ -523,16 +528,16 @@ class FirebaseMagic {
     }
   }
   
-  static func fetchUserPosts(forUid uid: String?, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
+  static func fetchUserPosts(forUid uid: String?, fetchType: PostFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
     guard let uid = uid else {
       completion(false, nil)
       return
     }
     print("Started fetching posts for current user with id:", uid)
 
-    if fetchedUserPostsCurrentKey == nil {
+    if  (fetchType == .onHome ? fetchedPostsCurrentKey : fetchedUserPostsCurrentKey) == nil {
       // initial pull
-      Database_UserPosts.child(uid).queryLimited(toLast: paginationElementsLimitUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
+      Database_UserPosts.child(uid).queryLimited(toLast: fetchType == .onHome ? paginationElementsLimitPosts : paginationElementsLimitUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
 
         if snapshot.childrenCount == 0 {
           print("No posts to fetch for user.")
@@ -546,7 +551,7 @@ class FirebaseMagic {
         
         allObjects.forEach({ (snapshot) in
           let postId = snapshot.key
-          fetchUserPost(withPostId: postId, in: collectionViewController, completion: { (result, err) in
+          fetchUserPost(withPostId: postId, fetchType: fetchType, in: collectionViewController, completion: { (result, err) in
             if let err = err {
               completion(result, err)
             } else if result == false {
@@ -555,8 +560,13 @@ class FirebaseMagic {
             // not completing when (true, nil) because of pagination
           })
         })
-
-        fetchedUserPostsCurrentKey = first.key
+        
+        if fetchType == .onHome {
+          fetchedPostsCurrentKey = first.key
+        } else {
+          fetchedUserPostsCurrentKey = first.key
+        }
+        
         completion(true, nil)
       }) { (err) in
         print("Failed to query current user posts: ", err)
@@ -565,7 +575,7 @@ class FirebaseMagic {
 
     } else {
       // paginate here
-      Database_UserPosts.child(uid).queryOrderedByKey().queryEnding(atValue: fetchedUserPostsCurrentKey).queryLimited(toLast: paginationElementsLimitUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
+      Database_UserPosts.child(uid).queryOrderedByKey().queryEnding(atValue: fetchType == .onHome ? fetchedPostsCurrentKey : fetchedUserPostsCurrentKey).queryLimited(toLast: fetchType == .onHome ? paginationElementsLimitPosts : paginationElementsLimitUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
         
         if snapshot.childrenCount == 0 {
           print("No posts to fetch for user.")
@@ -579,9 +589,9 @@ class FirebaseMagic {
 
         allObjects.forEach({ (snapshot) in
 
-          if snapshot.key != fetchedUserPostsCurrentKey {
+          if snapshot.key != (fetchType == .onHome ? fetchedPostsCurrentKey : fetchedUserPostsCurrentKey) {
             let postId = snapshot.key
-            fetchUserPost(withPostId: postId, in: collectionViewController, completion: { (result, err) in
+            fetchUserPost(withPostId: postId, fetchType: fetchType, in: collectionViewController, completion: { (result, err) in
               if let err = err {
                 completion(result, err)
               } else if result == false {
@@ -593,7 +603,12 @@ class FirebaseMagic {
 
         })
 
-        fetchedUserPostsCurrentKey = first.key
+        if fetchType == .onHome {
+          fetchedPostsCurrentKey = first.key
+        } else {
+          fetchedUserPostsCurrentKey = first.key
+        }
+        
         completion(true, nil)
       }) { (err) in
         print("Failed to query and paginate current user: ", err)
@@ -603,7 +618,7 @@ class FirebaseMagic {
 
   }
   
-  fileprivate static func fetchUserPost(withPostId postId: String, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
+  fileprivate static func fetchUserPost(withPostId postId: String, fetchType: PostFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
 
     fetchPost(withPostId: postId) { (post, err) in
       if let err = err {
@@ -614,11 +629,20 @@ class FirebaseMagic {
         completion(false, nil)
         return
       }
-      fetchedUserPosts.insert(post, at: 0)
-      self.fetchedUserPosts.sort(by: { (p1, p2) -> Bool in
-        return p1.creationDate.compare(p2.creationDate) == .orderedDescending
-      })
-
+      
+      switch fetchType {
+      case .onHome:
+        fetchedPosts.insert(post, at: 0)
+        self.fetchedPosts.sort(by: { (p1, p2) -> Bool in
+          return p1.creationDate.compare(p2.creationDate) == .orderedDescending
+        })
+      case .onUserProfile:
+        fetchedUserPosts.insert(post, at: 0)
+        self.fetchedUserPosts.sort(by: { (p1, p2) -> Bool in
+          return p1.creationDate.compare(p2.creationDate) == .orderedDescending
+        })
+      }
+      
       collectionViewController.collectionView?.reloadData()
       print("Fetched current user post with id:", postId)
       

@@ -13,6 +13,8 @@
 		C978CF5120B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */; };
 		C978CF5320B450CD003863AF /* FirebaseMagicModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */; };
 		C978CF7320B59035003863AF /* SharePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF7220B59035003863AF /* SharePostViewController.swift */; };
+		C97A138E20BABBAD00AA26CF /* HomeDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A138D20BABBAD00AA26CF /* HomeDatasource.swift */; };
+		C97A139020BABBBB00AA26CF /* HomePostDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A138F20BABBBB00AA26CF /* HomePostDatasourceCell.swift */; };
 		C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808020B2AB470044A6D0 /* AppDelegate.swift */; };
 		C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
 		C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 		C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderDatasourceCell.swift; sourceTree = "<group>"; };
 		C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMagicModels.swift; sourceTree = "<group>"; };
 		C978CF7220B59035003863AF /* SharePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePostViewController.swift; sourceTree = "<group>"; };
+		C97A138D20BABBAD00AA26CF /* HomeDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDatasource.swift; sourceTree = "<group>"; };
+		C97A138F20BABBBB00AA26CF /* HomePostDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePostDatasourceCell.swift; sourceTree = "<group>"; };
 		C9A1807D20B2AB470044A6D0 /* CoffeeBreakExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeBreakExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A1808020B2AB470044A6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				C9A1809720B2B33A0044A6D0 /* HomeDatasourceController.swift */,
+				C97A138D20BABBAD00AA26CF /* HomeDatasource.swift */,
+				C97A138F20BABBBB00AA26CF /* HomePostDatasourceCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -343,11 +349,13 @@
 				C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */,
 				C978CF7320B59035003863AF /* SharePostViewController.swift in Sources */,
 				C978CF5320B450CD003863AF /* FirebaseMagicModels.swift in Sources */,
+				C97A139020BABBBB00AA26CF /* HomePostDatasourceCell.swift in Sources */,
 				C9A180A420B2BE1D0044A6D0 /* DummyAddPostViewController.swift in Sources */,
 				C9A1809820B2B33A0044A6D0 /* HomeDatasourceController.swift in Sources */,
 				C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */,
 				C978CF4D20B44DFE003863AF /* UserProfileDatasource.swift in Sources */,
 				C9A180B120B2DFE80044A6D0 /* Extensions.swift in Sources */,
+				C97A138E20BABBAD00AA26CF /* HomeDatasource.swift in Sources */,
 				C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */,
 				C9A1809320B2B1A10044A6D0 /* Service.swift in Sources */,
 				C9A1809E20B2BD560044A6D0 /* SearchDatasourceController.swift in Sources */,
