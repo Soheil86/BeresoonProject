@@ -86,7 +86,7 @@
 		C97A139820BB3AB900AA26CF /* UserStatsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsDatasource.swift; sourceTree = "<group>"; };
 		C97A139A20BB3AD500AA26CF /* UserStatsDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsDatasourceCell.swift; sourceTree = "<group>"; };
 		C97A13F020BC0E6A00AA26CF /* CoffeeBreakExample Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CoffeeBreakExample Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C97A13F120BC0E6B00AA26CF /* CoffeeBreakExample copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CoffeeBreakExample copy2-Info.plist"; path = "/Users/rebeloper/Desktop/CoffeeBreakResources/CoffeeBreakExample/CoffeeBreakExample copy2-Info.plist"; sourceTree = "<absolute>"; };
+		C97A13F120BC0E6B00AA26CF /* Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Dev-Info.plist"; path = "/Users/rebeloper/Desktop/CoffeeBreakResources/CoffeeBreakExample/Dev-Info.plist"; sourceTree = "<absolute>"; };
 		C9A1807D20B2AB470044A6D0 /* CoffeeBreakExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeBreakExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A1808020B2AB470044A6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -162,7 +162,6 @@
 				C9A1807E20B2AB470044A6D0 /* Products */,
 				B68EDBAF2E531E1FF092417D /* Pods */,
 				1893F3C89396F4F09817E705 /* Frameworks */,
-				C97A13F120BC0E6B00AA26CF /* CoffeeBreakExample copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -208,6 +207,7 @@
 				C9A1808720B2AB490044A6D0 /* Assets.xcassets */,
 				C9A1808920B2AB490044A6D0 /* LaunchScreen.storyboard */,
 				C9A1808C20B2AB490044A6D0 /* Info.plist */,
+				C97A13F120BC0E6B00AA26CF /* Dev-Info.plist */,
 				C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */,
 			);
 			path = Setup;
@@ -563,7 +563,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R252PR8AVU;
-				INFOPLIST_FILE = "CoffeeBreakExample copy2-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -583,7 +583,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R252PR8AVU;
-				INFOPLIST_FILE = "CoffeeBreakExample copy2-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
