@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Override point for customization after application launch.
     
     // MARK: FirebaseMagic - Start
-    FirebaseMagic.start(in: .development)
+    FirebaseMagic.start()
     
     IQKeyboardManager.shared.enable = true
     
