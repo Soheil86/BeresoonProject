@@ -155,6 +155,30 @@
 			path = UserStats;
 			sourceTree = "<group>";
 		};
+		C97A13F220BC296300AA26CF /* FirebaseMagic */ = {
+			isa = PBXGroup;
+			children = (
+				C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */,
+				C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */,
+			);
+			path = FirebaseMagic;
+			sourceTree = "<group>";
+		};
+		C97A13F320BC299400AA26CF /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				C9A1809620B2B3010044A6D0 /* Main */,
+				C9A180A920B2DE410044A6D0 /* Onboard */,
+				C9A1809420B2B2BE0044A6D0 /* Home */,
+				C9A1809920B2BCEE0044A6D0 /* Search */,
+				C9A1809A20B2BD020044A6D0 /* AddPost */,
+				C9A1809B20B2BD0F0044A6D0 /* Activity */,
+				C9A1809C20B2BD180044A6D0 /* Profile */,
+				C9A180B820B304590044A6D0 /* Helpers */,
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
 		C9A1807420B2AB470044A6D0 = {
 			isa = PBXGroup;
 			children = (
@@ -178,14 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				C9A1809520B2B2D00044A6D0 /* Setup */,
-				C9A180B820B304590044A6D0 /* Helpers */,
-				C9A1809620B2B3010044A6D0 /* Main */,
-				C9A180A920B2DE410044A6D0 /* Onboard */,
-				C9A1809420B2B2BE0044A6D0 /* Home */,
-				C9A1809920B2BCEE0044A6D0 /* Search */,
-				C9A1809A20B2BD020044A6D0 /* AddPost */,
-				C9A1809B20B2BD0F0044A6D0 /* Activity */,
-				C9A1809C20B2BD180044A6D0 /* Profile */,
+				C97A13F320BC299400AA26CF /* Code */,
 			);
 			path = CoffeeBreakExample;
 			sourceTree = "<group>";
@@ -203,6 +220,7 @@
 		C9A1809520B2B2D00044A6D0 /* Setup */ = {
 			isa = PBXGroup;
 			children = (
+				C97A13F220BC296300AA26CF /* FirebaseMagic */,
 				C9A180AC20B2DEA80044A6D0 /* Setup.swift */,
 				C9A1808720B2AB490044A6D0 /* Assets.xcassets */,
 				C9A1808920B2AB490044A6D0 /* LaunchScreen.storyboard */,
@@ -274,8 +292,6 @@
 		C9A180B820B304590044A6D0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */,
-				C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */,
 				C9A1809220B2B1A10044A6D0 /* Service.swift */,
 				C9A180B020B2DFE80044A6D0 /* Extensions.swift */,
 			);
