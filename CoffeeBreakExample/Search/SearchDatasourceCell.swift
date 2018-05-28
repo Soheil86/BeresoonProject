@@ -83,17 +83,23 @@ class SearchDatasourceCell: DatasourceCell {
   }
   
   func setupUnfollowStyle() {
-//    NotificationCenter.default.post(name: Service.notificationNameFollowedUser, object: nil, userInfo: nil)
-    followUnfollowButton.isEnabled = true
-    followUnfollowButton.setTitle("UNFOLLOW", for: .normal)
-    followUnfollowButton.setTitleColor(UIColor(r: 255, g: 45, b: 85), for: .normal)
+    NotificationCenter.default.post(name: Service.notificationNameFollowedUser, object: nil, userInfo: nil)
+    DispatchQueue.main.async {
+      
+      self.followUnfollowButton.isEnabled = true
+      self.followUnfollowButton.setTitle("UNFOLLOW", for: .normal)
+      self.followUnfollowButton.setTitleColor(Setup.redColor, for: .normal)
+    }
   }
   
   func setupFollowStyle() {
-//    NotificationCenter.default.post(name: Service.notificationNameUnfollowedUser, object: nil, userInfo: nil)
-    followUnfollowButton.isEnabled = true
-    followUnfollowButton.setTitle("FOLLOW", for: .normal)
-    followUnfollowButton.setTitleColor(Setup.blueColor, for: .normal)
+    NotificationCenter.default.post(name: Service.notificationNameUnfollowedUser, object: nil, userInfo: nil)
+    DispatchQueue.main.async {
+      
+      self.followUnfollowButton.isEnabled = true
+      self.followUnfollowButton.setTitle("FOLLOW", for: .normal)
+      self.followUnfollowButton.setTitleColor(Setup.blueColor, for: .normal)
+    }
   }
   
   let dividerView: UIView = {

@@ -573,9 +573,16 @@ class FirebaseMagic {
       })
     }
   }
-  
+  static var currentlyFetchingPosts = false
   static func fetchUserPosts(forUid uid: String?, fetchType: PostFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
+    if currentlyFetchingPosts {
+      completion(false, nil)
+      return
+    }
+    currentlyFetchingPosts = true
+    
     guard let uid = uid else {
+      currentlyFetchingPosts = false
       completion(false, nil)
       return
     }
@@ -588,10 +595,12 @@ class FirebaseMagic {
         
         if snapshot.childrenCount == 0 {
           print("No posts to fetch for user.")
+          currentlyFetchingPosts = false
           completion(false, nil)
         }
 
         guard let allObjects = snapshot.children.allObjects as? [DataSnapshot], let first = snapshot.children.allObjects.first as? DataSnapshot else {
+          currentlyFetchingPosts = false
           completion(false, nil)
           return
         }
@@ -600,8 +609,10 @@ class FirebaseMagic {
           let postId = snapshot.key
           fetchUserPost(withPostId: postId, fetchType: fetchType, in: collectionViewController, completion: { (result, err) in
             if let err = err {
+              currentlyFetchingPosts = false
               completion(result, err)
             } else if result == false {
+              currentlyFetchingPosts = false
               completion(result, err)
             }
             // not completing when (true, nil) because of pagination
@@ -614,9 +625,11 @@ class FirebaseMagic {
           fetchedUserPostsCurrentKey = first.key
         }
         
+        currentlyFetchingPosts = false
         completion(true, nil)
       }) { (err) in
         print("Failed to query current user posts: ", err)
+        currentlyFetchingPosts = false
         completion(false, err)
       }
 
@@ -627,10 +640,12 @@ class FirebaseMagic {
         
         if snapshot.childrenCount == 0 {
           print("No posts to fetch for user.")
+          currentlyFetchingPosts = false
           completion(false, nil)
         }
 
         guard let allObjects = snapshot.children.allObjects as? [DataSnapshot], let first = snapshot.children.allObjects.first as? DataSnapshot else {
+          currentlyFetchingPosts = false
           completion(false, nil)
           return
         }
@@ -641,8 +656,10 @@ class FirebaseMagic {
             let postId = snapshot.key
             fetchUserPost(withPostId: postId, fetchType: fetchType, in: collectionViewController, completion: { (result, err) in
               if let err = err {
+                currentlyFetchingPosts = false
                 completion(result, err)
               } else if result == false {
+                currentlyFetchingPosts = false
                 completion(result, err)
               }
               // not completing when (true, nil) because of pagination
@@ -657,9 +674,11 @@ class FirebaseMagic {
           fetchedUserPostsCurrentKey = first.key
         }
         
+        currentlyFetchingPosts = false
         completion(true, nil)
       }) { (err) in
         print("Failed to query and paginate current user: ", err)
+        currentlyFetchingPosts = false
         completion(false, err)
       }
     }
