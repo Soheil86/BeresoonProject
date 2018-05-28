@@ -105,10 +105,6 @@ class HomeDatasourceController: DatasourceController {
     }
   }
   
-  fileprivate func deleteCurrentUserSession() {
-    
-  }
-  
   override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
     
     // MARK: FirebaseMagic - Trigger pagination when last item will be displayed

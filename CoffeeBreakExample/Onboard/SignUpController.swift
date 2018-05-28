@@ -115,34 +115,6 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     return tf
   }()
   
-  let orTextLabel: UILabel = {
-    let label = UILabel()
-    label.numberOfLines = 0
-    label.text = "- or -"
-    label.textAlignment = .center
-    label.font = UIFont.boldSystemFont(ofSize: 13)
-    label.textColor = Setup.greyColor
-    return label
-  }()
-  
-  let facebookButton: UIButton = {
-    let button = UIButton(type: .system)
-    let attributedTitle = NSMutableAttributedString(string: "Facebook", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor: UIColor.white])
-    button.setAttributedTitle(attributedTitle, for: .normal)
-    button.backgroundColor = UIColor(r: 88, g: 86, b: 214)
-    button.setImage(#imageLiteral(resourceName: "FacebookButton").withRenderingMode(.alwaysTemplate), for: .normal)
-    button.tintColor = .white
-    button.contentMode = .scaleAspectFit
-    button.layer.masksToBounds = true
-    button.layer.cornerRadius = 7
-    button.addTarget(self, action: #selector(handleFacebookButtonTapped), for: .touchUpInside)
-    return button
-  }()
-  
-  @objc func handleFacebookButtonTapped() {
-    
-  }
-  
   let loginButton: UIButton = {
     let button = UIButton(type: .system)
     let attributedTitle = NSMutableAttributedString(string: "Already have an account?  ", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: Setup.lightGreyColor])

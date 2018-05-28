@@ -17,7 +17,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
     view.backgroundColor = .white
     self.delegate = self
     
-    // MARK: FirebaseMagic - check if user is signed in
+    // MARK: FirebaseMagic - Check if user is signed in
     let hud = JGProgressHUD(style: .light)
     FirebaseMagic.showHud(hud, in: self, text: "Loading...")
     FirebaseMagic.checkIfUserIsSignedIn { (result) in

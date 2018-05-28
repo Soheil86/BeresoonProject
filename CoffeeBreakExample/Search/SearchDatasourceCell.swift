@@ -50,7 +50,7 @@ class SearchDatasourceCell: DatasourceCell {
     if followUnfollowButton.titleLabel?.text == "FOLLOW" {
       followUnfollowButton.isEnabled = false
       
-      // MARK: FirebaseMagic - Follow user
+      // MARK: FirebaseMagic - Follow / Unfollow user
       guard let currentLoggedInUserId = FirebaseMagic.currentUserUid() else { return }
       FirebaseMagic.handleFollowButton(followingUserId: currentLoggedInUserId, followedUserId: user.uid) { (result, err) in
         if let err = err {
