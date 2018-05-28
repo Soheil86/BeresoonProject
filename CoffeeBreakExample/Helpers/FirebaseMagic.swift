@@ -13,22 +13,29 @@ import JGProgressHUD
 
 class FirebaseMagic {
   
-//  // for testing
-//  static let Database_Users = Database.database().reference().child("test").child("users")
-//  static let Database_Usernames = Database.database().reference().child("test").child("usernames")
-//  static let Storage_ProfileImages = Storage.storage().reference().child("test").child("profile_images")
+  // for development
+//  static let Database_Users = Database.database().reference().child("dev").child("users")
+//  static let Database_Usernames = Database.database().reference().child("dev").child("usernames")
+//  static let Database_Posts = Database.database().reference().child("dev").child("posts")
+//  static let Database_UserPosts = Database.database().reference().child("dev").child("userPosts")
+//  static let Database_UserFeed = Database.database().reference().child("dev").child("userFeed")
+//  static let Database_UserFollowers = Database.database().reference().child("dev").child("userFollowers")
+//  static let Database_UserFollowing = Database.database().reference().child("dev").child("userFollowing")
+//
+//  static let Storage_ProfileImages = Storage.storage().reference().child("dev").child("profile_images")
+//  static let Storage_PostImages = Storage.storage().reference().child("dev").child("post_images")
   
-  // for live
-  static let Database_Users = Database.database().reference().child("users")
-  static let Database_Usernames = Database.database().reference().child("usernames")
-  static let Database_Posts = Database.database().reference().child("posts")
-  static let Database_UserPosts = Database.database().reference().child("userPosts")
-  static let Database_UserFeed = Database.database().reference().child("userFeed")
-  static let Database_UserFollowers = Database.database().reference().child("userFollowers")
-  static let Database_UserFollowing = Database.database().reference().child("userFollowing")
+  // for production
+  static let Database_Users = Database.database().reference().child("prod").child("users")
+  static let Database_Usernames = Database.database().reference().child("prod").child("usernames")
+  static let Database_Posts = Database.database().reference().child("prod").child("posts")
+  static let Database_UserPosts = Database.database().reference().child("prod").child("userPosts")
+  static let Database_UserFeed = Database.database().reference().child("prod").child("userFeed")
+  static let Database_UserFollowers = Database.database().reference().child("prod").child("userFollowers")
+  static let Database_UserFollowing = Database.database().reference().child("prod").child("userFollowing")
   
-  static let Storage_ProfileImages = Storage.storage().reference().child("profile_images")
-  static let Storage_PostImages = Storage.storage().reference().child("post_images")
+  static let Storage_ProfileImages = Storage.storage().reference().child("prod").child("profile_images")
+  static let Storage_PostImages = Storage.storage().reference().child("prod").child("post_images")
   
   static let CurrentUserUid = Auth.auth().currentUser?.uid
   
@@ -41,6 +48,8 @@ class FirebaseMagic {
     case followers = 0
     case following = 1
   }
+  
+  static var currentlyFetchingPosts = false
   
   static var fetchedPosts = [Post]()
   static var fetchedPostsCurrentKey: String?
@@ -573,7 +582,7 @@ class FirebaseMagic {
       })
     }
   }
-  static var currentlyFetchingPosts = false
+  
   static func fetchUserPosts(forUid uid: String?, fetchType: PostFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
     if currentlyFetchingPosts {
       completion(false, nil)
