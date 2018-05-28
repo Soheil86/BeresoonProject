@@ -13,29 +13,16 @@ import JGProgressHUD
 
 class FirebaseMagic {
   
-  // for development
-//  static let Database_Users = Database.database().reference().child("dev").child("users")
-//  static let Database_Usernames = Database.database().reference().child("dev").child("usernames")
-//  static let Database_Posts = Database.database().reference().child("dev").child("posts")
-//  static let Database_UserPosts = Database.database().reference().child("dev").child("userPosts")
-//  static let Database_UserFeed = Database.database().reference().child("dev").child("userFeed")
-//  static let Database_UserFollowers = Database.database().reference().child("dev").child("userFollowers")
-//  static let Database_UserFollowing = Database.database().reference().child("dev").child("userFollowing")
-//
-//  static let Storage_ProfileImages = Storage.storage().reference().child("dev").child("profile_images")
-//  static let Storage_PostImages = Storage.storage().reference().child("dev").child("post_images")
+  static let Database_Users = Database.database().reference().child(environment.rawValue).child("users")
+  static let Database_Usernames = Database.database().reference().child(environment.rawValue).child("usernames")
+  static let Database_Posts = Database.database().reference().child(environment.rawValue).child("posts")
+  static let Database_UserPosts = Database.database().reference().child(environment.rawValue).child("userPosts")
+  static let Database_UserFeed = Database.database().reference().child(environment.rawValue).child("userFeed")
+  static let Database_UserFollowers = Database.database().reference().child(environment.rawValue).child("userFollowers")
+  static let Database_UserFollowing = Database.database().reference().child(environment.rawValue).child("userFollowing")
   
-  // for production
-  static let Database_Users = Database.database().reference().child("prod").child("users")
-  static let Database_Usernames = Database.database().reference().child("prod").child("usernames")
-  static let Database_Posts = Database.database().reference().child("prod").child("posts")
-  static let Database_UserPosts = Database.database().reference().child("prod").child("userPosts")
-  static let Database_UserFeed = Database.database().reference().child("prod").child("userFeed")
-  static let Database_UserFollowers = Database.database().reference().child("prod").child("userFollowers")
-  static let Database_UserFollowing = Database.database().reference().child("prod").child("userFollowing")
-  
-  static let Storage_ProfileImages = Storage.storage().reference().child("prod").child("profile_images")
-  static let Storage_PostImages = Storage.storage().reference().child("prod").child("post_images")
+  static let Storage_ProfileImages = Storage.storage().reference().child(environment.rawValue).child("profile_images")
+  static let Storage_PostImages = Storage.storage().reference().child(environment.rawValue).child("post_images")
   
   static let CurrentUserUid = Auth.auth().currentUser?.uid
   
@@ -48,6 +35,14 @@ class FirebaseMagic {
     case followers = 0
     case following = 1
   }
+  
+  enum Environment: String {
+    case development = "development"
+    case production = "production"
+    case none = "none"
+  }
+  
+  static var environment: Environment = .none
   
   static var currentlyFetchingPosts = false
   
@@ -69,8 +64,10 @@ class FirebaseMagic {
   
   static var searchUsersFetchLimit = 10
   
-  static func start() {
+  static func start(in environment: Environment) {
+    self.environment = environment
     FirebaseApp.configure()
+    print("Started FirebaseMagic in environment: \(environment)")
   }
   
   static func checkIfUserIsSignedIn(completion: @escaping (_ result: Bool) ->()) {
