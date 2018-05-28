@@ -221,9 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				C97A13F220BC296300AA26CF /* FirebaseMagic */,
-				C9A180AC20B2DEA80044A6D0 /* Setup.swift */,
 				C9A1808720B2AB490044A6D0 /* Assets.xcassets */,
-				C9A1808920B2AB490044A6D0 /* LaunchScreen.storyboard */,
 				C9A1808C20B2AB490044A6D0 /* Info.plist */,
 				C97A13F120BC0E6B00AA26CF /* Dev-Info.plist */,
 				C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */,
@@ -234,6 +232,7 @@
 		C9A1809620B2B3010044A6D0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				C9A1808920B2AB490044A6D0 /* LaunchScreen.storyboard */,
 				C9A1808020B2AB470044A6D0 /* AppDelegate.swift */,
 				C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */,
 			);
@@ -292,6 +291,7 @@
 		C9A180B820B304590044A6D0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C9A180AC20B2DEA80044A6D0 /* Setup.swift */,
 				C9A1809220B2B1A10044A6D0 /* Service.swift */,
 				C9A180B020B2DFE80044A6D0 /* Extensions.swift */,
 			);
