@@ -18,7 +18,6 @@ class SharePostViewController: UIViewController {
     var iv = CachedImageView()
     iv.backgroundColor = Setup.lightGreyColor
     iv.contentMode = .scaleAspectFill
-//    iv.layer.cornerRadius = profileImageViewHeight / 2
     iv.clipsToBounds = true
     iv.layer.borderColor = Setup.greyColor.cgColor
     iv.layer.borderWidth = 0.5

@@ -26,7 +26,7 @@ class UserProfileDatasource: Datasource {
   }
   
   override func item(_ indexPath: IndexPath) -> Any? {
-    // MARK: FirebaseMagic - insert item
+    // MARK: FirebaseMagic - Insert item
     if indexPath.item < FirebaseMagic.fetchedUserPosts.count {
       return FirebaseMagic.fetchedUserPosts[indexPath.item]
     } else {
@@ -35,7 +35,7 @@ class UserProfileDatasource: Datasource {
   }
   
   override func numberOfItems(_ section: Int) -> Int {
-    // MARK: FirebaseMagic - number of items
+    // MARK: FirebaseMagic - Number of items
     return FirebaseMagic.fetchedUserPosts.count
   }
   

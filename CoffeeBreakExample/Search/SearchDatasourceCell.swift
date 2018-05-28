@@ -17,14 +17,11 @@ class SearchDatasourceCell: DatasourceCell {
     iv.contentMode = .scaleAspectFill
     iv.layer.cornerRadius = profileImageViewHeight / 2
     iv.clipsToBounds = true
-    //    iv.layer.borderColor = UIColor.white.cgColor
-    //    iv.layer.borderWidth = 3
     return iv
   }()
   
   let usernameLabel: UILabel = {
     let label = UILabel()
-    //    label.text = "Hollywood Studios"
     label.font = UIFont.systemFont(ofSize: 16)
     label.textColor = UIColor.black
     return label
@@ -32,7 +29,6 @@ class SearchDatasourceCell: DatasourceCell {
   
   let postsCountLabel: UILabel = {
     let label = UILabel()
-    //    label.text = "Hollywood Studios"
     label.font = UIFont.systemFont(ofSize: 14)
     label.textColor = UIColor.gray
     return label
