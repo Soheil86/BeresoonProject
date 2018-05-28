@@ -13,6 +13,8 @@ import JGProgressHUD
 
 class FirebaseMagic {
   
+  // MARK: -
+  // MARK: Firebase Database paths
   static let Database_Users = Database.database().reference().child(environment.rawValue).child("users")
   static let Database_Usernames = Database.database().reference().child(environment.rawValue).child("usernames")
   static let Database_Posts = Database.database().reference().child(environment.rawValue).child("posts")
@@ -21,11 +23,31 @@ class FirebaseMagic {
   static let Database_UserFollowers = Database.database().reference().child(environment.rawValue).child("userFollowers")
   static let Database_UserFollowing = Database.database().reference().child(environment.rawValue).child("userFollowing")
   
+  // MARK: -
+  // MARK: Firebase Storage paths
   static let Storage_ProfileImages = Storage.storage().reference().child(environment.rawValue).child("profile_images")
   static let Storage_PostImages = Storage.storage().reference().child(environment.rawValue).child("post_images")
   
-  static let CurrentUserUid = Auth.auth().currentUser?.uid
+  // MARK: -
+  // MARK: Fetched containers
+  static var fetchedPosts = [Post]()
+  static var fetchedPostsCurrentKey: String?
+  static let paginationElementsLimitPosts: UInt = 3
   
+  static var fetchedUserPosts = [Post]()
+  static var fetchedUserPostsCurrentKey: String?
+  static let paginationElementsLimitUserPosts: UInt = 12
+  
+  static var fetchedFollowerUsers = [CurrentUser]()
+  static var fetchedFollowerUsersCurrentKey: String?
+  static let paginationElementsLimitFollowerUsers: UInt = 12
+  
+  static var fetchedFollowingUsers = [CurrentUser]()
+  static var fetchedFollowingUsersCurrentKey: String?
+  static let paginationElementsLimitFollowingUsers: UInt = 12
+  
+  // MARK: -
+  // MARK: Enums
   enum PostFetchType: Int {
     case onHome = 0
     case onUserProfile = 1
@@ -42,28 +64,14 @@ class FirebaseMagic {
     case none = "none"
   }
   
+  // MARK: -
+  // MARK: Miscellaneous
   static var environment: Environment = .none
-  
   static var currentlyFetchingPosts = false
-  
-  static var fetchedPosts = [Post]()
-  static var fetchedPostsCurrentKey: String?
-  static let paginationElementsLimitPosts: UInt = 3
-  
-  static var fetchedUserPosts = [Post]()
-  static var fetchedUserPostsCurrentKey: String?
-  static let paginationElementsLimitUserPosts: UInt = 12
-  
-  static var fetchedFollowerUsers = [CurrentUser]()
-  static var fetchedFollowerUsersCurrentKey: String?
-  static let paginationElementsLimitFollowerUsers: UInt = 3
-  
-  static var fetchedFollowingUsers = [CurrentUser]()
-  static var fetchedFollowingUsersCurrentKey: String?
-  static let paginationElementsLimitFollowingUsers: UInt = 3
-  
   static var searchUsersFetchLimit = 10
-  
+
+  // MARK: -
+  // MARK: Start
   static func start() {
     #if DEVELOPMENT
     self.environment = .development
@@ -74,6 +82,8 @@ class FirebaseMagic {
     FirebaseApp.configure()
   }
   
+  // MARK: -
+  // MARK: Check for Start
   fileprivate static func hasFirebaseMagicBeenStarted() -> Bool {
     if environment == .none {
       print("FirebaseMagic configuration error. Please use 'FirebaseMagic.start()' in your AppDelegate's 'application(_ didFinishLaunchingWithOptions)' function.")
@@ -83,6 +93,15 @@ class FirebaseMagic {
     }
   }
   
+  // MARK: -
+  // MARK: Current user uid
+  static func currentUserUid() -> String? {
+    if !hasFirebaseMagicBeenStarted() { return nil }
+    return Auth.auth().currentUser?.uid
+  }
+  
+  // MARK: -
+  // MARK: Check signed in user
   static func checkIfUserIsSignedIn(completion: @escaping (_ result: Bool) ->()) {
     if !hasFirebaseMagicBeenStarted() { return }
     if Auth.auth().currentUser == nil {
@@ -92,6 +111,8 @@ class FirebaseMagic {
     }
   }
   
+  // MARK: -
+  // MARK: Logout
   static func logout(completion: @escaping (_ error: Error?) ->()) {
     if !hasFirebaseMagicBeenStarted() { return }
     do {
@@ -103,6 +124,8 @@ class FirebaseMagic {
     }
   }
   
+  // MARK: -
+  // MARK: Reset password
   static func resetPassword(withUsernameOrEmail usernameOrEmail: String?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     if !hasFirebaseMagicBeenStarted() { return }
     guard let usernameOrEmail = usernameOrEmail else {
@@ -152,6 +175,8 @@ class FirebaseMagic {
     }
   }
   
+  // MARK: -
+  // MARK: Sign in
   static func signIn(withUsernameOrEmail usernameOrEmail: String?, password: String?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     if !hasFirebaseMagicBeenStarted() { return }
     guard let usernameOrEmail = usernameOrEmail, let password = password else {
@@ -207,6 +232,8 @@ class FirebaseMagic {
     }
   }
   
+  // MARK: -
+  // MARK: Sign up
   static func signUpUserWithEmail(in viewController: UIViewController, userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     if !hasFirebaseMagicBeenStarted() { return }
     guard let username = userCredentials[keyUsername] as? String else {
@@ -279,6 +306,8 @@ class FirebaseMagic {
     }
   }
   
+  // MARK: -
+  // MARK: Save user into Firebase
   fileprivate static func saveUserIntoFirebase(user: User?, userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     guard let user = user,
       let email = user.email,
@@ -332,6 +361,8 @@ class FirebaseMagic {
     
   }
   
+  // MARK: -
+  // MARK: Firebase Actions
   fileprivate static func updateUserValues(forCurrentUserUid currentUserUid: String, with dictionary: [String : Any], username: String, email: String,  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     
     updateValues(atPath: Database_Users.child(currentUserUid), with: dictionary, completion: { (result, err) in
@@ -406,6 +437,8 @@ class FirebaseMagic {
     }
   }
   
+  // MARK: -
+  // MARK: Fetch user
   static func fetchUser(withUsername username: String, limitedToFirst: Int, completion: @escaping (_ users: [CurrentUser]?, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     var filteredUsers: [CurrentUser] = []
@@ -466,11 +499,6 @@ class FirebaseMagic {
       print("Failed to fetch users:", err)
       completion(nil, err)
     }
-  }
-  
-  static func currentUserUid() -> String? {
-    if !hasFirebaseMagicBeenStarted() { return nil }
-    return Auth.auth().currentUser?.uid
   }
   
   static func fetchUser(withUid uid: String, completion: @escaping (_ user: CurrentUser?, _ error: Error?) -> ()) {
@@ -536,6 +564,8 @@ class FirebaseMagic {
     })
   }
   
+  // MARK: -
+  // MARK: Share post
   static func sharePost(withCaption caption: String, image: UIImage, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     if !hasFirebaseMagicBeenStarted() { return }
     saveImage(image, atPath: Storage_PostImages) { (imageUrl, result, err) in
@@ -601,6 +631,8 @@ class FirebaseMagic {
     }
   }
   
+  // MARK: -
+  // MARK: Fetch user posts
   static func fetchUserPosts(forUid uid: String?, fetchType: PostFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     if currentlyFetchingPosts {
@@ -768,6 +800,8 @@ class FirebaseMagic {
     }
   }
   
+  // MARK: -
+  // MARK: Follow / unfollow
   static func isCurrentUserFollowing(userId: String, completion: @escaping (Bool?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     guard let currentLoggedInUserId = currentUserUid() else { completion(nil); return }
@@ -870,6 +904,8 @@ class FirebaseMagic {
     }
   }
   
+  // MARK: -
+  // MARK: Fetch user stats
   static func fetchUserStats(forUid uid: String?, fetchType: StatFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     guard let uid = uid else {
@@ -1020,6 +1056,8 @@ class FirebaseMagic {
     }
   }
   
+  // MARK: -
+  // MARK: Show hud
   static func showHud(_ hud: JGProgressHUD, in viewController: UIViewController, text: String) {
     if !hasFirebaseMagicBeenStarted() { return }
     hud.textLabel.text = text
