@@ -50,6 +50,8 @@
 		C97A13E920BC0E6A00AA26CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */; };
 		C97A13EA20BC0E6A00AA26CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808920B2AB490044A6D0 /* LaunchScreen.storyboard */; };
 		C97A13EB20BC0E6A00AA26CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
+		C97A13F520BD200B00AA26CF /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C97A13F420BD200B00AA26CF /* Dev-Info.plist */; };
+		C97A13F620BD200B00AA26CF /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C97A13F420BD200B00AA26CF /* Dev-Info.plist */; };
 		C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808020B2AB470044A6D0 /* AppDelegate.swift */; };
 		C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
 		C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
@@ -86,7 +88,7 @@
 		C97A139820BB3AB900AA26CF /* UserStatsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsDatasource.swift; sourceTree = "<group>"; };
 		C97A139A20BB3AD500AA26CF /* UserStatsDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsDatasourceCell.swift; sourceTree = "<group>"; };
 		C97A13F020BC0E6A00AA26CF /* CoffeeBreakExample Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CoffeeBreakExample Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C97A13F120BC0E6B00AA26CF /* Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Dev-Info.plist"; path = "/Users/rebeloper/Desktop/CoffeeBreakResources/CoffeeBreakExample/Dev-Info.plist"; sourceTree = "<absolute>"; };
+		C97A13F420BD200B00AA26CF /* Dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Dev-Info.plist"; sourceTree = "<group>"; };
 		C9A1807D20B2AB470044A6D0 /* CoffeeBreakExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeBreakExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A1808020B2AB470044A6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -223,7 +225,7 @@
 				C97A13F220BC296300AA26CF /* FirebaseMagic */,
 				C9A1808720B2AB490044A6D0 /* Assets.xcassets */,
 				C9A1808C20B2AB490044A6D0 /* Info.plist */,
-				C97A13F120BC0E6B00AA26CF /* Dev-Info.plist */,
+				C97A13F420BD200B00AA26CF /* Dev-Info.plist */,
 				C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */,
 			);
 			path = Setup;
@@ -378,6 +380,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C97A13F620BD200B00AA26CF /* Dev-Info.plist in Resources */,
 				C97A13E920BC0E6A00AA26CF /* GoogleService-Info.plist in Resources */,
 				C97A13EA20BC0E6A00AA26CF /* LaunchScreen.storyboard in Resources */,
 				C97A13EB20BC0E6A00AA26CF /* Assets.xcassets in Resources */,
@@ -388,6 +391,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C97A13F520BD200B00AA26CF /* Dev-Info.plist in Resources */,
 				C9A180B720B2FEFC0044A6D0 /* GoogleService-Info.plist in Resources */,
 				C9A1808B20B2AB490044A6D0 /* LaunchScreen.storyboard in Resources */,
 				C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */,
@@ -579,7 +583,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R252PR8AVU;
-				INFOPLIST_FILE = "$(SRCROOT)/Dev-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CoffeeBreakExample/Setup/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -599,7 +603,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R252PR8AVU;
-				INFOPLIST_FILE = "$(SRCROOT)/Dev-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CoffeeBreakExample/Setup/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

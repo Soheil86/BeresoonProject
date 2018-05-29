@@ -31,7 +31,6 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     var button = UIButton(type: .system)
     button.backgroundColor = UIColor.white
     button.setImage(#imageLiteral(resourceName: "AddProfilePicture").withRenderingMode(.alwaysOriginal), for: .normal)
-    //    button.tintColor = UIColor(red: 218, green: 218, blue: 218)
     button.imageView?.contentMode = .scaleAspectFill
     button.layer.masksToBounds = true
     button.layer.cornerRadius = profilePictureWidth * 0.5

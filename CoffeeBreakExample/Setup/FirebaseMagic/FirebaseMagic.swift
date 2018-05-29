@@ -1019,14 +1019,8 @@ class FirebaseMagic {
       switch fetchType {
       case .followers:
         fetchedFollowerUsers.insert(user, at: 0)
-//        self.fetchedFollowerUsers.sort(by: { (p1, p2) -> Bool in
-//          return p1.creationDate.compare(p2.creationDate) == .orderedDescending
-//        })
       case .following:
         fetchedFollowingUsers.insert(user, at: 0)
-//        self.fetchedFollowingUsers.sort(by: { (p1, p2) -> Bool in
-//          return p1.creationDate.compare(p2.creationDate) == .orderedDescending
-//        })
       }
       
       collectionViewController.collectionView?.reloadData()

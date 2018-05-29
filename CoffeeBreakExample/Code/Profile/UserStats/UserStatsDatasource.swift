@@ -17,6 +17,7 @@ class UserStatsDatasource: Datasource {
   }
   
   override func item(_ indexPath: IndexPath) -> Any? {
+    // MARK: FirebaseMagic - Insert item
     switch statsType {
     case FirebaseMagic.StatFetchType.followers:
       return FirebaseMagic.fetchedFollowerUsers[indexPath.item]
@@ -27,6 +28,7 @@ class UserStatsDatasource: Datasource {
   }
   
   override func numberOfItems(_ section: Int) -> Int {
+    // MARK: FirebaseMagic - Number of items
     switch statsType {
     case FirebaseMagic.StatFetchType.followers:
       return FirebaseMagic.fetchedFollowerUsers.count

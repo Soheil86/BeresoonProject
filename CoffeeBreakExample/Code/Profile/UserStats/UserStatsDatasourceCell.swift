@@ -50,7 +50,7 @@ class UserStatsDatasourceCell: DatasourceCell {
     if followUnfollowButton.titleLabel?.text == "FOLLOW" {
       followUnfollowButton.isEnabled = false
       
-      // MARK: FirebaseMagic - Follow / Unfollow user
+      // MARK: FirebaseMagic - Follow user
       guard let currentLoggedInUserId = FirebaseMagic.currentUserUid() else { return }
       FirebaseMagic.handleFollowButton(followingUserId: currentLoggedInUserId, followedUserId: user.uid) { (result, err) in
         if let err = err {
@@ -65,6 +65,8 @@ class UserStatsDatasourceCell: DatasourceCell {
       
     } else if followUnfollowButton.titleLabel?.text == "UNFOLLOW" {
       followUnfollowButton.isEnabled = false
+      
+      // MARK: FirebaseMagic - Unfollow user
       FirebaseMagic.handleUnfollowButton(with: user.uid) { (result, err) in
         if let err = err {
           print("Failed to unfollow with error:", err)
