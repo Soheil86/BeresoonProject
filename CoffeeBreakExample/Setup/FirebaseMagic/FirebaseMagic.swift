@@ -607,7 +607,7 @@ class FirebaseMagic {
             return
           }
           
-          observeValues(atPath: Database_UserFollowers.child(currentUserUid), eventType: .childAdded, completion: { (snapshot, err) in
+          observeValues(atPath: Database_UserFollowers.child(currentUserUid), eventType: .value, completion: { (snapshot, err) in
             if let err = err {
               completion(false, err)
               return
@@ -619,11 +619,32 @@ class FirebaseMagic {
               completion(false, nil)
               return
             }
+            var followersCount = snapshot.childrenCount
             
-            let followerUid = snapshot.key
-            let values = [postId : 1]
-            updateValues(atPath: Database_UserFeed.child(followerUid), with: values, completion: { (result, err) in
-              completion(result, err)
+            observeValues(atPath: Database_UserFollowers.child(currentUserUid), eventType: .childAdded, completion: { (snapshot, err) in
+              if let err = err {
+                completion(false, err)
+                return
+              } else if snapshot == nil {
+                completion(false, nil)
+                return
+              }
+              guard let snapshot = snapshot else {
+                completion(false, nil)
+                return
+              }
+              
+              let followerUid = snapshot.key
+              let values = [postId : 1]
+              updateValues(atPath: Database_UserFeed.child(followerUid), with: values, completion: { (result, err) in
+                followersCount -= 1
+                if followersCount == 0 {
+                  print("Updated all follower's user feed.")
+                  completion(result, err)
+                } else {
+                  print("Updated another follower's user feed. \(followersCount) left.")
+                }
+              })
             })
           })
         })
