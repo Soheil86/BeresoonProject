@@ -48,8 +48,10 @@ class UserProfileDatasourceController: DatasourceController {
   }
   
   @objc fileprivate func handleUserSharedAPost() {
-    reloadAllPosts { (result) in
-      print("Reloaded posts after user have shared a new post with result:", result)
+    userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
+      self.reloadAllPosts { (result) in
+        print("Reloaded posts after user have shared a new post with result:", result)
+      }
     }
   }
   
@@ -134,8 +136,10 @@ class UserProfileDatasourceController: DatasourceController {
   }
   
   override func handleRefresh() {
-    reloadAllPosts { (result) in
-      self.refreshControl.endRefreshing()
+    userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
+      self.reloadAllPosts { (result) in
+        self.refreshControl.endRefreshing()
+      }
     }
   }
   
