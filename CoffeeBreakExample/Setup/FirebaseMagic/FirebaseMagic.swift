@@ -69,6 +69,7 @@ class FirebaseMagic {
   static var environment: Environment = .none
   static var currentlyFetchingPosts = false
   static var searchUsersFetchLimit = 10
+  static var currentUserId: String? = nil
 
   // MARK: -
   // MARK: Start
@@ -80,6 +81,16 @@ class FirebaseMagic {
     #endif
     print("Started FirebaseMagic in environment: \(environment)")
     FirebaseApp.configure()
+    
+    Auth.auth().addStateDidChangeListener { auth, user in
+      if let user = user {
+        // User is signed in.
+        currentUserId = user.uid
+      } else {
+        // No user is signed in.
+        currentUserId = nil
+      }
+    }
   }
   
   // MARK: -
@@ -97,7 +108,8 @@ class FirebaseMagic {
   // MARK: Current user uid
   static func currentUserUid() -> String? {
     if !hasFirebaseMagicBeenStarted() { return nil }
-    return Auth.auth().currentUser?.uid
+//    return Auth.auth().currentUser?.uid // old way
+    return currentUserId
   }
   
   // MARK: -
