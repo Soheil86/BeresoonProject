@@ -46,12 +46,12 @@ class SharePostViewController: UIViewController {
   
   fileprivate func sharePost(image: UIImage?, caption: String?) {
     guard let image = image, let caption = caption else {
-      Service.showAlert(on: self, style: .alert, title: "Share error", message: "Invalid image or caption")
+      Service.showAlert(style: .alert, title: "Share error", message: "Invalid image or caption")
       return
     }
     
     if caption.isEmpty {
-      Service.showAlert(on: self, style: .alert, title: "Error", message: "Please add a caption and try again")
+      Service.showAlert(style: .alert, title: "Error", message: "Please add a caption and try again")
     } else {
       // Mark: FirebaseMagic - Share post
       let hud = JGProgressHUD(style: .light)
@@ -59,7 +59,7 @@ class SharePostViewController: UIViewController {
       FirebaseMagic.sharePost(withCaption: caption, image: image) { (result, err) in
         if let err = err {
           hud.dismiss(animated: true)
-          Service.showAlert(on: self, style: .alert, title: "Share error", message: err.localizedDescription)
+          Service.showAlert(style: .alert, title: "Share error", message: err.localizedDescription)
           return
         } else if result == false {
           hud.textLabel.text = "Something went wrong..."

@@ -72,7 +72,7 @@ class ForgotPasswordController: UIViewController {
     FirebaseMagic.resetPassword(withUsernameOrEmail: usernameOrEmailTextField.text) { (result, err) in
       if let err = err {
         hud.dismiss(animated: true)
-        Service.showAlert(on: self, style: .alert, title: "Reset password error", message: err.localizedDescription)
+        Service.showAlert(style: .alert, title: "Reset password error", message: err.localizedDescription)
         return
       } else if result == false {
         hud.textLabel.text = "Something went wrong..."
@@ -83,7 +83,7 @@ class ForgotPasswordController: UIViewController {
       let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
         self.dismissForgotPasswordController()
       })
-      Service.showAlert(on: self, style: .alert, title: "Success", message: "Successfully sent email to reset your password", actions: [okAction], completion: nil)
+      Service.showAlert(style: .alert, title: "Success", message: "Successfully sent email to reset your password", actions: [okAction], completion: nil)
       
     }
   }

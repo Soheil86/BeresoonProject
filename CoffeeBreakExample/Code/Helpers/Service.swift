@@ -19,23 +19,17 @@ class Service {
   static let notificationNameShowFollowers = Notification.Name(rawValue: "showFollowers")
   static let notificationNameShowFollowing = Notification.Name(rawValue: "showFollowing")
   
-  static func showAlert(on: UIViewController, style: UIAlertControllerStyle, title: String?, message: String?, actions: [UIAlertAction] = [UIAlertAction(title: "Ok", style: .cancel, handler: nil)], completion: (() -> Swift.Void)? = nil) {
+  static func showAlert(style: UIAlertControllerStyle, title: String?, message: String?, actions: [UIAlertAction] = [UIAlertAction(title: "Ok", style: .cancel, handler: nil)], completion: (() -> Swift.Void)? = nil) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: style)
     for action in actions {
       alert.addAction(action)
     }
-    on.present(alert, animated: true, completion: completion)
-  }
-  
-  static func showAlert(onCollectionViewController: UICollectionViewController, style: UIAlertControllerStyle, title: String?, message: String?, actions: [UIAlertAction] = [UIAlertAction(title: "Ok", style: .cancel, handler: nil)], completion: (() -> Swift.Void)? = nil) {
-    let alert = UIAlertController(title: title, message: message, preferredStyle: style)
-    for action in actions {
-      alert.addAction(action)
+    if let topVC = UIApplication.getTopMostViewController() {
+      topVC.present(alert, animated: true, completion: completion)
     }
-    onCollectionViewController.present(alert, animated: true, completion: completion)
   }
   
-  static func showAlert(on: UIViewController, style: UIAlertControllerStyle, title: String?, message: String?, textFields: [UITextField], completion: @escaping ([String]?) -> ()) {
+  static func showAlert(style: UIAlertControllerStyle, title: String?, message: String?, textFields: [UITextField], completion: @escaping ([String]?) -> ()) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: style)
     
     for textField in textFields {
@@ -62,7 +56,10 @@ class Service {
     }
     alert.addAction(cancelAction)
     
-    on.present(alert, animated: true, completion: nil)
+    if let topVC = UIApplication.getTopMostViewController() {
+      topVC.present(alert, animated: true, completion: nil)
+    }
+    
   }
   
   static func randomColor() -> UIColor {

@@ -51,7 +51,7 @@ class UserStatsDatasourceController: DatasourceController, UISearchBarDelegate {
       if let err = err {
         print("Failed to fetch user \(fetchType) with err:", err)
         hud.dismiss(animated: true)
-        Service.showAlert(onCollectionViewController: self, style: .alert, title: "Fetch error", message: "Failed to fetch user \(fetchType) with err: \(err)")
+        Service.showAlert(style: .alert, title: "Fetch error", message: "Failed to fetch user \(fetchType) with err: \(err)")
         completion(false)
         return
       } else if result == false {

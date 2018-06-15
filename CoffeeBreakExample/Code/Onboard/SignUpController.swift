@@ -52,7 +52,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
       self.showImagePickerController(sourceType: .camera)
     }
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    Service.showAlert(on: self, style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
+    Service.showAlert(style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
   }
   
   func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
@@ -157,7 +157,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
       let name = nameTextField.text, name.count > 0,
       let username = usernameTextField.text, username.count > 2,
       let profileImage = addProfilePictureButton.imageView?.image else {
-        Service.showAlert(on: self, style: .alert, title: "Format error", message: "Please, enter valid values for the required fields and try again")
+        Service.showAlert(style: .alert, title: "Format error", message: "Please, enter valid values for the required fields and try again")
         return
     }
     
@@ -174,7 +174,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     FirebaseMagic.signUpUserWithEmail(in: self, userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
       if let err = err {
         hud.dismiss(animated: true)
-        Service.showAlert(on: self, style: .alert, title: "Sign up error", message: err.localizedDescription)
+        Service.showAlert(style: .alert, title: "Sign up error", message: err.localizedDescription)
         return
       } else if result == false {
         hud.textLabel.text = "Something went wrong..."

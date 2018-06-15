@@ -33,7 +33,7 @@ class UserProfileDatasourceController: DatasourceController {
         hud.dismiss(animated: true)
         
         if let err = err {
-          Service.showAlert(on: self, style: .alert, title: "Logout Error", message: err.localizedDescription)
+          Service.showAlert(style: .alert, title: "Logout Error", message: err.localizedDescription)
           return
         }
         
@@ -44,7 +44,7 @@ class UserProfileDatasourceController: DatasourceController {
       })
     }
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    Service.showAlert(onCollectionViewController: self, style: .actionSheet, title: nil, message: nil, actions: [logOutAction, cancelAction], completion: nil)
+    Service.showAlert(style: .actionSheet, title: nil, message: nil, actions: [logOutAction, cancelAction], completion: nil)
   }
   
   @objc fileprivate func handleUserSharedAPost() {
@@ -113,7 +113,7 @@ class UserProfileDatasourceController: DatasourceController {
       if let err = err {
         print("Failed to fetch user posts with err:", err)
         hud.dismiss(animated: true)
-        Service.showAlert(onCollectionViewController: self, style: .alert, title: "Fetch error", message: "Failed to fetch user posts with err: \(err)")
+        Service.showAlert(style: .alert, title: "Fetch error", message: "Failed to fetch user posts with err: \(err)")
         completion(false)
         return
       } else if result == false {

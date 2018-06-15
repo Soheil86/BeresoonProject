@@ -246,7 +246,7 @@ class FirebaseMagic {
   
   // MARK: -
   // MARK: Sign up
-  static func signUpUserWithEmail(in viewController: UIViewController, userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  static func signUpUserWithEmail(userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     if !hasFirebaseMagicBeenStarted() { return }
     guard let username = userCredentials[keyUsername] as? String else {
       completion(false, nil)
@@ -269,14 +269,14 @@ class FirebaseMagic {
         textField.placeholder = "New Username"
         textField.autocapitalizationType = .none
         
-        Service.showAlert(on: viewController, style: .alert, title: "Sign Up Error", message: "The username '\(username.lowercased())' is already taken. Please, choose another one.", textFields: [textField], completion: { (usernames) in
+        Service.showAlert(style: .alert, title: "Sign Up Error", message: "The username '\(username.lowercased())' is already taken. Please, choose another one.", textFields: [textField], completion: { (usernames) in
           guard let usernames = usernames, let username = usernames.first else {
             completion(false, nil)
             return
           }
           var mutableUserCredentials = userCredentials
           mutableUserCredentials.updateValue(username, forKey: keyUsername)
-          signUpUserWithEmail(in: viewController, userCredentials: mutableUserCredentials, userDetails: userDetails, completion: { (result, err) in
+          signUpUserWithEmail(userCredentials: mutableUserCredentials, userDetails: userDetails, completion: { (result, err) in
             completion(result, err)
           })
         })

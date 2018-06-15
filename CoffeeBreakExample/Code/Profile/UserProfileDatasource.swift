@@ -47,7 +47,7 @@ class UserProfileDatasource: Datasource {
     FirebaseMagic.fetchUser(withUid: uid) { (user, err) in
       if let err = err {
         hud.dismiss(animated: true)
-        Service.showAlert(onCollectionViewController: collectionViewController, style: .alert, title: "Error fetching user", message: err.localizedDescription)
+        Service.showAlert(style: .alert, title: "Error fetching user", message: err.localizedDescription)
         return
       }
       guard let user = user else {

@@ -101,7 +101,7 @@ class LoginController: UIViewController {
     FirebaseMagic.signIn(withUsernameOrEmail: usernameOrEmailTextField.text, password: passwordTextField.text) { (result, err) in
       if let err = err {
         hud.dismiss(animated: true)
-        Service.showAlert(on: self, style: .alert, title: "Log in error", message: err.localizedDescription)
+        Service.showAlert(style: .alert, title: "Log in error", message: err.localizedDescription)
         return
       } else if result == false {
         hud.textLabel.text = "Something went wrong..."

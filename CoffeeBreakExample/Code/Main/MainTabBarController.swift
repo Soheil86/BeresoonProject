@@ -94,7 +94,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
       self.showImagePickerController(sourceType: .camera)
     }
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    Service.showAlert(on: self, style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
+    Service.showAlert(style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
   }
   
   func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
