@@ -1085,16 +1085,11 @@ class FirebaseMagic {
   
   // MARK: -
   // MARK: Show hud
-  static func showHud(_ hud: JGProgressHUD, in viewController: UIViewController, text: String) {
-    if !hasFirebaseMagicBeenStarted() { return }
+  static func showHud(_ hud: JGProgressHUD, text: String) {
     hud.textLabel.text = text
-    hud.show(in: viewController.view, animated: true)
-  }
-  
-  static func showHud(_ hud: JGProgressHUD, in collectionViewController: UICollectionViewController, text: String) {
-    if !hasFirebaseMagicBeenStarted() { return }
-    hud.textLabel.text = text
-    hud.show(in: collectionViewController.view, animated: true)
+    if let topVC = UIApplication.getTopMostViewController() {
+      hud.show(in: topVC.view, animated: true)
+    }
   }
   
 }

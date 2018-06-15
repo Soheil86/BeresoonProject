@@ -68,7 +68,7 @@ class ForgotPasswordController: UIViewController {
   @objc func handleResetPasswordBarButtonItemTapped() {
     // MARK: FirebaseMagic - Reset password
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, in: self, text: "Sending email...")
+    FirebaseMagic.showHud(hud, text: "Sending email...")
     FirebaseMagic.resetPassword(withUsernameOrEmail: usernameOrEmailTextField.text) { (result, err) in
       if let err = err {
         hud.dismiss(animated: true)

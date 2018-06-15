@@ -72,7 +72,7 @@ class HomeDatasourceController: DatasourceController {
   fileprivate func fetchPosts(completion: @escaping (_ result: Bool) -> ()) {
     // MARK: FirebaseMagic - Fetch posts
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, in: self, text: "Fetching posts...")
+    FirebaseMagic.showHud(hud, text: "Fetching posts...")
     FirebaseMagic.fetchUserPosts(forUid: FirebaseMagic.currentUserUid(), fetchType: .onHome, in: self, completion: { (result, err) in
       if let err = err {
         print("Failed to fetch posts with err:", err)

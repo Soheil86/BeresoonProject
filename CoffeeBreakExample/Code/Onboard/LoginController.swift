@@ -97,7 +97,7 @@ class LoginController: UIViewController {
     
     // Mark: FirebaseMagic - Log in user with email
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, in: self, text: "Logging in with email...")
+    FirebaseMagic.showHud(hud, text: "Logging in with email...")
     FirebaseMagic.signIn(withUsernameOrEmail: usernameOrEmailTextField.text, password: passwordTextField.text) { (result, err) in
       if let err = err {
         hud.dismiss(animated: true)

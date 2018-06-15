@@ -170,8 +170,8 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     
     // Mark: FirebaseMagic - Sign up user with email
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, in: self, text: "Signing up with email...")
-    FirebaseMagic.signUpUserWithEmail(in: self, userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
+    FirebaseMagic.showHud(hud, text: "Signing up with email...")
+    FirebaseMagic.signUpUserWithEmail(userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
       if let err = err {
         hud.dismiss(animated: true)
         Service.showAlert(style: .alert, title: "Sign up error", message: err.localizedDescription)

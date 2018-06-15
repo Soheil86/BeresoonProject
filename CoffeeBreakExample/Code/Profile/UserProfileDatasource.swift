@@ -43,7 +43,7 @@ class UserProfileDatasource: Datasource {
     // MARK: FirebaseMagic - Fetch Current User
     guard let uid = FirebaseMagic.currentUserUid() else { return }
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, in: collectionViewController, text: "Fetching user...")
+    FirebaseMagic.showHud(hud, text: "Fetching user...")
     FirebaseMagic.fetchUser(withUid: uid) { (user, err) in
       if let err = err {
         hud.dismiss(animated: true)

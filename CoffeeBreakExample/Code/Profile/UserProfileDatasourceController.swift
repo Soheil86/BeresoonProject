@@ -28,7 +28,7 @@ class UserProfileDatasourceController: DatasourceController {
     let logOutAction = UIAlertAction(title: "Logout", style: .destructive) { (action) in
       // MARK: FirebaseMagic - Log out
       let hud = JGProgressHUD(style: .light)
-      FirebaseMagic.showHud(hud, in: self, text: "Logging out...")
+      FirebaseMagic.showHud(hud, text: "Logging out...")
       FirebaseMagic.logout(completion: { (err) in
         hud.dismiss(animated: true)
         
@@ -108,7 +108,7 @@ class UserProfileDatasourceController: DatasourceController {
   fileprivate func fetchPosts(completion: @escaping (_ result: Bool) -> ()) {
     // MARK: FirebaseMagic - Fetch user posts
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, in: self, text: "Fetching user posts...")
+    FirebaseMagic.showHud(hud, text: "Fetching user posts...")
     FirebaseMagic.fetchUserPosts(forUid: FirebaseMagic.currentUserUid(), fetchType: .onUserProfile, in: self, completion: { (result, err) in
       if let err = err {
         print("Failed to fetch user posts with err:", err)

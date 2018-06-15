@@ -19,7 +19,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
     
     // MARK: FirebaseMagic - Check if user is signed in
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, in: self, text: "Loading...")
+    FirebaseMagic.showHud(hud, text: "Loading...")
     FirebaseMagic.checkIfUserIsSignedIn { (result) in
       DispatchQueue.main.async {
         hud.dismiss(animated: true)
