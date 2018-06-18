@@ -60,6 +60,12 @@ class HomeDatasourceController: DatasourceController {
     collectionView?.backgroundColor = .white
     navigationItem.title = "Home"
     collectionView?.showsVerticalScrollIndicator = false
+    
+    let bgImage = UIImageView()
+    bgImage.image = #imageLiteral(resourceName: "BlankFeed")
+    bgImage.contentMode = .scaleAspectFill
+    collectionView?.backgroundView = bgImage
+    collectionView?.backgroundView?.alpha = 0.0
   }
   
   fileprivate func clearPosts() {
