@@ -16,7 +16,6 @@ class FirebaseMagic {
   // MARK: -
   // MARK: Firebase Database paths
   static let Database_Users = Database.database().reference().child(environment.rawValue).child("users")
-  static let Database_Usernames = Database.database().reference().child(environment.rawValue).child("usernames")
   static let Database_Posts = Database.database().reference().child(environment.rawValue).child("posts")
   static let Database_UserPosts = Database.database().reference().child(environment.rawValue).child("userPosts")
   static let Database_UserFeed = Database.database().reference().child(environment.rawValue).child("userFeed")
@@ -160,18 +159,24 @@ class FirebaseMagic {
   }
   
   fileprivate static func resetPassword(withUserName username: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
-    Database_Usernames.child(username).observeSingleEvent(of: .value, with: { (snapshot) in
-      guard let email = snapshot.value as? String else {
-        print("Failed to fetch username: invalid username")
+    
+    fetchUser(withUsername: username, limitedToFirst: 1) { (users, err) in
+      if let err = err {
+        print("Failed to reset password with email:", err)
+        completion(false, err)
+        return
+      }
+      
+      guard let user = users?.first else {
+        print("Failed to reset password with email: no such user with username '\(username)'")
         completion(false, nil)
         return
       }
-      resetPassword(withEmail: email) { (result, err) in
+      
+      resetPassword(withEmail: user.email) { (result, err) in
         completion(result, err)
       }
-    }) { (err) in
-      print("Failed to fetch username:", err)
-      completion(false, err)
+      
     }
   }
   
@@ -212,18 +217,23 @@ class FirebaseMagic {
   }
   
   fileprivate static func signIn(withUsername username: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
-    Database_Usernames.child(username).observeSingleEvent(of: .value, with: { (snapshot) in
-      guard let email = snapshot.value as? String else {
-        print("Failed to fetch username: invalid username")
+    
+    fetchUser(withUsername: username, limitedToFirst: 1) { (users, err) in
+      if let err = err {
+        print("Failed to sign in:", err)
+        completion(false, err)
+        return
+      }
+      
+      guard let user = users?.first else {
+        print("Failed to sign in: no such user with username '\(username)'")
         completion(false, nil)
         return
       }
-      signIn(withEmail: email, password: password) { (result, err) in
+      
+      signIn(withEmail: user.email, password: password) { (result, err) in
         completion(result, err)
       }
-    }) { (err) in
-      print("Failed to fetch username:", err)
-      completion(false, err)
     }
   }
   
@@ -403,18 +413,9 @@ class FirebaseMagic {
         completion(false, nil)
         return
       }
-      updateValues(atPath: Database_Usernames, with: [username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_") : email], completion: { (result, err) in
-        if let err = err {
-          completion(false, err)
-          return
-        } else if result == false {
-          completion(false, nil)
-          return
-        }
-        let values = [currentUserUid : 1]
-        updateValues(atPath: Database_UserFollowers.child(currentUserUid), with: values, completion: { (result, err) in
-          completion(result, err)
-        })
+      let values = [currentUserUid : 1]
+      updateValues(atPath: Database_UserFollowers.child(currentUserUid), with: values, completion: { (result, err) in
+        completion(result, err)
       })
     })
   }
@@ -521,7 +522,7 @@ class FirebaseMagic {
           
         })
       } else {
-        print("No users available")
+        print("No users available with username:", username)
         completion(nil, nil)
       }
       
