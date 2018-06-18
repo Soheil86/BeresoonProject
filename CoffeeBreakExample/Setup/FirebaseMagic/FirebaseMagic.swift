@@ -357,7 +357,7 @@ class FirebaseMagic {
     }
     
     let uid = user.uid
-    var mutableUserDetails: [String : Any] = [FirebaseMagicKeys.User.username: username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_"), FirebaseMagicKeys.User.email : email]
+    var mutableUserDetails: [String : Any] = [FirebaseMagicKeys.User.username: username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_"), FirebaseMagicKeys.User.email : email.lowercased()]
     
     if let userDetails = userDetails {
       mutableUserDetails.update(with: userDetails)
@@ -473,8 +473,8 @@ class FirebaseMagic {
   static func fetchUser(withUsername username: String, limitedToFirst: Int, completion: @escaping (_ users: [CurrentUser]?, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     var filteredUsers: [CurrentUser] = []
-    let lowerCasedSearchText = username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_")
-    let userRef = Database_Users.queryLimited(toFirst: UInt(limitedToFirst)).queryOrdered(byChild: FirebaseMagicKeys.User.username).queryStarting(atValue: lowerCasedSearchText).queryEnding(atValue: lowerCasedSearchText+"\u{f8ff}")
+    let allowedUsername = username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_")
+    let userRef = Database_Users.queryLimited(toFirst: UInt(limitedToFirst)).queryOrdered(byChild: FirebaseMagicKeys.User.username).queryStarting(atValue: allowedUsername).queryEnding(atValue: allowedUsername+"\u{f8ff}")
     
     userRef.observeSingleEvent(of: .value, with: { (snapshot) in
       
@@ -522,7 +522,7 @@ class FirebaseMagic {
           
         })
       } else {
-        print("No users available with username:", username)
+        print("No users available for requested username:", allowedUsername)
         completion(nil, nil)
       }
       
@@ -687,6 +687,8 @@ class FirebaseMagic {
   // MARK: Fetch user posts
   static func fetchUserPosts(forUid uid: String?, fetchType: PostFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
+    
+    collectionViewController.collectionView?.backgroundView?.alpha = 0.0
     if currentlyFetchingPosts {
       completion(false, nil)
       return
@@ -708,6 +710,8 @@ class FirebaseMagic {
         if snapshot.childrenCount == 0 {
           print("No posts to fetch for user.")
           currentlyFetchingPosts = false
+          collectionViewController.collectionView?.backgroundView?.alpha = 1.0
+          collectionViewController.collectionView?.reloadData()
           completion(false, nil)
         }
 
