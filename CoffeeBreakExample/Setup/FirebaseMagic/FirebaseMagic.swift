@@ -246,23 +246,15 @@ class FirebaseMagic {
   
   // MARK: -
   // MARK: Sign up
-  static func signUpUserWithEmail(userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
-    if !hasFirebaseMagicBeenStarted() { return }
-    guard let username = userCredentials[keyUsername] as? String else {
-      completion(false, nil)
-      return
-    }
+  fileprivate static func checkUsernameAvailability(for username: String, userCredentials: [String : Any], completion: @escaping (_ result: Bool,_ userCredentials: [String : Any], _ error: Error?) ->()) {
     fetchUser(withUsername: username, limitedToFirst: 1) { (users, err) in
       if let err = err {
-        completion(false, err)
+        completion(false, userCredentials, err)
       }
       
       if users == nil {
-        
-        signUpUniqueUserWithEmail(userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
-          completion(result, err)
-        }
-        
+        completion(true, userCredentials, nil)
+        return
       } else {
         
         let textField = UITextField()
@@ -271,24 +263,50 @@ class FirebaseMagic {
         
         Service.showAlert(style: .alert, title: "Sign Up Error", message: "The username '\(username.lowercased())' is already taken. Please, choose another one.", textFields: [textField], completion: { (usernames) in
           guard let usernames = usernames, let username = usernames.first else {
-            completion(false, nil)
+            completion(false, userCredentials, nil)
             return
           }
+          
           var mutableUserCredentials = userCredentials
-          mutableUserCredentials.updateValue(username, forKey: keyUsername)
-          signUpUserWithEmail(userCredentials: mutableUserCredentials, userDetails: userDetails, completion: { (result, err) in
-            completion(result, err)
+          mutableUserCredentials.updateValue(username, forKey: FirebaseMagicKeys.User.username)
+          
+          checkUsernameAvailability(for: username, userCredentials: mutableUserCredentials, completion: { (result, userCredentials, err) in
+            completion(result, userCredentials, err)
           })
+          
         })
         
       }
+    }
+  }
+  
+  static func signUpUserWithEmail(userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+    if !hasFirebaseMagicBeenStarted() { return }
+    guard let username = userCredentials[FirebaseMagicKeys.User.username] as? String else {
+      completion(false, nil)
+      return
+    }
+    
+    checkUsernameAvailability(for: username, userCredentials: userCredentials) { (result, userCredentials, err) in
+      if let err = err {
+        completion(false, err)
+      }
+      
+      if result {
+        signUpUniqueUserWithEmail(userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
+          completion(result, err)
+        }
+      } else {
+        completion(false, nil)
+      }
+      
     }
     
   }
   
   fileprivate static func signUpUniqueUserWithEmail(userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
-    guard let email = userCredentials[keyEmail] as? String,
-      let password = userCredentials[keyPassword] as? String else {
+    guard let email = userCredentials[FirebaseMagicKeys.User.email] as? String,
+      let password = userCredentials[FirebaseMagicKeys.User.password] as? String else {
         completion(false, nil)
         return
     }
@@ -323,18 +341,18 @@ class FirebaseMagic {
   fileprivate static func saveUserIntoFirebase(user: User?, userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     guard let user = user,
       let email = user.email,
-      let username = userCredentials[keyUsername] as? String else {
+      let username = userCredentials[FirebaseMagicKeys.User.username] as? String else {
       completion(false, nil)
       return
     }
     
     let uid = user.uid
-    var mutableUserDetails: [String : Any] = [keyUsername: username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_"), keyEmail : email]
+    var mutableUserDetails: [String : Any] = [FirebaseMagicKeys.User.username: username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_"), FirebaseMagicKeys.User.email : email]
     
     if let userDetails = userDetails {
       mutableUserDetails.update(with: userDetails)
       
-      if let profileImage = mutableUserDetails[keyProfileImage] as? UIImage {
+      if let profileImage = mutableUserDetails[FirebaseMagicKeys.User.profileImage] as? UIImage {
         saveImage(profileImage, atPath: Storage_ProfileImages) { (imageUrl, result, err) in
           if let err = err {
             completion(false, err)
@@ -348,8 +366,8 @@ class FirebaseMagic {
             return
           }
           
-          mutableUserDetails.updateValue(imageUrl, forKey: keyProfileImageUrl)
-          mutableUserDetails.removeValue(forKey: keyProfileImage)
+          mutableUserDetails.updateValue(imageUrl, forKey: FirebaseMagicKeys.User.profileImageUrl)
+          mutableUserDetails.removeValue(forKey: FirebaseMagicKeys.User.profileImage)
           
           updateUserValues(forCurrentUserUid: uid, with: mutableUserDetails, username: username, email: email) { (result, err) in
             completion(result, err)
@@ -455,7 +473,7 @@ class FirebaseMagic {
     if !hasFirebaseMagicBeenStarted() { return }
     var filteredUsers: [CurrentUser] = []
     let lowerCasedSearchText = username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_")
-    let userRef = Database_Users.queryLimited(toFirst: UInt(limitedToFirst)).queryOrdered(byChild: keyUsername).queryStarting(atValue: lowerCasedSearchText).queryEnding(atValue: lowerCasedSearchText+"\u{f8ff}")
+    let userRef = Database_Users.queryLimited(toFirst: UInt(limitedToFirst)).queryOrdered(byChild: FirebaseMagicKeys.User.username).queryStarting(atValue: lowerCasedSearchText).queryEnding(atValue: lowerCasedSearchText+"\u{f8ff}")
     
     userRef.observeSingleEvent(of: .value, with: { (snapshot) in
       
@@ -549,15 +567,15 @@ class FirebaseMagic {
     var userStats: [String : Any] = [:]
     Database_UserPosts.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
       let postsCount = snapshot.childrenCount
-      userStats.update(with: [keyPostsCount: postsCount])
+      userStats.update(with: [FirebaseMagicKeys.User.postsCount: postsCount])
       
       Database_UserFollowers.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
         let followersCount = snapshot.childrenCount
-        userStats.update(with: [keyFollowersCount: followersCount])
+        userStats.update(with: [FirebaseMagicKeys.User.followersCount: followersCount])
         
         Database_UserFollowing.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
           let followingCount = snapshot.childrenCount
-          userStats.update(with: [keyFollowingCount: followingCount])
+          userStats.update(with: [FirebaseMagicKeys.User.followingCount: followingCount])
           completion(userStats, nil)
           
         }, withCancel: { (err) in
@@ -594,11 +612,11 @@ class FirebaseMagic {
       }
       let postRef = Database_Posts.childByAutoId()
       let postId = postRef.key
-      let values = [keyCaption: caption,
-                    keyImageUrl: imageUrl,
-                    keyOwnerId: currentUserUid,
-                    keyId: postId,
-                    keyCreationDate : Date().timeIntervalSince1970] as [String : Any]
+      let values = [FirebaseMagicKeys.Post.caption: caption,
+                    FirebaseMagicKeys.Post.imageUrl: imageUrl,
+                    FirebaseMagicKeys.Post.ownerId: currentUserUid,
+                    FirebaseMagicKeys.Post.id: postId,
+                    FirebaseMagicKeys.Post.creationDate : Date().timeIntervalSince1970] as [String : Any]
       
       updateValues(atPath: postRef, with: values, completion: { (result, err) in
         if let err = err {
@@ -812,7 +830,7 @@ class FirebaseMagic {
   
   fileprivate static func fetchPost(withPostId postId: String, completion: @escaping(_ post: Post?, _ error: Error?) -> ()) {
     Database_Posts.child(postId).observeSingleEvent(of: .value) { (snapshot) in
-      guard let dictionary = snapshot.value as? Dictionary<String, AnyObject>, let ownerUid = dictionary[keyOwnerId] as? String else {
+      guard let dictionary = snapshot.value as? Dictionary<String, AnyObject>, let ownerUid = dictionary[FirebaseMagicKeys.Post.ownerId] as? String else {
         completion(nil, nil)
         return
       }

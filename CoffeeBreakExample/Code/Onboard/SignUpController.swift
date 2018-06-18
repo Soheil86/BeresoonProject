@@ -161,12 +161,12 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         return
     }
     
-    let userCredentials = [keyEmail: email,
-                           keyPassword: password,
-                           keyUsername: username] as [String : Any]
+    let userCredentials = [FirebaseMagicKeys.User.email: email,
+                           FirebaseMagicKeys.User.password: password,
+                           FirebaseMagicKeys.User.username: username] as [String : Any]
                             
-    let userDetails = [keyProfileImage: profileImage,
-                       keyName: name] as [String : Any]
+    let userDetails = [FirebaseMagicKeys.User.profileImage: profileImage,
+                       FirebaseMagicKeys.User.name: name] as [String : Any]
     
     // Mark: FirebaseMagic - Sign up user with email
     let hud = JGProgressHUD(style: .light)
