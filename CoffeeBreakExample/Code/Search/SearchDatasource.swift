@@ -32,7 +32,7 @@ class SearchDatasource: Datasource {
       collectionViewController.collectionView?.reloadData()
     } else {
       // MARK: FirebaseMagic - Fetch filtered users with count limit
-      FirebaseMagic.fetchUser(withUsername: searchText, limitedToFirst: FirebaseMagic.searchUsersFetchLimit) { (users, err) in
+      FirebaseMagic.fetchUsers(withUsername: searchText, limitedToFirst: FirebaseMagic.searchUsersFetchLimit) { (users, err) in
         guard let users = users else { return }
         self.filteredUsers = users
         collectionViewController.collectionView?.reloadData()

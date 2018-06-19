@@ -160,7 +160,7 @@ class FirebaseMagic {
   
   fileprivate static func resetPassword(withUserName username: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     
-    fetchUser(withUsername: username, limitedToFirst: 1) { (users, err) in
+    fetchUsers(withUsername: username, limitedToFirst: 1) { (users, err) in
       if let err = err {
         print("Failed to reset password with email:", err)
         completion(false, err)
@@ -218,7 +218,7 @@ class FirebaseMagic {
   
   fileprivate static func signIn(withUsername username: String, password: String, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     
-    fetchUser(withUsername: username, limitedToFirst: 1) { (users, err) in
+    fetchUsers(withUsername: username, limitedToFirst: 1) { (users, err) in
       if let err = err {
         print("Failed to sign in:", err)
         completion(false, err)
@@ -257,7 +257,7 @@ class FirebaseMagic {
   // MARK: -
   // MARK: Sign up
   fileprivate static func checkUsernameAvailability(for username: String, userCredentials: [String : Any], completion: @escaping (_ result: Bool,_ userCredentials: [String : Any], _ error: Error?) ->()) {
-    fetchUser(withUsername: username, limitedToFirst: 1) { (users, err) in
+    fetchUsers(withUsername: username, limitedToFirst: 1) { (users, err) in
       if let err = err {
         completion(false, userCredentials, err)
       }
@@ -440,7 +440,7 @@ class FirebaseMagic {
     }
   }
   
-  fileprivate static func saveImage(_ image: UIImage,atPath path: StorageReference, completion: @escaping (_ imageUrl: String?, _ result: Bool, _ error: Error?) ->()) {
+  fileprivate static func saveImage(_ image: UIImage, atPath path: StorageReference, completion: @escaping (_ imageUrl: String?, _ result: Bool, _ error: Error?) ->()) {
     guard let imageUploadData = UIImageJPEGRepresentation(image, 0.3) else {
       completion(nil, false, nil)
       return
@@ -469,8 +469,8 @@ class FirebaseMagic {
   }
   
   // MARK: -
-  // MARK: Fetch user
-  static func fetchUser(withUsername username: String, limitedToFirst: Int, completion: @escaping (_ users: [CurrentUser]?, _ error: Error?) -> ()) {
+  // MARK: Fetch users
+  static func fetchUsers(withUsername username: String, limitedToFirst: Int, completion: @escaping (_ users: [CurrentUser]?, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     var filteredUsers: [CurrentUser] = []
     let allowedUsername = username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_")
