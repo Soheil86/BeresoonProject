@@ -495,7 +495,7 @@ class FirebaseMagic {
           }
           
           var mutableDictionary = userDictionary
-          fetchUserStats(forUid: key, completion: { (userStats, err) in
+          getUserStats(forUid: key, completion: { (userStats, err) in
             
             if let err = err {
               print("Failed to fetch user stats:", err)
@@ -540,7 +540,7 @@ class FirebaseMagic {
         return
       }
       var mutableDictionary = dictionary
-      fetchUserStats(forUid: uid, completion: { (userStats, err) in
+      getUserStats(forUid: uid, completion: { (userStats, err) in
         if let err = err {
           print("Failed to fetch user stats:", err)
           completion(nil, err)
@@ -564,7 +564,7 @@ class FirebaseMagic {
     }
   }
   
-  fileprivate static func fetchUserStats(forUid uid: String, completion: @escaping (_ userStatsDictionary: [String : Any]?, _ error: Error?) -> ()) {
+  fileprivate static func getUserStats(forUid uid: String, completion: @escaping (_ userStatsDictionary: [String : Any]?, _ error: Error?) -> ()) {
     var userStats: [String : Any] = [:]
     Database_UserPosts.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
       let postsCount = snapshot.childrenCount
