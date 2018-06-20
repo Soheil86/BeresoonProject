@@ -39,30 +39,4 @@ class UserProfileDatasource: Datasource {
     return FirebaseMagic.fetchedUserPosts.count
   }
   
-  func fetchCurrentUser(in collectionViewController: UICollectionViewController, completion: @escaping (CurrentUser) -> ()) {
-    // MARK: FirebaseMagic - Fetch Current User
-    guard let uid = FirebaseMagic.currentUserUid() else { return }
-    let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, text: "Fetching user...")
-    FirebaseMagic.fetchUser(withUid: uid) { (user, err) in
-      if let err = err {
-        hud.dismiss(animated: true)
-        Service.showAlert(style: .alert, title: "Error fetching user", message: err.localizedDescription)
-        return
-      }
-      guard let user = user else {
-        hud.textLabel.text = "Something went wrong..."
-        hud.dismiss(afterDelay: 1, animated: true)
-        return
-      }
-      print("Successfully fetched user:", user.username)
-      
-      hud.dismiss(animated: true)
-      self.user = user
-      collectionViewController.collectionView?.reloadData()
-      completion(user)
-    }
-    
-  }
-  
 }

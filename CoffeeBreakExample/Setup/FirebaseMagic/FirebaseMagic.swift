@@ -1094,6 +1094,7 @@ class FirebaseMagic {
       fetchUser(withUid: ownerUid, completion: { (user, err) in
         if let err = err {
           completion(nil, err)
+          return
         }
         
         guard let user = user else {

@@ -48,7 +48,7 @@ class UserProfileDatasourceController: DatasourceController {
   }
   
   @objc fileprivate func handleUserSharedAPost() {
-    userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
+    fetchCurrentUser() { (currentUser) in
       self.reloadAllPosts { (result) in
         print("Reloaded posts after user have shared a new post with result:", result)
       }
@@ -56,13 +56,13 @@ class UserProfileDatasourceController: DatasourceController {
   }
   
   @objc fileprivate func handleFollowedUser() {
-    userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
+    fetchCurrentUser() { (currentUser) in
       print("Reloaded user stats after user has followed.")
     }
   }
   
   @objc fileprivate func handleUnfollowedUser() {
-    userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
+    fetchCurrentUser() { (currentUser) in
       print("Reloaded user stats after user has unfollowed.")
     }
   }
@@ -83,12 +83,38 @@ class UserProfileDatasourceController: DatasourceController {
     
     clearPosts()
     
-    userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
+    fetchCurrentUser() { (currentUser) in
       self.navigationItem.title = currentUser.username
       self.fetchPosts(completion: { (result) in
         print("Fetched post with result:", result)
       })
     }
+  }
+  
+  func fetchCurrentUser(completion: @escaping (CurrentUser) -> ()) {
+    // MARK: FirebaseMagic - Fetch Current User
+    guard let uid = FirebaseMagic.currentUserId else { return }
+    let hud = JGProgressHUD(style: .light)
+    FirebaseMagic.showHud(hud, text: "Fetching user...")
+    FirebaseMagic.fetchUser(withUid: uid) { (user, err) in
+      if let err = err {
+        hud.dismiss(animated: true)
+        Service.showAlert(style: .alert, title: "Error fetching user", message: err.localizedDescription)
+        return
+      }
+      guard let user = user else {
+        hud.textLabel.text = "Something went wrong..."
+        hud.dismiss(afterDelay: 1, animated: true)
+        return
+      }
+      print("Successfully fetched user:", user.username)
+      
+      hud.dismiss(animated: true)
+      self.userProfileDatasource.user = user
+      self.collectionView?.reloadData()
+      completion(user)
+    }
+    
   }
   
   fileprivate func setupController() {
@@ -142,7 +168,7 @@ class UserProfileDatasourceController: DatasourceController {
   }
   
   override func handleRefresh() {
-    userProfileDatasource.fetchCurrentUser(in: self) { (currentUser) in
+    fetchCurrentUser() { (currentUser) in
       self.reloadAllPosts { (result) in
         self.refreshControl.endRefreshing()
       }
