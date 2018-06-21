@@ -91,7 +91,7 @@ class UserProfileDatasourceController: DatasourceController {
   
   func fetchCurrentUser(completion: @escaping (CurrentUser) -> ()) {
     // MARK: FirebaseMagic - Fetch Current User
-    guard let uid = FirebaseMagic.currentUserId else { return }
+    guard let uid = FirebaseMagic.currentUserUid() else { return }
     let hud = JGProgressHUD(style: .light)
     FirebaseMagic.showHud(hud, text: "Fetching user...")
     FirebaseMagic.fetchUser(withUid: uid) { (user, err) in

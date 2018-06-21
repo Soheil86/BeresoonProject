@@ -68,7 +68,7 @@ class FirebaseMagic {
   static var environment: Environment = .none
   static var currentlyFetchingPosts = false
   static var searchUsersFetchLimit = 10
-  static var currentUserId: String? = nil
+  fileprivate static var currentUserId: String? = nil
 
   // MARK: -
   // MARK: Start
