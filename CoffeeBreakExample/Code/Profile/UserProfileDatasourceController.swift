@@ -81,11 +81,9 @@ class UserProfileDatasourceController: DatasourceController {
     
     setupController()
     
-    clearPosts()
-    
     fetchCurrentUser() { (currentUser) in
       self.navigationItem.title = currentUser.username
-      self.fetchPosts(completion: { (result) in
+      self.reloadAllPosts(completion: { (result) in
         print("Fetched post with result:", result)
       })
     }
@@ -103,7 +101,7 @@ class UserProfileDatasourceController: DatasourceController {
         return
       }
       guard let user = user else {
-        hud.textLabel.text = "Something went wrong..."
+        hud.textLabel.text = "Could not fetch..."
         hud.dismiss(afterDelay: 1, animated: true)
         return
       }
@@ -149,7 +147,7 @@ class UserProfileDatasourceController: DatasourceController {
         completion(false)
         return
       } else if result == false {
-        hud.textLabel.text = "Something went wrong..."
+        hud.textLabel.text = "Could not fetch..."
         hud.dismiss(afterDelay: 1, animated: true)
         completion(false)
         return
