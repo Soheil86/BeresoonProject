@@ -67,7 +67,7 @@ class SearchDatasourceCell: DatasourceCell {
       followUnfollowButton.isEnabled = false
       
       // MARK: FirebaseMagic - Unfollow user
-      FirebaseMagic.handleUnfollowButton(with: user.uid) { (result, err) in
+      FirebaseMagic.handleUnfollowButton(withUserId: user.uid) { (result, err) in
         if let err = err {
           print("Failed to unfollow with error:", err)
         } else if result == false {

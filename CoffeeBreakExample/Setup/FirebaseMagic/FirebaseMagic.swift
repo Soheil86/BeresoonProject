@@ -921,7 +921,7 @@ class FirebaseMagic {
     }
   }
   
-  static func handleUnfollowButton(with userId: String, completion: @escaping (_ result: Bool?, _ error: Error?) -> ()) {
+  static func handleUnfollowButton(withUserId userId: String, completion: @escaping (_ result: Bool?, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     guard let currentLoggedInUserId = currentUserUid() else {
       completion(false, nil)
