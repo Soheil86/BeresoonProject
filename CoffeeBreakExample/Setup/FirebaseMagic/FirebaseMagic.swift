@@ -572,7 +572,8 @@ class FirebaseMagic {
       
       Database_UserFollowers.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
         let followersCount = snapshot.childrenCount
-        userStats.update(with: [FirebaseMagicKeys.User.followersCount: followersCount])
+        let rectifiedFollowersCount = Int(followersCount) - 1
+        userStats.update(with: [FirebaseMagicKeys.User.followersCount: rectifiedFollowersCount])
         
         Database_UserFollowing.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
           let followingCount = snapshot.childrenCount
@@ -876,13 +877,13 @@ class FirebaseMagic {
     })
   }
   
-  static func handleFollowButton(followingUserId: String, followedUserId: String, completion: @escaping (_ result: Bool?, _ error: Error?) -> ()) {
+  static func handleFollowButton(followingUserId: String, followedUserId: String, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     let values = [followedUserId: 1]
     Database_UserFollowing.child(followingUserId).updateChildValues(values) { (err, ref) in
       if let err = err {
         print("Failed to follow user with err:", err)
-        completion(nil, err)
+        completion(false, err)
         return
       }
       print("Successfully followed user with id:", followedUserId)
@@ -891,7 +892,7 @@ class FirebaseMagic {
       Database_UserFollowers.child(followedUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
         if let err = err {
           print("Failed to follow user with err:", err)
-          completion(nil, err)
+          completion(false, err)
           return
         }
         print("Successfully saved new follower id:", followingUserId)
@@ -903,7 +904,7 @@ class FirebaseMagic {
           Database_UserFeed.child(followingUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
             if let err = err {
               print("Failed to add followed user post into current user feed with error:", err)
-              completion(nil, err)
+              completion(false, err)
               return
             }
             
@@ -912,7 +913,7 @@ class FirebaseMagic {
           })
         }, withCancel: { (err) in
           print("Failed to observe followed with error:", err)
-          completion(nil, err)
+          completion(false, err)
           return
         })
         
@@ -921,7 +922,7 @@ class FirebaseMagic {
     }
   }
   
-  static func handleUnfollowButton(withUserId userId: String, completion: @escaping (_ result: Bool?, _ error: Error?) -> ()) {
+  static func handleUnfollowButton(withUserId userId: String, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     guard let currentLoggedInUserId = currentUserUid() else {
       completion(false, nil)
