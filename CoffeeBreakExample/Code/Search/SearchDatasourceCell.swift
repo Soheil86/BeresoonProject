@@ -122,10 +122,8 @@ class SearchDatasourceCell: DatasourceCell {
     FirebaseMagic.isCurrentUserFollowing(userId: userId) { (result) in
       guard let result = result else { return }
       if result {
-        self.followUnfollowButton.setTitle("FOLLOW", for: .normal)
         self.setupUnfollowStyle()
       } else {
-        self.followUnfollowButton.setTitle("UNFOLLOW", for: .normal)
         self.setupFollowStyle()
       }
     }
