@@ -572,12 +572,22 @@ class FirebaseMagic {
       
       Database_UserFollowers.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
         let followersCount = snapshot.childrenCount
-        let rectifiedFollowersCount = Int(followersCount) - 1
-        userStats.update(with: [FirebaseMagicKeys.User.followersCount: rectifiedFollowersCount])
+        // remove self from followers count
+        var rectifiedFollowersCount = Int(followersCount) - 1
+        // make sure we do not get a negative followers count
+        if rectifiedFollowersCount <= 0 {
+          rectifiedFollowersCount = 0
+        }
+        userStats.update(with: [FirebaseMagicKeys.User.followersCount: UInt(rectifiedFollowersCount)])
         
         Database_UserFollowing.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
           let followingCount = snapshot.childrenCount
-          userStats.update(with: [FirebaseMagicKeys.User.followingCount: followingCount])
+          var rectifiedFollowingCount = Int(followingCount)
+          // make sure we do not get a negative following count
+          if rectifiedFollowingCount <= 0 {
+            rectifiedFollowingCount = 0
+          }
+          userStats.update(with: [FirebaseMagicKeys.User.followingCount: UInt(rectifiedFollowingCount)])
           completion(userStats, nil)
           
         }, withCancel: { (err) in
