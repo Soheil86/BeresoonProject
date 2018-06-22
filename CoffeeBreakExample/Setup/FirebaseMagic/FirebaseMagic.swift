@@ -962,7 +962,7 @@ class FirebaseMagic {
   }
   
   // MARK: -
-  // MARK: Fetch user stats
+  // MARK: Fetch user stats - Followers / Following
   static func fetchUserStats(forUid uid: String?, fetchType: StatFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     guard let uid = uid else {
