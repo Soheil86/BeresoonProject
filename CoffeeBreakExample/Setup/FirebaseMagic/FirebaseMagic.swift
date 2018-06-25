@@ -31,19 +31,19 @@ class FirebaseMagic {
   // MARK: Fetched containers
   static var fetchedPosts = [Post]()
   static var fetchedPostsCurrentKey: String?
-  static let paginationElementsLimitPosts: UInt = 3
+  static let paginationElementsLimitPosts: UInt = FirebaseMagicSetup.paginationElementsLimitPosts
   
   static var fetchedUserPosts = [Post]()
   static var fetchedUserPostsCurrentKey: String?
-  static let paginationElementsLimitUserPosts: UInt = 12
+  static let paginationElementsLimitUserPosts: UInt = FirebaseMagicSetup.paginationElementsLimitUserPosts
   
   static var fetchedFollowerUsers = [CurrentUser]()
   static var fetchedFollowerUsersCurrentKey: String?
-  static let paginationElementsLimitFollowerUsers: UInt = 12
+  static let paginationElementsLimitFollowerUsers: UInt = FirebaseMagicSetup.paginationElementsLimitFollowerUsers
   
   static var fetchedFollowingUsers = [CurrentUser]()
   static var fetchedFollowingUsersCurrentKey: String?
-  static let paginationElementsLimitFollowingUsers: UInt = 12
+  static let paginationElementsLimitFollowingUsers: UInt = FirebaseMagicSetup.paginationElementsLimitFollowingUsers
   
   // MARK: -
   // MARK: Enums
@@ -357,7 +357,7 @@ class FirebaseMagic {
     }
     
     let uid = user.uid
-    var mutableUserDetails: [String : Any] = [FirebaseMagicKeys.User.username: username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_"), FirebaseMagicKeys.User.email : email.lowercased()]
+    var mutableUserDetails: [String : Any] = [FirebaseMagicKeys.User.username: username.firebaseKeyCompatible(), FirebaseMagicKeys.User.email : email.lowercased()]
     
     if let userDetails = userDetails {
       mutableUserDetails.update(with: userDetails)
@@ -473,7 +473,7 @@ class FirebaseMagic {
   static func fetchUsers(withUsername username: String, limitedToFirst: Int, completion: @escaping (_ users: [CurrentUser]?, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     var filteredUsers: [CurrentUser] = []
-    let allowedUsername = username.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".", with: "_").replacingOccurrences(of: "#", with: "_").replacingOccurrences(of: "$", with: "_").replacingOccurrences(of: "[", with: "_").replacingOccurrences(of: "]", with: "_").replacingOccurrences(of: "/", with: "_")
+    let allowedUsername = username.firebaseKeyCompatible()
     let userRef = Database_Users.queryLimited(toFirst: UInt(limitedToFirst)).queryOrdered(byChild: FirebaseMagicKeys.User.username).queryStarting(atValue: allowedUsername).queryEnding(atValue: allowedUsername+"\u{f8ff}")
     
     userRef.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -523,6 +523,9 @@ class FirebaseMagic {
         })
       } else {
         print("No users available for requested username:", allowedUsername)
+        if limitedToFirst == 1 {
+          FirebaseMagicService.showAlert(style: .alert, title: "Info", message: "No users available for requested username: \(allowedUsername)")
+        }
         completion(nil, nil)
       }
       
@@ -776,7 +779,7 @@ class FirebaseMagic {
           completion(false, nil)
           return
         }
-
+        
         allObjects.forEach({ (snapshot) in
 
           if snapshot.key != (fetchType == .onHome ? fetchedPostsCurrentKey : fetchedUserPostsCurrentKey) {
@@ -794,7 +797,7 @@ class FirebaseMagic {
           }
 
         })
-
+        
         if fetchType == .onHome {
           fetchedPostsCurrentKey = first.key
         } else {
@@ -1122,9 +1125,22 @@ class FirebaseMagic {
   // MARK: Show hud
   static func showHud(_ hud: JGProgressHUD, text: String) {
     hud.textLabel.text = text
+    hud.interactionType = .blockAllTouches
     if let topVC = UIApplication.getTopMostViewController() {
       hud.show(in: topVC.view, animated: true)
     }
+  }
+  
+  static func dismiss(_ hud: JGProgressHUD, afterDelay: TimeInterval?, text: String?) {
+    if let text = text {
+      hud.textLabel.text = text
+    }
+    if let afterDelay = afterDelay {
+      hud.dismiss(afterDelay: afterDelay, animated: true)
+    } else {
+      hud.dismiss(animated: true)
+    }
+    
   }
   
 }

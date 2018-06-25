@@ -52,6 +52,12 @@
 		C97A13EB20BC0E6A00AA26CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
 		C97A13F520BD200B00AA26CF /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C97A13F420BD200B00AA26CF /* Dev-Info.plist */; };
 		C97A13F620BD200B00AA26CF /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C97A13F420BD200B00AA26CF /* Dev-Info.plist */; };
+		C985238220E001AE00237DA9 /* FirebaseMagicExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238120E001AE00237DA9 /* FirebaseMagicExtensions.swift */; };
+		C985238320E001AE00237DA9 /* FirebaseMagicExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238120E001AE00237DA9 /* FirebaseMagicExtensions.swift */; };
+		C985238520E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238420E0023D00237DA9 /* FirebaseMagicSetup.swift */; };
+		C985238620E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238420E0023D00237DA9 /* FirebaseMagicSetup.swift */; };
+		C985238820E0068900237DA9 /* FirebaseMagicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238720E0068900237DA9 /* FirebaseMagicService.swift */; };
+		C985238920E0068900237DA9 /* FirebaseMagicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238720E0068900237DA9 /* FirebaseMagicService.swift */; };
 		C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808020B2AB470044A6D0 /* AppDelegate.swift */; };
 		C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
 		C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
@@ -89,6 +95,9 @@
 		C97A139A20BB3AD500AA26CF /* UserStatsDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsDatasourceCell.swift; sourceTree = "<group>"; };
 		C97A13F020BC0E6A00AA26CF /* CoffeeBreakExample Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CoffeeBreakExample Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C97A13F420BD200B00AA26CF /* Dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Dev-Info.plist"; sourceTree = "<group>"; };
+		C985238120E001AE00237DA9 /* FirebaseMagicExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMagicExtensions.swift; sourceTree = "<group>"; };
+		C985238420E0023D00237DA9 /* FirebaseMagicSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMagicSetup.swift; sourceTree = "<group>"; };
+		C985238720E0068900237DA9 /* FirebaseMagicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMagicService.swift; sourceTree = "<group>"; };
 		C9A1807D20B2AB470044A6D0 /* CoffeeBreakExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeBreakExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A1808020B2AB470044A6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -162,6 +171,9 @@
 			children = (
 				C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */,
 				C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */,
+				C985238120E001AE00237DA9 /* FirebaseMagicExtensions.swift */,
+				C985238420E0023D00237DA9 /* FirebaseMagicSetup.swift */,
+				C985238720E0068900237DA9 /* FirebaseMagicService.swift */,
 			);
 			path = FirebaseMagic;
 			sourceTree = "<group>";
@@ -504,11 +516,13 @@
 				C97A13CD20BC0E6A00AA26CF /* SearchDatasourceCell.swift in Sources */,
 				C97A13CE20BC0E6A00AA26CF /* UserProfileHeaderDatasourceCell.swift in Sources */,
 				C97A13CF20BC0E6A00AA26CF /* UserProfileDatasourceController.swift in Sources */,
+				C985238920E0068900237DA9 /* FirebaseMagicService.swift in Sources */,
 				C97A13D020BC0E6A00AA26CF /* SignUpController.swift in Sources */,
 				C97A13D120BC0E6A00AA26CF /* ForgotPasswordController.swift in Sources */,
 				C97A13D220BC0E6A00AA26CF /* LoginController.swift in Sources */,
 				C97A13D320BC0E6A00AA26CF /* UserProfilePostDatasourceCell.swift in Sources */,
 				C97A13D420BC0E6A00AA26CF /* UserStatsDatasource.swift in Sources */,
+				C985238320E001AE00237DA9 /* FirebaseMagicExtensions.swift in Sources */,
 				C97A13D520BC0E6A00AA26CF /* Setup.swift in Sources */,
 				C97A13D620BC0E6A00AA26CF /* SearchDatasource.swift in Sources */,
 				C97A13D720BC0E6A00AA26CF /* SharePostViewController.swift in Sources */,
@@ -521,6 +535,7 @@
 				C97A13DE20BC0E6A00AA26CF /* UserProfileDatasource.swift in Sources */,
 				C97A13DF20BC0E6A00AA26CF /* Extensions.swift in Sources */,
 				C97A13E020BC0E6A00AA26CF /* HomeDatasource.swift in Sources */,
+				C985238620E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */,
 				C97A13E120BC0E6A00AA26CF /* UserStatsDatasourceController.swift in Sources */,
 				C97A13E220BC0E6A00AA26CF /* ActivityDatasourceController.swift in Sources */,
 				C97A13E320BC0E6A00AA26CF /* Service.swift in Sources */,
@@ -537,11 +552,13 @@
 				C97A139420BACB1B00AA26CF /* SearchDatasourceCell.swift in Sources */,
 				C978CF5120B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift in Sources */,
 				C9A180A220B2BDC50044A6D0 /* UserProfileDatasourceController.swift in Sources */,
+				C985238820E0068900237DA9 /* FirebaseMagicService.swift in Sources */,
 				C9A180AB20B2DE550044A6D0 /* SignUpController.swift in Sources */,
 				C9A180B520B2EE980044A6D0 /* ForgotPasswordController.swift in Sources */,
 				C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */,
 				C978CF4F20B44E0D003863AF /* UserProfilePostDatasourceCell.swift in Sources */,
 				C97A139920BB3AB900AA26CF /* UserStatsDatasource.swift in Sources */,
+				C985238220E001AE00237DA9 /* FirebaseMagicExtensions.swift in Sources */,
 				C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */,
 				C97A139220BACB0800AA26CF /* SearchDatasource.swift in Sources */,
 				C978CF7320B59035003863AF /* SharePostViewController.swift in Sources */,
@@ -554,6 +571,7 @@
 				C978CF4D20B44DFE003863AF /* UserProfileDatasource.swift in Sources */,
 				C9A180B120B2DFE80044A6D0 /* Extensions.swift in Sources */,
 				C97A138E20BABBAD00AA26CF /* HomeDatasource.swift in Sources */,
+				C985238520E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */,
 				C97A139720BB3A9A00AA26CF /* UserStatsDatasourceController.swift in Sources */,
 				C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */,
 				C9A1809320B2B1A10044A6D0 /* Service.swift in Sources */,
