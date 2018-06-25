@@ -173,15 +173,15 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     FirebaseMagic.showHud(hud, text: "Signing up with email...")
     FirebaseMagic.signUpUserWithEmail(userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
       if let err = err {
-        hud.dismiss(animated: true)
+        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
         Service.showAlert(style: .alert, title: "Sign up error", message: err.localizedDescription)
         return
       } else if result == false {
-        hud.textLabel.text = "Something went wrong..."
-        hud.dismiss(afterDelay: 1, animated: true)
+        FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
         return
       }
       print("Successfully signed up with email.")
+      FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
       self.dismissSignUpController()
     }
     

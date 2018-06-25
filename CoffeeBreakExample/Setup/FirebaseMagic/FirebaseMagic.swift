@@ -257,7 +257,7 @@ class FirebaseMagic {
   // MARK: -
   // MARK: Sign up
   fileprivate static func checkUsernameAvailability(for username: String, userCredentials: [String : Any], completion: @escaping (_ result: Bool,_ userCredentials: [String : Any], _ error: Error?) ->()) {
-    fetchUsers(withUsername: username, limitedToFirst: 1) { (users, err) in
+    fetchUsers(withUsername: username, limitedToFirst: 1, isOnSignup: true) { (users, err) in
       if let err = err {
         completion(false, userCredentials, err)
       }
@@ -470,7 +470,7 @@ class FirebaseMagic {
   
   // MARK: -
   // MARK: Fetch users
-  static func fetchUsers(withUsername username: String, limitedToFirst: Int, completion: @escaping (_ users: [CurrentUser]?, _ error: Error?) -> ()) {
+  static func fetchUsers(withUsername username: String, limitedToFirst: Int, isOnSignup: Bool? = false, completion: @escaping (_ users: [CurrentUser]?, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     var filteredUsers: [CurrentUser] = []
     let allowedUsername = username.firebaseKeyCompatible()
@@ -524,7 +524,10 @@ class FirebaseMagic {
       } else {
         print("No users available for requested username:", allowedUsername)
         if limitedToFirst == 1 {
-          FirebaseMagicService.showAlert(style: .alert, title: "Info", message: "No users available for requested username: \(allowedUsername)")
+          if isOnSignup == false {
+            FirebaseMagicService.showAlert(style: .alert, title: "Info", message: "No users available for requested username: \(allowedUsername)")
+          }
+          
         }
         completion(nil, nil)
       }
@@ -1127,6 +1130,8 @@ class FirebaseMagic {
     hud.textLabel.text = text
     hud.interactionType = .blockAllTouches
     if let topVC = UIApplication.getTopMostViewController() {
+      topVC.navigationItem.leftBarButtonItem?.isEnabled = false
+      topVC.navigationItem.rightBarButtonItem?.isEnabled = false
       hud.show(in: topVC.view, animated: true)
     }
   }
@@ -1140,7 +1145,10 @@ class FirebaseMagic {
     } else {
       hud.dismiss(animated: true)
     }
-    
+    if let topVC = UIApplication.getTopMostViewController() {
+      topVC.navigationItem.leftBarButtonItem?.isEnabled = true
+      topVC.navigationItem.rightBarButtonItem?.isEnabled = true
+    }
   }
   
 }

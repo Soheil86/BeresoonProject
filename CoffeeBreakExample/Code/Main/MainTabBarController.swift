@@ -22,7 +22,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
     FirebaseMagic.showHud(hud, text: "Loading...")
     FirebaseMagic.checkIfUserIsSignedIn { (result) in
       DispatchQueue.main.async {
-        hud.dismiss(animated: true)
+        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
         if result == false {
           let controller = SignUpController()
           let navController = UINavigationController(rootViewController: controller)
