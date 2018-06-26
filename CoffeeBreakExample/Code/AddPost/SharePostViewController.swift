@@ -58,15 +58,15 @@ class SharePostViewController: UIViewController {
       FirebaseMagic.showHud(hud, text: "Sharing...")
       FirebaseMagic.sharePost(withCaption: caption, image: image) { (result, err) in
         if let err = err {
-          hud.dismiss(animated: true)
+          FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
           Service.showAlert(style: .alert, title: "Share error", message: err.localizedDescription)
           return
         } else if result == false {
-          hud.textLabel.text = "Something went wrong..."
-          hud.dismiss(afterDelay: 1, animated: true)
+          FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
           return
         }
         print("Successfully shared post.")
+        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
         NotificationCenter.default.post(name: Service.notificationNameUserSharedAPost, object: nil, userInfo: nil)
         self.dismiss(animated: true, completion: nil)
       }

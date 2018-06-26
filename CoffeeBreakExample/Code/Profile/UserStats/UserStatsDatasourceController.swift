@@ -50,18 +50,17 @@ class UserStatsDatasourceController: DatasourceController, UISearchBarDelegate {
     FirebaseMagic.fetchUserStats(forUid: FirebaseMagic.currentUserUid(), fetchType: fetchType, in: self) { (result, err) in
       if let err = err {
         print("Failed to fetch user \(fetchType) with err:", err)
-        hud.dismiss(animated: true)
+        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
         Service.showAlert(style: .alert, title: "Fetch error", message: "Failed to fetch user \(fetchType) with err: \(err)")
         completion(false)
         return
       } else if result == false {
-        hud.textLabel.text = "Something went wrong..."
-        hud.dismiss(afterDelay: 1, animated: true)
+        FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
         completion(false)
         return
       }
       print("Successfully fetched user \(fetchType)")
-      hud.dismiss(animated: true)
+      FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
       completion(true)
     }
   }

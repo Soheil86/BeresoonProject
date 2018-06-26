@@ -100,15 +100,15 @@ class LoginController: UIViewController {
     FirebaseMagic.showHud(hud, text: "Logging in...")
     FirebaseMagic.signIn(withUsernameOrEmail: usernameOrEmailTextField.text, password: passwordTextField.text) { (result, err) in
       if let err = err {
-        hud.dismiss(animated: true)
+        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
         Service.showAlert(style: .alert, title: "Log in error", message: err.localizedDescription)
         return
       } else if result == false {
-        hud.textLabel.text = "Something went wrong..."
-        hud.dismiss(afterDelay: 1, animated: true)
+        FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
         return
       }
       print("Successfully logged.")
+      FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
       self.dismissLoginController()
     }
     
