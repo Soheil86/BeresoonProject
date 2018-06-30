@@ -8,6 +8,40 @@
 
 /* Begin PBXBuildFile section */
 		A0895C999051C522D905DC9F /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
+		C973F51520E77BAC0034F953 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
+		C973F51620E77BAC0034F953 /* SearchDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139320BACB1B00AA26CF /* SearchDatasourceCell.swift */; };
+		C973F51720E77BAC0034F953 /* UserProfileHeaderDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */; };
+		C973F51820E77BAC0034F953 /* UserProfileDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A120B2BDC50044A6D0 /* UserProfileDatasourceController.swift */; };
+		C973F51920E77BAC0034F953 /* FirebaseMagicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238720E0068900237DA9 /* FirebaseMagicService.swift */; };
+		C973F51A20E77BAC0034F953 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AA20B2DE550044A6D0 /* SignUpController.swift */; };
+		C973F51B20E77BAC0034F953 /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */; };
+		C973F51C20E77BAC0034F953 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B220B2EC270044A6D0 /* LoginController.swift */; };
+		C973F51D20E77BAC0034F953 /* UserProfilePostDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */; };
+		C973F51E20E77BAC0034F953 /* UserStatsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139820BB3AB900AA26CF /* UserStatsDatasource.swift */; };
+		C973F51F20E77BAC0034F953 /* FirebaseMagicExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238120E001AE00237DA9 /* FirebaseMagicExtensions.swift */; };
+		C973F52020E77BAC0034F953 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AC20B2DEA80044A6D0 /* Setup.swift */; };
+		C973F52120E77BAC0034F953 /* SearchDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139120BACB0800AA26CF /* SearchDatasource.swift */; };
+		C973F52220E77BAC0034F953 /* SharePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF7220B59035003863AF /* SharePostViewController.swift */; };
+		C973F52320E77BAC0034F953 /* FirebaseMagicModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */; };
+		C973F52420E77BAC0034F953 /* HomePostDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A138F20BABBBB00AA26CF /* HomePostDatasourceCell.swift */; };
+		C973F52520E77BAC0034F953 /* DummyAddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A320B2BE1D0044A6D0 /* DummyAddPostViewController.swift */; };
+		C973F52620E77BAC0034F953 /* HomeDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809720B2B33A0044A6D0 /* HomeDatasourceController.swift */; };
+		C973F52720E77BAC0034F953 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808020B2AB470044A6D0 /* AppDelegate.swift */; };
+		C973F52820E77BAC0034F953 /* UserStatsDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139A20BB3AD500AA26CF /* UserStatsDatasourceCell.swift */; };
+		C973F52920E77BAC0034F953 /* UserProfileDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */; };
+		C973F52A20E77BAC0034F953 /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B020B2DFE80044A6D0 /* ScreenSize.swift */; };
+		C973F52B20E77BAC0034F953 /* HomeDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A138D20BABBAD00AA26CF /* HomeDatasource.swift */; };
+		C973F52C20E77BAC0034F953 /* FirebaseMagicSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238420E0023D00237DA9 /* FirebaseMagicSetup.swift */; };
+		C973F52D20E77BAC0034F953 /* UserStatsDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139620BB3A9A00AA26CF /* UserStatsDatasourceController.swift */; };
+		C973F52E20E77BAC0034F953 /* ActivityDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */; };
+		C973F52F20E77BAC0034F953 /* SearchDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809D20B2BD560044A6D0 /* SearchDatasourceController.swift */; };
+		C973F53020E77BAC0034F953 /* FirebaseMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */; };
+		C973F53220E77BAC0034F953 /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
+		C973F53320E77BAC0034F953 /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
+		C973F53520E77BAC0034F953 /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C97A13F420BD200B00AA26CF /* Dev-Info.plist */; };
+		C973F53620E77BAC0034F953 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */; };
+		C973F53720E77BAC0034F953 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808920B2AB490044A6D0 /* LaunchScreen.storyboard */; };
+		C973F53820E77BAC0034F953 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
 		C978CF4D20B44DFE003863AF /* UserProfileDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */; };
 		C978CF4F20B44E0D003863AF /* UserProfilePostDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */; };
 		C978CF5120B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */; };
@@ -20,43 +54,10 @@
 		C97A139720BB3A9A00AA26CF /* UserStatsDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139620BB3A9A00AA26CF /* UserStatsDatasourceController.swift */; };
 		C97A139920BB3AB900AA26CF /* UserStatsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139820BB3AB900AA26CF /* UserStatsDatasource.swift */; };
 		C97A139B20BB3AD500AA26CF /* UserStatsDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139A20BB3AD500AA26CF /* UserStatsDatasourceCell.swift */; };
-		C97A13CC20BC0E6A00AA26CF /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
-		C97A13CD20BC0E6A00AA26CF /* SearchDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139320BACB1B00AA26CF /* SearchDatasourceCell.swift */; };
-		C97A13CE20BC0E6A00AA26CF /* UserProfileHeaderDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */; };
-		C97A13CF20BC0E6A00AA26CF /* UserProfileDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A120B2BDC50044A6D0 /* UserProfileDatasourceController.swift */; };
-		C97A13D020BC0E6A00AA26CF /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AA20B2DE550044A6D0 /* SignUpController.swift */; };
-		C97A13D120BC0E6A00AA26CF /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */; };
-		C97A13D220BC0E6A00AA26CF /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B220B2EC270044A6D0 /* LoginController.swift */; };
-		C97A13D320BC0E6A00AA26CF /* UserProfilePostDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */; };
-		C97A13D420BC0E6A00AA26CF /* UserStatsDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139820BB3AB900AA26CF /* UserStatsDatasource.swift */; };
-		C97A13D520BC0E6A00AA26CF /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AC20B2DEA80044A6D0 /* Setup.swift */; };
-		C97A13D620BC0E6A00AA26CF /* SearchDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139120BACB0800AA26CF /* SearchDatasource.swift */; };
-		C97A13D720BC0E6A00AA26CF /* SharePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF7220B59035003863AF /* SharePostViewController.swift */; };
-		C97A13D820BC0E6A00AA26CF /* FirebaseMagicModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */; };
-		C97A13D920BC0E6A00AA26CF /* HomePostDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A138F20BABBBB00AA26CF /* HomePostDatasourceCell.swift */; };
-		C97A13DA20BC0E6A00AA26CF /* DummyAddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180A320B2BE1D0044A6D0 /* DummyAddPostViewController.swift */; };
-		C97A13DB20BC0E6A00AA26CF /* HomeDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809720B2B33A0044A6D0 /* HomeDatasourceController.swift */; };
-		C97A13DC20BC0E6A00AA26CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808020B2AB470044A6D0 /* AppDelegate.swift */; };
-		C97A13DD20BC0E6A00AA26CF /* UserStatsDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139A20BB3AD500AA26CF /* UserStatsDatasourceCell.swift */; };
-		C97A13DE20BC0E6A00AA26CF /* UserProfileDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */; };
-		C97A13DF20BC0E6A00AA26CF /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B020B2DFE80044A6D0 /* ScreenSize.swift */; };
-		C97A13E020BC0E6A00AA26CF /* HomeDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A138D20BABBAD00AA26CF /* HomeDatasource.swift */; };
-		C97A13E120BC0E6A00AA26CF /* UserStatsDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139620BB3A9A00AA26CF /* UserStatsDatasourceController.swift */; };
-		C97A13E220BC0E6A00AA26CF /* ActivityDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */; };
-		C97A13E420BC0E6A00AA26CF /* SearchDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809D20B2BD560044A6D0 /* SearchDatasourceController.swift */; };
-		C97A13E520BC0E6A00AA26CF /* FirebaseMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */; };
-		C97A13E720BC0E6A00AA26CF /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
-		C97A13E920BC0E6A00AA26CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */; };
-		C97A13EA20BC0E6A00AA26CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808920B2AB490044A6D0 /* LaunchScreen.storyboard */; };
-		C97A13EB20BC0E6A00AA26CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
 		C97A13F520BD200B00AA26CF /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C97A13F420BD200B00AA26CF /* Dev-Info.plist */; };
-		C97A13F620BD200B00AA26CF /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C97A13F420BD200B00AA26CF /* Dev-Info.plist */; };
 		C985238220E001AE00237DA9 /* FirebaseMagicExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238120E001AE00237DA9 /* FirebaseMagicExtensions.swift */; };
-		C985238320E001AE00237DA9 /* FirebaseMagicExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238120E001AE00237DA9 /* FirebaseMagicExtensions.swift */; };
 		C985238520E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238420E0023D00237DA9 /* FirebaseMagicSetup.swift */; };
-		C985238620E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238420E0023D00237DA9 /* FirebaseMagicSetup.swift */; };
 		C985238820E0068900237DA9 /* FirebaseMagicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238720E0068900237DA9 /* FirebaseMagicService.swift */; };
-		C985238920E0068900237DA9 /* FirebaseMagicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985238720E0068900237DA9 /* FirebaseMagicService.swift */; };
 		C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808020B2AB470044A6D0 /* AppDelegate.swift */; };
 		C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
 		C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
@@ -73,12 +74,14 @@
 		C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B220B2EC270044A6D0 /* LoginController.swift */; };
 		C9A180B520B2EE980044A6D0 /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */; };
 		C9A180B720B2FEFC0044A6D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */; };
+		FE4DD440B282A6BD021C181D /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		073BAAE7FDF5729E579F602C /* Pods-CoffeeBreakExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeBreakExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample.release.xcconfig"; sourceTree = "<group>"; };
 		12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoffeeBreakExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AF14DD06DD21CE14437E88A /* Pods-CoffeeBreakExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeBreakExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample.debug.xcconfig"; sourceTree = "<group>"; };
+		19706E2DBAF5372740DB5142 /* Pods-CoffeeBreakExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeBreakExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample.debug.xcconfig"; sourceTree = "<group>"; };
+		97CC2212BC3E19EFBE642AB4 /* Pods-CoffeeBreakExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeBreakExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample.release.xcconfig"; sourceTree = "<group>"; };
+		C973F53D20E77BAC0034F953 /* CoffeeBreakExampleDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeBreakExampleDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileDatasource.swift; sourceTree = "<group>"; };
 		C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePostDatasourceCell.swift; sourceTree = "<group>"; };
 		C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderDatasourceCell.swift; sourceTree = "<group>"; };
@@ -91,7 +94,6 @@
 		C97A139620BB3A9A00AA26CF /* UserStatsDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsDatasourceController.swift; sourceTree = "<group>"; };
 		C97A139820BB3AB900AA26CF /* UserStatsDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsDatasource.swift; sourceTree = "<group>"; };
 		C97A139A20BB3AD500AA26CF /* UserStatsDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsDatasourceCell.swift; sourceTree = "<group>"; };
-		C97A13F020BC0E6A00AA26CF /* CoffeeBreakExample Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CoffeeBreakExample Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C97A13F420BD200B00AA26CF /* Dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Dev-Info.plist"; sourceTree = "<group>"; };
 		C985238120E001AE00237DA9 /* FirebaseMagicExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMagicExtensions.swift; sourceTree = "<group>"; };
 		C985238420E0023D00237DA9 /* FirebaseMagicSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMagicSetup.swift; sourceTree = "<group>"; };
@@ -117,11 +119,12 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C97A13E620BC0E6A00AA26CF /* Frameworks */ = {
+		C973F53120E77BAC0034F953 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C97A13E720BC0E6A00AA26CF /* Pods_CoffeeBreakExample.framework in Frameworks */,
+				C973F53220E77BAC0034F953 /* Pods_CoffeeBreakExample.framework in Frameworks */,
+				C973F53320E77BAC0034F953 /* Pods_CoffeeBreakExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +133,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0895C999051C522D905DC9F /* Pods_CoffeeBreakExample.framework in Frameworks */,
+				FE4DD440B282A6BD021C181D /* Pods_CoffeeBreakExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,8 +151,8 @@
 		B68EDBAF2E531E1FF092417D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6AF14DD06DD21CE14437E88A /* Pods-CoffeeBreakExample.debug.xcconfig */,
-				073BAAE7FDF5729E579F602C /* Pods-CoffeeBreakExample.release.xcconfig */,
+				19706E2DBAF5372740DB5142 /* Pods-CoffeeBreakExample.debug.xcconfig */,
+				97CC2212BC3E19EFBE642AB4 /* Pods-CoffeeBreakExample.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -204,7 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				C9A1807D20B2AB470044A6D0 /* CoffeeBreakExample.app */,
-				C97A13F020BC0E6A00AA26CF /* CoffeeBreakExample Dev.app */,
+				C973F53D20E77BAC0034F953 /* CoffeeBreakExampleDev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -311,23 +315,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C97A13C920BC0E6A00AA26CF /* CoffeeBreakExample Dev */ = {
+		C973F51220E77BAC0034F953 /* CoffeeBreakExampleDev */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C97A13ED20BC0E6A00AA26CF /* Build configuration list for PBXNativeTarget "CoffeeBreakExample Dev" */;
+			buildConfigurationList = C973F53A20E77BAC0034F953 /* Build configuration list for PBXNativeTarget "CoffeeBreakExampleDev" */;
 			buildPhases = (
-				C97A13CA20BC0E6A00AA26CF /* [CP] Check Pods Manifest.lock */,
-				C97A13CB20BC0E6A00AA26CF /* Sources */,
-				C97A13E620BC0E6A00AA26CF /* Frameworks */,
-				C97A13E820BC0E6A00AA26CF /* Resources */,
-				C97A13EC20BC0E6A00AA26CF /* [CP] Embed Pods Frameworks */,
+				C973F51320E77BAC0034F953 /* [CP] Check Pods Manifest.lock */,
+				C973F51420E77BAC0034F953 /* Sources */,
+				C973F53120E77BAC0034F953 /* Frameworks */,
+				C973F53420E77BAC0034F953 /* Resources */,
+				C973F53920E77BAC0034F953 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "CoffeeBreakExample Dev";
+			name = CoffeeBreakExampleDev;
 			productName = CoffeeBreakExample;
-			productReference = C97A13F020BC0E6A00AA26CF /* CoffeeBreakExample Dev.app */;
+			productReference = C973F53D20E77BAC0034F953 /* CoffeeBreakExampleDev.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C9A1807C20B2AB470044A6D0 /* CoffeeBreakExample */ = {
@@ -356,7 +360,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Alex Nagy";
 				TargetAttributes = {
 					C9A1807C20B2AB470044A6D0 = {
@@ -378,20 +382,20 @@
 			projectRoot = "";
 			targets = (
 				C9A1807C20B2AB470044A6D0 /* CoffeeBreakExample */,
-				C97A13C920BC0E6A00AA26CF /* CoffeeBreakExample Dev */,
+				C973F51220E77BAC0034F953 /* CoffeeBreakExampleDev */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C97A13E820BC0E6A00AA26CF /* Resources */ = {
+		C973F53420E77BAC0034F953 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C97A13F620BD200B00AA26CF /* Dev-Info.plist in Resources */,
-				C97A13E920BC0E6A00AA26CF /* GoogleService-Info.plist in Resources */,
-				C97A13EA20BC0E6A00AA26CF /* LaunchScreen.storyboard in Resources */,
-				C97A13EB20BC0E6A00AA26CF /* Assets.xcassets in Resources */,
+				C973F53520E77BAC0034F953 /* Dev-Info.plist in Resources */,
+				C973F53620E77BAC0034F953 /* GoogleService-Info.plist in Resources */,
+				C973F53720E77BAC0034F953 /* LaunchScreen.storyboard in Resources */,
+				C973F53820E77BAC0034F953 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,7 +459,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C97A13CA20BC0E6A00AA26CF /* [CP] Check Pods Manifest.lock */ = {
+		C973F51320E77BAC0034F953 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -473,7 +477,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C97A13EC20BC0E6A00AA26CF /* [CP] Embed Pods Frameworks */ = {
+		C973F53920E77BAC0034F953 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -504,38 +508,38 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C97A13CB20BC0E6A00AA26CF /* Sources */ = {
+		C973F51420E77BAC0034F953 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C97A13CC20BC0E6A00AA26CF /* MainTabBarController.swift in Sources */,
-				C97A13CD20BC0E6A00AA26CF /* SearchDatasourceCell.swift in Sources */,
-				C97A13CE20BC0E6A00AA26CF /* UserProfileHeaderDatasourceCell.swift in Sources */,
-				C97A13CF20BC0E6A00AA26CF /* UserProfileDatasourceController.swift in Sources */,
-				C985238920E0068900237DA9 /* FirebaseMagicService.swift in Sources */,
-				C97A13D020BC0E6A00AA26CF /* SignUpController.swift in Sources */,
-				C97A13D120BC0E6A00AA26CF /* ForgotPasswordController.swift in Sources */,
-				C97A13D220BC0E6A00AA26CF /* LoginController.swift in Sources */,
-				C97A13D320BC0E6A00AA26CF /* UserProfilePostDatasourceCell.swift in Sources */,
-				C97A13D420BC0E6A00AA26CF /* UserStatsDatasource.swift in Sources */,
-				C985238320E001AE00237DA9 /* FirebaseMagicExtensions.swift in Sources */,
-				C97A13D520BC0E6A00AA26CF /* Setup.swift in Sources */,
-				C97A13D620BC0E6A00AA26CF /* SearchDatasource.swift in Sources */,
-				C97A13D720BC0E6A00AA26CF /* SharePostViewController.swift in Sources */,
-				C97A13D820BC0E6A00AA26CF /* FirebaseMagicModels.swift in Sources */,
-				C97A13D920BC0E6A00AA26CF /* HomePostDatasourceCell.swift in Sources */,
-				C97A13DA20BC0E6A00AA26CF /* DummyAddPostViewController.swift in Sources */,
-				C97A13DB20BC0E6A00AA26CF /* HomeDatasourceController.swift in Sources */,
-				C97A13DC20BC0E6A00AA26CF /* AppDelegate.swift in Sources */,
-				C97A13DD20BC0E6A00AA26CF /* UserStatsDatasourceCell.swift in Sources */,
-				C97A13DE20BC0E6A00AA26CF /* UserProfileDatasource.swift in Sources */,
-				C97A13DF20BC0E6A00AA26CF /* ScreenSize.swift in Sources */,
-				C97A13E020BC0E6A00AA26CF /* HomeDatasource.swift in Sources */,
-				C985238620E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */,
-				C97A13E120BC0E6A00AA26CF /* UserStatsDatasourceController.swift in Sources */,
-				C97A13E220BC0E6A00AA26CF /* ActivityDatasourceController.swift in Sources */,
-				C97A13E420BC0E6A00AA26CF /* SearchDatasourceController.swift in Sources */,
-				C97A13E520BC0E6A00AA26CF /* FirebaseMagic.swift in Sources */,
+				C973F51520E77BAC0034F953 /* MainTabBarController.swift in Sources */,
+				C973F51620E77BAC0034F953 /* SearchDatasourceCell.swift in Sources */,
+				C973F51720E77BAC0034F953 /* UserProfileHeaderDatasourceCell.swift in Sources */,
+				C973F51820E77BAC0034F953 /* UserProfileDatasourceController.swift in Sources */,
+				C973F51920E77BAC0034F953 /* FirebaseMagicService.swift in Sources */,
+				C973F51A20E77BAC0034F953 /* SignUpController.swift in Sources */,
+				C973F51B20E77BAC0034F953 /* ForgotPasswordController.swift in Sources */,
+				C973F51C20E77BAC0034F953 /* LoginController.swift in Sources */,
+				C973F51D20E77BAC0034F953 /* UserProfilePostDatasourceCell.swift in Sources */,
+				C973F51E20E77BAC0034F953 /* UserStatsDatasource.swift in Sources */,
+				C973F51F20E77BAC0034F953 /* FirebaseMagicExtensions.swift in Sources */,
+				C973F52020E77BAC0034F953 /* Setup.swift in Sources */,
+				C973F52120E77BAC0034F953 /* SearchDatasource.swift in Sources */,
+				C973F52220E77BAC0034F953 /* SharePostViewController.swift in Sources */,
+				C973F52320E77BAC0034F953 /* FirebaseMagicModels.swift in Sources */,
+				C973F52420E77BAC0034F953 /* HomePostDatasourceCell.swift in Sources */,
+				C973F52520E77BAC0034F953 /* DummyAddPostViewController.swift in Sources */,
+				C973F52620E77BAC0034F953 /* HomeDatasourceController.swift in Sources */,
+				C973F52720E77BAC0034F953 /* AppDelegate.swift in Sources */,
+				C973F52820E77BAC0034F953 /* UserStatsDatasourceCell.swift in Sources */,
+				C973F52920E77BAC0034F953 /* UserProfileDatasource.swift in Sources */,
+				C973F52A20E77BAC0034F953 /* ScreenSize.swift in Sources */,
+				C973F52B20E77BAC0034F953 /* HomeDatasource.swift in Sources */,
+				C973F52C20E77BAC0034F953 /* FirebaseMagicSetup.swift in Sources */,
+				C973F52D20E77BAC0034F953 /* UserStatsDatasourceController.swift in Sources */,
+				C973F52E20E77BAC0034F953 /* ActivityDatasourceController.swift in Sources */,
+				C973F52F20E77BAC0034F953 /* SearchDatasourceController.swift in Sources */,
+				C973F53020E77BAC0034F953 /* FirebaseMagic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,9 +592,9 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		C97A13EE20BC0E6A00AA26CF /* Debug */ = {
+		C973F53B20E77BAC0034F953 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AF14DD06DD21CE14437E88A /* Pods-CoffeeBreakExample.debug.xcconfig */;
+			baseConfigurationReference = 19706E2DBAF5372740DB5142 /* Pods-CoffeeBreakExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
 				CODE_SIGN_STYLE = Automatic;
@@ -600,7 +604,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OTHER_SWIFT_FLAGS = "-DDEVELOPMENT";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEVELOPMENT\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -608,9 +612,9 @@
 			};
 			name = Debug;
 		};
-		C97A13EF20BC0E6A00AA26CF /* Release */ = {
+		C973F53C20E77BAC0034F953 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 073BAAE7FDF5729E579F602C /* Pods-CoffeeBreakExample.release.xcconfig */;
+			baseConfigurationReference = 97CC2212BC3E19EFBE642AB4 /* Pods-CoffeeBreakExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
 				CODE_SIGN_STYLE = Automatic;
@@ -620,7 +624,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OTHER_SWIFT_FLAGS = "-DDEVELOPMENT";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEVELOPMENT\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -744,7 +748,7 @@
 		};
 		C9A1809020B2AB490044A6D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AF14DD06DD21CE14437E88A /* Pods-CoffeeBreakExample.debug.xcconfig */;
+			baseConfigurationReference = 19706E2DBAF5372740DB5142 /* Pods-CoffeeBreakExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -763,7 +767,7 @@
 		};
 		C9A1809120B2AB490044A6D0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 073BAAE7FDF5729E579F602C /* Pods-CoffeeBreakExample.release.xcconfig */;
+			baseConfigurationReference = 97CC2212BC3E19EFBE642AB4 /* Pods-CoffeeBreakExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -783,11 +787,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C97A13ED20BC0E6A00AA26CF /* Build configuration list for PBXNativeTarget "CoffeeBreakExample Dev" */ = {
+		C973F53A20E77BAC0034F953 /* Build configuration list for PBXNativeTarget "CoffeeBreakExampleDev" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C97A13EE20BC0E6A00AA26CF /* Debug */,
-				C97A13EF20BC0E6A00AA26CF /* Release */,
+				C973F53B20E77BAC0034F953 /* Debug */,
+				C973F53C20E77BAC0034F953 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
