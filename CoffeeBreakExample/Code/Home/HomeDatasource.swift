@@ -22,7 +22,7 @@ class HomeDatasource: Datasource {
   }
   
   override func item(_ indexPath: IndexPath) -> Any? {
-    // MARK: FirebaseMagic - Insert item
+    // MARK: FirebaseMagic - Insert item on home feed
     if indexPath.item < FirebaseMagic.fetchedPosts.count {
       return FirebaseMagic.fetchedPosts[indexPath.item]
     } else {
@@ -31,7 +31,7 @@ class HomeDatasource: Datasource {
   }
   
   override func numberOfItems(_ section: Int) -> Int {
-    // MARK: FirebaseMagic - Number of items
+    // MARK: FirebaseMagic - Number of items on home feed
     return FirebaseMagic.fetchedPosts.count
   }
   

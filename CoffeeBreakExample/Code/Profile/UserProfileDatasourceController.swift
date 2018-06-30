@@ -90,7 +90,7 @@ class UserProfileDatasourceController: DatasourceController {
   }
   
   func fetchCurrentUser(completion: @escaping (CurrentUser) -> ()) {
-    // MARK: FirebaseMagic - Fetch Current User
+    // MARK: FirebaseMagic - Fetch current user
     guard let uid = FirebaseMagic.currentUserUid() else { return }
     let hud = JGProgressHUD(style: .light)
     FirebaseMagicService.showHud(hud, text: "Fetching user...")
@@ -128,14 +128,14 @@ class UserProfileDatasourceController: DatasourceController {
   }
   
   fileprivate func clearPosts() {
-    // MARK: FirebaseMagic - Removing current posts if any
+    // MARK: FirebaseMagic - Remove current user posts if any
     FirebaseMagic.fetchedUserPosts.removeAll()
     FirebaseMagic.fetchedUserPostsCurrentKey = nil
     collectionView?.reloadData()
   }
   
   fileprivate func fetchPosts(completion: @escaping (_ result: Bool) -> ()) {
-    // MARK: FirebaseMagic - Fetch user posts
+    // MARK: FirebaseMagic - Fetch current user posts
     let hud = JGProgressHUD(style: .light)
     FirebaseMagicService.showHud(hud, text: "Fetching user posts...")
     FirebaseMagic.fetchUserPosts(forUid: FirebaseMagic.currentUserUid(), fetchType: .onUserProfile, in: self, completion: { (result, err) in
@@ -191,7 +191,7 @@ class UserProfileDatasourceController: DatasourceController {
   
   override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
     
-    // MARK: FirebaseMagic - Trigger pagination when last item will be displayed
+    // MARK: FirebaseMagic - Trigger pagination when last item will be displayed on user profile
     if FirebaseMagic.fetchedUserPosts.count > FirebaseMagic.paginationElementsLimitUserPosts - 1 {
       if indexPath.row == FirebaseMagic.fetchedUserPosts.count - 1 {
         fetchPosts { (result) in

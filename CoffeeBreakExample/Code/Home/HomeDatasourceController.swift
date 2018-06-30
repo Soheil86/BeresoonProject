@@ -69,14 +69,14 @@ class HomeDatasourceController: DatasourceController {
   }
   
   fileprivate func clearPosts() {
-    // MARK: FirebaseMagic - Removing current posts if any
+    // MARK: FirebaseMagic - Remove current home feed posts if any
     FirebaseMagic.fetchedPosts.removeAll()
     FirebaseMagic.fetchedPostsCurrentKey = nil
     collectionView?.reloadData()
   }
   
   fileprivate func fetchPosts(completion: @escaping (_ result: Bool) -> ()) {
-    // MARK: FirebaseMagic - Fetch posts
+    // MARK: FirebaseMagic - Fetch home feed posts
     let hud = JGProgressHUD(style: .light)
     FirebaseMagicService.showHud(hud, text: "Fetching posts...")
     FirebaseMagic.fetchUserPosts(forUid: FirebaseMagic.currentUserUid(), fetchType: .onHome, in: self, completion: { (result, err) in
@@ -112,7 +112,7 @@ class HomeDatasourceController: DatasourceController {
   
   override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
     
-    // MARK: FirebaseMagic - Trigger pagination when last item will be displayed
+    // MARK: FirebaseMagic - Trigger pagination when last item will be displayed on home feed
     if FirebaseMagic.fetchedPosts.count > FirebaseMagic.paginationElementsLimitPosts - 1 {
       if indexPath.row == FirebaseMagic.fetchedPosts.count - 1 {
         fetchPosts { (result) in

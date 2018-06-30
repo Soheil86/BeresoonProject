@@ -44,7 +44,7 @@ class UserStatsDatasourceController: DatasourceController, UISearchBarDelegate {
   }
   
   fileprivate func fetchUsers(fetchType: FirebaseMagic.StatFetchType, completion: @escaping (_ result: Bool) -> ()) {
-    // MARK: FirebaseMagic - Fetch user followers
+    // MARK: FirebaseMagic - Fetch user followers / following
     let hud = JGProgressHUD(style: .light)
     FirebaseMagicService.showHud(hud, text: "Fetching user \(fetchType)...")
     FirebaseMagic.fetchUserStats(forUid: FirebaseMagic.currentUserUid(), fetchType: fetchType, in: self) { (result, err) in

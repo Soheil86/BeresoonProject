@@ -1124,31 +1124,4 @@ class FirebaseMagic {
     }
   }
   
-  // MARK: -
-  // MARK: Show hud
-//  static func showHud(_ hud: JGProgressHUD, text: String) {
-//    hud.textLabel.text = text
-//    hud.interactionType = .blockAllTouches
-//    if let topVC = UIApplication.getTopMostViewController() {
-//      topVC.navigationItem.leftBarButtonItem?.isEnabled = false
-//      topVC.navigationItem.rightBarButtonItem?.isEnabled = false
-//      hud.show(in: topVC.view, animated: true)
-//    }
-//  }
-//  
-//  static func dismiss(_ hud: JGProgressHUD, afterDelay: TimeInterval?, text: String?) {
-//    if let text = text {
-//      hud.textLabel.text = text
-//    }
-//    if let afterDelay = afterDelay {
-//      hud.dismiss(afterDelay: afterDelay, animated: true)
-//    } else {
-//      hud.dismiss(animated: true)
-//    }
-//    if let topVC = UIApplication.getTopMostViewController() {
-//      topVC.navigationItem.leftBarButtonItem?.isEnabled = true
-//      topVC.navigationItem.rightBarButtonItem?.isEnabled = true
-//    }
-//  }
-  
 }
