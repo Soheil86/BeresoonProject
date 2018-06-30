@@ -46,28 +46,28 @@ class SharePostViewController: UIViewController {
   
   fileprivate func sharePost(image: UIImage?, caption: String?) {
     guard let image = image, let caption = caption else {
-      Service.showAlert(style: .alert, title: "Share error", message: "Invalid image or caption")
+      FirebaseMagicService.showAlert(style: .alert, title: "Share error", message: "Invalid image or caption")
       return
     }
     
     if caption.isEmpty {
-      Service.showAlert(style: .alert, title: "Error", message: "Please add a caption and try again")
+      FirebaseMagicService.showAlert(style: .alert, title: "Error", message: "Please add a caption and try again")
     } else {
       // Mark: FirebaseMagic - Share post
       let hud = JGProgressHUD(style: .light)
-      FirebaseMagic.showHud(hud, text: "Sharing...")
+      FirebaseMagicService.showHud(hud, text: "Sharing...")
       FirebaseMagic.sharePost(withCaption: caption, image: image) { (result, err) in
         if let err = err {
-          FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
-          Service.showAlert(style: .alert, title: "Share error", message: err.localizedDescription)
+          FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+          FirebaseMagicService.showAlert(style: .alert, title: "Share error", message: err.localizedDescription)
           return
         } else if result == false {
-          FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
+          FirebaseMagicService.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
           return
         }
         print("Successfully shared post.")
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
-        NotificationCenter.default.post(name: Service.notificationNameUserSharedAPost, object: nil, userInfo: nil)
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+        NotificationCenter.default.post(name: FirebaseMagicService.notificationNameUserSharedAPost, object: nil, userInfo: nil)
         self.dismiss(animated: true, completion: nil)
       }
     }

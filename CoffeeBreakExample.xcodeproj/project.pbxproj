@@ -39,11 +39,10 @@
 		C97A13DC20BC0E6A00AA26CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808020B2AB470044A6D0 /* AppDelegate.swift */; };
 		C97A13DD20BC0E6A00AA26CF /* UserStatsDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139A20BB3AD500AA26CF /* UserStatsDatasourceCell.swift */; };
 		C97A13DE20BC0E6A00AA26CF /* UserProfileDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */; };
-		C97A13DF20BC0E6A00AA26CF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B020B2DFE80044A6D0 /* Extensions.swift */; };
+		C97A13DF20BC0E6A00AA26CF /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B020B2DFE80044A6D0 /* ScreenSize.swift */; };
 		C97A13E020BC0E6A00AA26CF /* HomeDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A138D20BABBAD00AA26CF /* HomeDatasource.swift */; };
 		C97A13E120BC0E6A00AA26CF /* UserStatsDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139620BB3A9A00AA26CF /* UserStatsDatasourceController.swift */; };
 		C97A13E220BC0E6A00AA26CF /* ActivityDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */; };
-		C97A13E320BC0E6A00AA26CF /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809220B2B1A10044A6D0 /* Service.swift */; };
 		C97A13E420BC0E6A00AA26CF /* SearchDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809D20B2BD560044A6D0 /* SearchDatasourceController.swift */; };
 		C97A13E520BC0E6A00AA26CF /* FirebaseMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */; };
 		C97A13E720BC0E6A00AA26CF /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
@@ -62,7 +61,6 @@
 		C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
 		C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
 		C9A1808B20B2AB490044A6D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808920B2AB490044A6D0 /* LaunchScreen.storyboard */; };
-		C9A1809320B2B1A10044A6D0 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809220B2B1A10044A6D0 /* Service.swift */; };
 		C9A1809820B2B33A0044A6D0 /* HomeDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809720B2B33A0044A6D0 /* HomeDatasourceController.swift */; };
 		C9A1809E20B2BD560044A6D0 /* SearchDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809D20B2BD560044A6D0 /* SearchDatasourceController.swift */; };
 		C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */; };
@@ -71,7 +69,7 @@
 		C9A180AB20B2DE550044A6D0 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AA20B2DE550044A6D0 /* SignUpController.swift */; };
 		C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AC20B2DEA80044A6D0 /* Setup.swift */; };
 		C9A180AF20B2DF220044A6D0 /* FirebaseMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */; };
-		C9A180B120B2DFE80044A6D0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B020B2DFE80044A6D0 /* Extensions.swift */; };
+		C9A180B120B2DFE80044A6D0 /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B020B2DFE80044A6D0 /* ScreenSize.swift */; };
 		C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B220B2EC270044A6D0 /* LoginController.swift */; };
 		C9A180B520B2EE980044A6D0 /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */; };
 		C9A180B720B2FEFC0044A6D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */; };
@@ -104,7 +102,6 @@
 		C9A1808720B2AB490044A6D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9A1808A20B2AB490044A6D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9A1808C20B2AB490044A6D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9A1809220B2B1A10044A6D0 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		C9A1809720B2B33A0044A6D0 /* HomeDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDatasourceController.swift; sourceTree = "<group>"; };
 		C9A1809D20B2BD560044A6D0 /* SearchDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDatasourceController.swift; sourceTree = "<group>"; };
 		C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDatasourceController.swift; sourceTree = "<group>"; };
@@ -113,7 +110,7 @@
 		C9A180AA20B2DE550044A6D0 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		C9A180AC20B2DEA80044A6D0 /* Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
 		C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMagic.swift; sourceTree = "<group>"; };
-		C9A180B020B2DFE80044A6D0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		C9A180B020B2DFE80044A6D0 /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
 		C9A180B220B2EC270044A6D0 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
 		C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -170,10 +167,10 @@
 			isa = PBXGroup;
 			children = (
 				C9A180AE20B2DF220044A6D0 /* FirebaseMagic.swift */,
-				C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */,
 				C985238120E001AE00237DA9 /* FirebaseMagicExtensions.swift */,
-				C985238420E0023D00237DA9 /* FirebaseMagicSetup.swift */,
+				C978CF5220B450CD003863AF /* FirebaseMagicModels.swift */,
 				C985238720E0068900237DA9 /* FirebaseMagicService.swift */,
+				C985238420E0023D00237DA9 /* FirebaseMagicSetup.swift */,
 			);
 			path = FirebaseMagic;
 			sourceTree = "<group>";
@@ -306,8 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				C9A180AC20B2DEA80044A6D0 /* Setup.swift */,
-				C9A1809220B2B1A10044A6D0 /* Service.swift */,
-				C9A180B020B2DFE80044A6D0 /* Extensions.swift */,
+				C9A180B020B2DFE80044A6D0 /* ScreenSize.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -533,12 +529,11 @@
 				C97A13DC20BC0E6A00AA26CF /* AppDelegate.swift in Sources */,
 				C97A13DD20BC0E6A00AA26CF /* UserStatsDatasourceCell.swift in Sources */,
 				C97A13DE20BC0E6A00AA26CF /* UserProfileDatasource.swift in Sources */,
-				C97A13DF20BC0E6A00AA26CF /* Extensions.swift in Sources */,
+				C97A13DF20BC0E6A00AA26CF /* ScreenSize.swift in Sources */,
 				C97A13E020BC0E6A00AA26CF /* HomeDatasource.swift in Sources */,
 				C985238620E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */,
 				C97A13E120BC0E6A00AA26CF /* UserStatsDatasourceController.swift in Sources */,
 				C97A13E220BC0E6A00AA26CF /* ActivityDatasourceController.swift in Sources */,
-				C97A13E320BC0E6A00AA26CF /* Service.swift in Sources */,
 				C97A13E420BC0E6A00AA26CF /* SearchDatasourceController.swift in Sources */,
 				C97A13E520BC0E6A00AA26CF /* FirebaseMagic.swift in Sources */,
 			);
@@ -569,12 +564,11 @@
 				C9A1808120B2AB470044A6D0 /* AppDelegate.swift in Sources */,
 				C97A139B20BB3AD500AA26CF /* UserStatsDatasourceCell.swift in Sources */,
 				C978CF4D20B44DFE003863AF /* UserProfileDatasource.swift in Sources */,
-				C9A180B120B2DFE80044A6D0 /* Extensions.swift in Sources */,
+				C9A180B120B2DFE80044A6D0 /* ScreenSize.swift in Sources */,
 				C97A138E20BABBAD00AA26CF /* HomeDatasource.swift in Sources */,
 				C985238520E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */,
 				C97A139720BB3A9A00AA26CF /* UserStatsDatasourceController.swift in Sources */,
 				C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */,
-				C9A1809320B2B1A10044A6D0 /* Service.swift in Sources */,
 				C9A1809E20B2BD560044A6D0 /* SearchDatasourceController.swift in Sources */,
 				C9A180AF20B2DF220044A6D0 /* FirebaseMagic.swift in Sources */,
 			);

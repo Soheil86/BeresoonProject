@@ -46,21 +46,21 @@ class UserStatsDatasourceController: DatasourceController, UISearchBarDelegate {
   fileprivate func fetchUsers(fetchType: FirebaseMagic.StatFetchType, completion: @escaping (_ result: Bool) -> ()) {
     // MARK: FirebaseMagic - Fetch user followers
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, text: "Fetching user \(fetchType)...")
+    FirebaseMagicService.showHud(hud, text: "Fetching user \(fetchType)...")
     FirebaseMagic.fetchUserStats(forUid: FirebaseMagic.currentUserUid(), fetchType: fetchType, in: self) { (result, err) in
       if let err = err {
         print("Failed to fetch user \(fetchType) with err:", err)
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
-        Service.showAlert(style: .alert, title: "Fetch error", message: "Failed to fetch user \(fetchType) with err: \(err)")
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+        FirebaseMagicService.showAlert(style: .alert, title: "Fetch error", message: "Failed to fetch user \(fetchType) with err: \(err)")
         completion(false)
         return
       } else if result == false {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
         completion(false)
         return
       }
       print("Successfully fetched user \(fetchType)")
-      FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
+      FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
       completion(true)
     }
   }

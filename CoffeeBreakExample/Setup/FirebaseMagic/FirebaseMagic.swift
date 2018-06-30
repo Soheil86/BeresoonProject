@@ -271,7 +271,7 @@ class FirebaseMagic {
         textField.placeholder = "New Username"
         textField.autocapitalizationType = .none
         
-        Service.showAlert(style: .alert, title: "Sign Up Error", message: "The username '\(username.lowercased())' is already taken. Please, choose another one.", textFields: [textField], completion: { (usernames) in
+        FirebaseMagicService.showAlert(style: .alert, title: "Sign Up Error", message: "The username '\(username.lowercased())' is already taken. Please, choose another one.", textFields: [textField], completion: { (usernames) in
           guard let usernames = usernames, let username = usernames.first else {
             completion(false, userCredentials, nil)
             return
@@ -1126,29 +1126,29 @@ class FirebaseMagic {
   
   // MARK: -
   // MARK: Show hud
-  static func showHud(_ hud: JGProgressHUD, text: String) {
-    hud.textLabel.text = text
-    hud.interactionType = .blockAllTouches
-    if let topVC = UIApplication.getTopMostViewController() {
-      topVC.navigationItem.leftBarButtonItem?.isEnabled = false
-      topVC.navigationItem.rightBarButtonItem?.isEnabled = false
-      hud.show(in: topVC.view, animated: true)
-    }
-  }
-  
-  static func dismiss(_ hud: JGProgressHUD, afterDelay: TimeInterval?, text: String?) {
-    if let text = text {
-      hud.textLabel.text = text
-    }
-    if let afterDelay = afterDelay {
-      hud.dismiss(afterDelay: afterDelay, animated: true)
-    } else {
-      hud.dismiss(animated: true)
-    }
-    if let topVC = UIApplication.getTopMostViewController() {
-      topVC.navigationItem.leftBarButtonItem?.isEnabled = true
-      topVC.navigationItem.rightBarButtonItem?.isEnabled = true
-    }
-  }
+//  static func showHud(_ hud: JGProgressHUD, text: String) {
+//    hud.textLabel.text = text
+//    hud.interactionType = .blockAllTouches
+//    if let topVC = UIApplication.getTopMostViewController() {
+//      topVC.navigationItem.leftBarButtonItem?.isEnabled = false
+//      topVC.navigationItem.rightBarButtonItem?.isEnabled = false
+//      hud.show(in: topVC.view, animated: true)
+//    }
+//  }
+//  
+//  static func dismiss(_ hud: JGProgressHUD, afterDelay: TimeInterval?, text: String?) {
+//    if let text = text {
+//      hud.textLabel.text = text
+//    }
+//    if let afterDelay = afterDelay {
+//      hud.dismiss(afterDelay: afterDelay, animated: true)
+//    } else {
+//      hud.dismiss(animated: true)
+//    }
+//    if let topVC = UIApplication.getTopMostViewController() {
+//      topVC.navigationItem.leftBarButtonItem?.isEnabled = true
+//      topVC.navigationItem.rightBarButtonItem?.isEnabled = true
+//    }
+//  }
   
 }

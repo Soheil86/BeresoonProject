@@ -40,9 +40,9 @@ class HomeDatasourceController: DatasourceController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NotificationCenter.default.addObserver(self, selector: #selector(handleUserSharedAPost), name: Service.notificationNameUserSharedAPost, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowedUser), name: Service.notificationNameFollowedUser, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(handleUnfollowedUser), name: Service.notificationNameUnfollowedUser, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleUserSharedAPost), name: FirebaseMagicService.notificationNameUserSharedAPost, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowedUser), name: FirebaseMagicService.notificationNameFollowedUser, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleUnfollowedUser), name: FirebaseMagicService.notificationNameUnfollowedUser, object: nil)
     
     datasource = homeDatasource
     collectionView?.refreshControl = refreshControl
@@ -78,21 +78,21 @@ class HomeDatasourceController: DatasourceController {
   fileprivate func fetchPosts(completion: @escaping (_ result: Bool) -> ()) {
     // MARK: FirebaseMagic - Fetch posts
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, text: "Fetching posts...")
+    FirebaseMagicService.showHud(hud, text: "Fetching posts...")
     FirebaseMagic.fetchUserPosts(forUid: FirebaseMagic.currentUserUid(), fetchType: .onHome, in: self, completion: { (result, err) in
       if let err = err {
         print("Failed to fetch posts with err:", err)
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
-        Service.showAlert(style: .alert, title: "Fetch error", message: "Failed to fetch posts with err: \(err)")
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+        FirebaseMagicService.showAlert(style: .alert, title: "Fetch error", message: "Failed to fetch posts with err: \(err)")
         completion(false)
         return
       } else if result == false {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Could not fetch...")
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: "Could not fetch...")
         completion(false)
         return
       }
       print("Successfully fetched posts")
-      FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
+      FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
       completion(true)
     })
   }

@@ -19,10 +19,10 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
     
     // MARK: FirebaseMagic - Check if user is signed in
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, text: "Loading...")
+    FirebaseMagicService.showHud(hud, text: "Loading...")
     FirebaseMagic.checkIfUserIsSignedIn { (result) in
       DispatchQueue.main.async {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
         if result == false {
           let controller = SignUpController()
           let navController = UINavigationController(rootViewController: controller)
@@ -94,7 +94,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
       self.showImagePickerController(sourceType: .camera)
     }
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    Service.showAlert(style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
+    FirebaseMagicService.showAlert(style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
   }
   
   func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {

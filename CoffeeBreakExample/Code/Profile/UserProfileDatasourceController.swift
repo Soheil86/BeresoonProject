@@ -28,12 +28,12 @@ class UserProfileDatasourceController: DatasourceController {
     let logOutAction = UIAlertAction(title: "Logout", style: .destructive) { (action) in
       // MARK: FirebaseMagic - Log out
       let hud = JGProgressHUD(style: .light)
-      FirebaseMagic.showHud(hud, text: "Logging out...")
+      FirebaseMagicService.showHud(hud, text: "Logging out...")
       FirebaseMagic.logout(completion: { (err) in
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
         
         if let err = err {
-          Service.showAlert(style: .alert, title: "Logout Error", message: err.localizedDescription)
+          FirebaseMagicService.showAlert(style: .alert, title: "Logout Error", message: err.localizedDescription)
           return
         }
         
@@ -44,7 +44,7 @@ class UserProfileDatasourceController: DatasourceController {
       })
     }
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    Service.showAlert(style: .actionSheet, title: nil, message: nil, actions: [logOutAction, cancelAction], completion: nil)
+    FirebaseMagicService.showAlert(style: .actionSheet, title: nil, message: nil, actions: [logOutAction, cancelAction], completion: nil)
   }
   
   @objc fileprivate func handleUserSharedAPost() {
@@ -70,11 +70,11 @@ class UserProfileDatasourceController: DatasourceController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NotificationCenter.default.addObserver(self, selector: #selector(handleUserSharedAPost), name: Service.notificationNameUserSharedAPost, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowersButtonTapped), name: Service.notificationNameShowFollowers, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowingButtonTapped), name: Service.notificationNameShowFollowing, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowedUser), name: Service.notificationNameFollowedUser, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(handleUnfollowedUser), name: Service.notificationNameUnfollowedUser, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleUserSharedAPost), name: FirebaseMagicService.notificationNameUserSharedAPost, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowersButtonTapped), name: FirebaseMagicService.notificationNameShowFollowers, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowingButtonTapped), name: FirebaseMagicService.notificationNameShowFollowing, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleFollowedUser), name: FirebaseMagicService.notificationNameFollowedUser, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleUnfollowedUser), name: FirebaseMagicService.notificationNameUnfollowedUser, object: nil)
     
     datasource = userProfileDatasource
     collectionView?.refreshControl = refreshControl
@@ -93,20 +93,20 @@ class UserProfileDatasourceController: DatasourceController {
     // MARK: FirebaseMagic - Fetch Current User
     guard let uid = FirebaseMagic.currentUserUid() else { return }
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, text: "Fetching user...")
+    FirebaseMagicService.showHud(hud, text: "Fetching user...")
     FirebaseMagic.fetchUser(withUid: uid) { (user, err) in
       if let err = err {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
-        Service.showAlert(style: .alert, title: "Error fetching user", message: err.localizedDescription)
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+        FirebaseMagicService.showAlert(style: .alert, title: "Error fetching user", message: err.localizedDescription)
         return
       }
       guard let user = user else {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Could not fetch...")
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: "Could not fetch...")
         return
       }
       print("Successfully fetched user:", user.username)
       
-      FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
+      FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
       self.userProfileDatasource.user = user
       self.collectionView?.reloadData()
       completion(user)
@@ -137,21 +137,21 @@ class UserProfileDatasourceController: DatasourceController {
   fileprivate func fetchPosts(completion: @escaping (_ result: Bool) -> ()) {
     // MARK: FirebaseMagic - Fetch user posts
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, text: "Fetching user posts...")
+    FirebaseMagicService.showHud(hud, text: "Fetching user posts...")
     FirebaseMagic.fetchUserPosts(forUid: FirebaseMagic.currentUserUid(), fetchType: .onUserProfile, in: self, completion: { (result, err) in
       if let err = err {
         print("Failed to fetch user posts with err:", err)
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
-        Service.showAlert(style: .alert, title: "Fetch error", message: "Failed to fetch user posts with err: \(err)")
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+        FirebaseMagicService.showAlert(style: .alert, title: "Fetch error", message: "Failed to fetch user posts with err: \(err)")
         completion(false)
         return
       } else if result == false {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Could not fetch...")
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: "Could not fetch...")
         completion(false)
         return
       }
       print("Successfully fetched user posts")
-      FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
+      FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
       completion(true)
     })
   }

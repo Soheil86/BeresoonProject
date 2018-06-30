@@ -9,6 +9,7 @@
 import Foundation
 
 class FirebaseMagicSetup {
+  
   // MARK: -
   // MARK: Pagination Elements Limits
   

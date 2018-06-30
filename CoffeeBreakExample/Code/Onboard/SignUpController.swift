@@ -52,7 +52,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
       self.showImagePickerController(sourceType: .camera)
     }
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    Service.showAlert(style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
+    FirebaseMagicService.showAlert(style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
   }
   
   func showImagePickerController(sourceType: UIImagePickerControllerSourceType) {
@@ -157,7 +157,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
       let name = nameTextField.text, name.count > 0,
       let username = usernameTextField.text, username.count > 2,
       let profileImage = addProfilePictureButton.imageView?.image else {
-        Service.showAlert(style: .alert, title: "Format error", message: "Please, enter valid values for the required fields and try again")
+        FirebaseMagicService.showAlert(style: .alert, title: "Format error", message: "Please, enter valid values for the required fields and try again")
         return
     }
     
@@ -170,18 +170,18 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     
     // Mark: FirebaseMagic - Sign up user with email
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, text: "Signing up with email...")
+    FirebaseMagicService.showHud(hud, text: "Signing up with email...")
     FirebaseMagic.signUpUserWithEmail(userCredentials: userCredentials, userDetails: userDetails) { (result, err) in
       if let err = err {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
-        Service.showAlert(style: .alert, title: "Sign up error", message: err.localizedDescription)
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+        FirebaseMagicService.showAlert(style: .alert, title: "Sign up error", message: err.localizedDescription)
         return
       } else if result == false {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
         return
       }
       print("Successfully signed up with email.")
-      FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
+      FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
       self.dismissSignUpController()
     }
     

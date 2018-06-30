@@ -25,7 +25,7 @@ class SearchDatasourceController: DatasourceController, UISearchBarDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateSearchDatasourceController), name: Service.notificationNameUpdateSearchDatasourceController, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateSearchDatasourceController), name: FirebaseMagicService.notificationNameUpdateSearchDatasourceController, object: nil)
     
     collectionView?.backgroundColor = .white
     collectionView?.alwaysBounceVertical = true

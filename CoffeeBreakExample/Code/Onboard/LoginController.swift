@@ -97,18 +97,18 @@ class LoginController: UIViewController {
     
     // Mark: FirebaseMagic - Log in user with email
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, text: "Logging in...")
+    FirebaseMagicService.showHud(hud, text: "Logging in...")
     FirebaseMagic.signIn(withUsernameOrEmail: usernameOrEmailTextField.text, password: passwordTextField.text) { (result, err) in
       if let err = err {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
-        Service.showAlert(style: .alert, title: "Log in error", message: err.localizedDescription)
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+        FirebaseMagicService.showAlert(style: .alert, title: "Log in error", message: err.localizedDescription)
         return
       } else if result == false {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
         return
       }
       print("Successfully logged.")
-      FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
+      FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
       self.dismissLoginController()
     }
     

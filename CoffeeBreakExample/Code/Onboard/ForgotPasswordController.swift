@@ -68,22 +68,22 @@ class ForgotPasswordController: UIViewController {
   @objc func handleResetPasswordBarButtonItemTapped() {
     // MARK: FirebaseMagic - Reset password
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagic.showHud(hud, text: "Sending email...")
+    FirebaseMagicService.showHud(hud, text: "Sending email...")
     FirebaseMagic.resetPassword(withUsernameOrEmail: usernameOrEmailTextField.text) { (result, err) in
       if let err = err {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
-        Service.showAlert(style: .alert, title: "Reset password error", message: err.localizedDescription)
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+        FirebaseMagicService.showAlert(style: .alert, title: "Reset password error", message: err.localizedDescription)
         return
       } else if result == false {
-        FirebaseMagic.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
+        FirebaseMagicService.dismiss(hud, afterDelay: nil, text: "Something went wrong...")
         return
       }
       print("Successfully sent email to reset your password.")
-      FirebaseMagic.dismiss(hud, afterDelay: nil, text: nil)
+      FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
       let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
         self.dismissForgotPasswordController()
       })
-      Service.showAlert(style: .alert, title: "Success", message: "Successfully sent email to reset your password", actions: [okAction], completion: nil)
+      FirebaseMagicService.showAlert(style: .alert, title: "Success", message: "Successfully sent email to reset your password", actions: [okAction], completion: nil)
       
     }
   }

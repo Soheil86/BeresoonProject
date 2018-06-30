@@ -81,7 +81,7 @@ class SearchDatasourceCell: DatasourceCell {
   }
   
   func setupUnfollowStyle() {
-    NotificationCenter.default.post(name: Service.notificationNameFollowedUser, object: nil, userInfo: nil)
+    NotificationCenter.default.post(name: FirebaseMagicService.notificationNameFollowedUser, object: nil, userInfo: nil)
     DispatchQueue.main.async {
       
       self.followUnfollowButton.isEnabled = true
@@ -91,7 +91,7 @@ class SearchDatasourceCell: DatasourceCell {
   }
   
   func setupFollowStyle() {
-    NotificationCenter.default.post(name: Service.notificationNameUnfollowedUser, object: nil, userInfo: nil)
+    NotificationCenter.default.post(name: FirebaseMagicService.notificationNameUnfollowedUser, object: nil, userInfo: nil)
     DispatchQueue.main.async {
       
       self.followUnfollowButton.isEnabled = true
