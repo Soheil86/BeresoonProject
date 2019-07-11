@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5BEF9CA922D7ACE600815ED3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEF9CA822D7ACE600815ED3 /* GoogleService-Info.plist */; };
+		5BEF9CAA22D7ACE600815ED3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEF9CA822D7ACE600815ED3 /* GoogleService-Info.plist */; };
 		A0895C999051C522D905DC9F /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
 		C973F51520E77BAC0034F953 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
 		C973F51620E77BAC0034F953 /* SearchDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139320BACB1B00AA26CF /* SearchDatasourceCell.swift */; };
@@ -39,7 +41,6 @@
 		C973F53220E77BAC0034F953 /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
 		C973F53320E77BAC0034F953 /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
 		C973F53520E77BAC0034F953 /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C97A13F420BD200B00AA26CF /* Dev-Info.plist */; };
-		C973F53620E77BAC0034F953 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */; };
 		C973F53720E77BAC0034F953 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808920B2AB490044A6D0 /* LaunchScreen.storyboard */; };
 		C973F53820E77BAC0034F953 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9A1808720B2AB490044A6D0 /* Assets.xcassets */; };
 		C978CF4D20B44DFE003863AF /* UserProfileDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */; };
@@ -73,13 +74,13 @@
 		C9A180B120B2DFE80044A6D0 /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B020B2DFE80044A6D0 /* ScreenSize.swift */; };
 		C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B220B2EC270044A6D0 /* LoginController.swift */; };
 		C9A180B520B2EE980044A6D0 /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */; };
-		C9A180B720B2FEFC0044A6D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */; };
 		FE4DD440B282A6BD021C181D /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoffeeBreakExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19706E2DBAF5372740DB5142 /* Pods-CoffeeBreakExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeBreakExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample.debug.xcconfig"; sourceTree = "<group>"; };
+		5BEF9CA822D7ACE600815ED3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97CC2212BC3E19EFBE642AB4 /* Pods-CoffeeBreakExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeBreakExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample.release.xcconfig"; sourceTree = "<group>"; };
 		C973F53D20E77BAC0034F953 /* CoffeeBreakExampleDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeBreakExampleDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileDatasource.swift; sourceTree = "<group>"; };
@@ -115,7 +116,6 @@
 		C9A180B020B2DFE80044A6D0 /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
 		C9A180B220B2EC270044A6D0 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C9A180B420B2EE980044A6D0 /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
-		C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,9 +237,9 @@
 			children = (
 				C97A13F220BC296300AA26CF /* FirebaseMagic */,
 				C9A1808720B2AB490044A6D0 /* Assets.xcassets */,
+				5BEF9CA822D7ACE600815ED3 /* GoogleService-Info.plist */,
 				C9A1808C20B2AB490044A6D0 /* Info.plist */,
 				C97A13F420BD200B00AA26CF /* Dev-Info.plist */,
-				C9A180B620B2FEFC0044A6D0 /* GoogleService-Info.plist */,
 			);
 			path = Setup;
 			sourceTree = "<group>";
@@ -393,7 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C973F53520E77BAC0034F953 /* Dev-Info.plist in Resources */,
-				C973F53620E77BAC0034F953 /* GoogleService-Info.plist in Resources */,
+				5BEF9CAA22D7ACE600815ED3 /* GoogleService-Info.plist in Resources */,
 				C973F53720E77BAC0034F953 /* LaunchScreen.storyboard in Resources */,
 				C973F53820E77BAC0034F953 /* Assets.xcassets in Resources */,
 			);
@@ -404,7 +404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97A13F520BD200B00AA26CF /* Dev-Info.plist in Resources */,
-				C9A180B720B2FEFC0044A6D0 /* GoogleService-Info.plist in Resources */,
+				5BEF9CA922D7ACE600815ED3 /* GoogleService-Info.plist in Resources */,
 				C9A1808B20B2AB490044A6D0 /* LaunchScreen.storyboard in Resources */,
 				C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */,
 			);
@@ -605,7 +605,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEVELOPMENT\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
+				PRODUCT_BUNDLE_IDENTIFIER = Com.Beresoon.Beresoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -625,7 +625,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEVELOPMENT\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
+				PRODUCT_BUNDLE_IDENTIFIER = Com.Beresoon.Beresoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -758,7 +758,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
+				PRODUCT_BUNDLE_IDENTIFIER = Com.Beresoon.Beresoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -777,7 +777,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Rebeloper.CoffeeBreakExample;
+				PRODUCT_BUNDLE_IDENTIFIER = Com.Beresoon.Beresoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

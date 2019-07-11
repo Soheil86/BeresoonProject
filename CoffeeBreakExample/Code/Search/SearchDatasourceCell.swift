@@ -58,6 +58,7 @@ class SearchDatasourceCell: DatasourceCell {
         } else if result == false {
           print("Failed to follow.")
         }
+        print("Followed")
         if !self.followUnfollowButton.isEnabled {
           self.setupUnfollowStyle()
         }

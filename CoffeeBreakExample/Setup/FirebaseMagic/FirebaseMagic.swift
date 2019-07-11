@@ -474,7 +474,11 @@ class FirebaseMagic {
     if !hasFirebaseMagicBeenStarted() { return }
     var filteredUsers: [CurrentUser] = []
     let allowedUsername = username.firebaseKeyCompatible()
-    let userRef = Database_Users.queryLimited(toFirst: UInt(limitedToFirst)).queryOrdered(byChild: FirebaseMagicKeys.User.username).queryStarting(atValue: allowedUsername).queryEnding(atValue: allowedUsername+"\u{f8ff}")
+    var userRef = Database_Users.queryLimited(toFirst: UInt(limitedToFirst)).queryOrdered(byChild: FirebaseMagicKeys.User.username).queryStarting(atValue: allowedUsername).queryEnding(atValue: allowedUsername+"\u{f8ff}")
+    
+    if limitedToFirst == 1 {
+      userRef = Database_Users.queryLimited(toFirst: UInt(limitedToFirst)).queryOrdered(byChild: FirebaseMagicKeys.User.username).queryEqual(toValue: allowedUsername)
+    }
     
     userRef.observeSingleEvent(of: .value, with: { (snapshot) in
       
@@ -923,15 +927,14 @@ class FirebaseMagic {
               completion(false, err)
               return
             }
-            
-            completion(true, nil)
-            
           })
         }, withCancel: { (err) in
           print("Failed to observe followed with error:", err)
           completion(false, err)
           return
         })
+        
+        completion(true, nil)
         
       })
       
