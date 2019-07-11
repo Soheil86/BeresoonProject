@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		5BEF9CA922D7ACE600815ED3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEF9CA822D7ACE600815ED3 /* GoogleService-Info.plist */; };
 		5BEF9CAA22D7ACE600815ED3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEF9CA822D7ACE600815ED3 /* GoogleService-Info.plist */; };
-		5BEF9CAC22D7B54C00815ED3 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF9CAB22D7B54C00815ED3 /* TestViewController.swift */; };
-		5BEF9CAD22D7B54C00815ED3 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF9CAB22D7B54C00815ED3 /* TestViewController.swift */; };
 		A0895C999051C522D905DC9F /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
 		C973F51520E77BAC0034F953 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
 		C973F51620E77BAC0034F953 /* SearchDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139320BACB1B00AA26CF /* SearchDatasourceCell.swift */; };
@@ -83,7 +81,6 @@
 		12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoffeeBreakExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19706E2DBAF5372740DB5142 /* Pods-CoffeeBreakExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeBreakExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample.debug.xcconfig"; sourceTree = "<group>"; };
 		5BEF9CA822D7ACE600815ED3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5BEF9CAB22D7B54C00815ED3 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		97CC2212BC3E19EFBE642AB4 /* Pods-CoffeeBreakExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeBreakExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample.release.xcconfig"; sourceTree = "<group>"; };
 		C973F53D20E77BAC0034F953 /* CoffeeBreakExampleDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeBreakExampleDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileDatasource.swift; sourceTree = "<group>"; };
@@ -231,7 +228,6 @@
 				C9A1809720B2B33A0044A6D0 /* HomeDatasourceController.swift */,
 				C97A138D20BABBAD00AA26CF /* HomeDatasource.swift */,
 				C97A138F20BABBBB00AA26CF /* HomePostDatasourceCell.swift */,
-				5BEF9CAB22D7B54C00815ED3 /* TestViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -541,7 +537,6 @@
 				C973F52B20E77BAC0034F953 /* HomeDatasource.swift in Sources */,
 				C973F52C20E77BAC0034F953 /* FirebaseMagicSetup.swift in Sources */,
 				C973F52D20E77BAC0034F953 /* UserStatsDatasourceController.swift in Sources */,
-				5BEF9CAD22D7B54C00815ED3 /* TestViewController.swift in Sources */,
 				C973F52E20E77BAC0034F953 /* ActivityDatasourceController.swift in Sources */,
 				C973F52F20E77BAC0034F953 /* SearchDatasourceController.swift in Sources */,
 				C973F53020E77BAC0034F953 /* FirebaseMagic.swift in Sources */,
@@ -577,7 +572,6 @@
 				C97A138E20BABBAD00AA26CF /* HomeDatasource.swift in Sources */,
 				C985238520E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */,
 				C97A139720BB3A9A00AA26CF /* UserStatsDatasourceController.swift in Sources */,
-				5BEF9CAC22D7B54C00815ED3 /* TestViewController.swift in Sources */,
 				C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */,
 				C9A1809E20B2BD560044A6D0 /* SearchDatasourceController.swift in Sources */,
 				C9A180AF20B2DF220044A6D0 /* FirebaseMagic.swift in Sources */,
