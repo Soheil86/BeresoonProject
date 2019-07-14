@@ -8,9 +8,13 @@
 
 import UIKit
 import JGProgressHUD
+import FirebaseAuth
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    var handler :AuthStateDidChangeListenerHandle?
+    
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
@@ -24,16 +28,20 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
       DispatchQueue.main.async {
         FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
         if result == false {
+            
           let controller = SignUpController()
           let navController = UINavigationController(rootViewController: controller)
           self.present(navController, animated: false, completion: nil)
-        } else {
+        }
+            
+        else {
           self.setupViewControllers()
         }
       }
     }
     
   }
+    
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()

@@ -143,7 +143,7 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
       followingButton.setAttributedTitle(attributedTitle2, for: .normal)
       
       bioLabel.backgroundColor = .clear
-      bioLabel.text = "Learn to code & build an app business with me. Teacher. Coder. Coffee drinker. Learn to Code the Easy Way 👇"
+      bioLabel.text = "Description"
       
     }
   }
@@ -158,12 +158,77 @@ class UserProfileHeaderDatasourceCell: DatasourceCell {
     addSubview(bioLabel)
     addSubview(dividerView)
     
-    profileImageView.anchor(safeAreaLayoutGuide.topAnchor, left: safeAreaLayoutGuide.leftAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: profileImageViewHeight, heightConstant: profileImageViewHeight)
-    nameLabel.anchor(profileImageView.bottomAnchor, left: profileImageView.leftAnchor, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 18)
-    userStatsStackView.anchor(safeAreaLayoutGuide.topAnchor, left: profileImageView.rightAnchor, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
-    settingsButton.anchor(userStatsStackView.bottomAnchor, left: userStatsStackView.leftAnchor, bottom: nil, right: userStatsStackView.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 24)
-    bioLabel.anchor(nameLabel.bottomAnchor, left: nameLabel.leftAnchor, bottom: bottomAnchor, right: nameLabel.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-    dividerView.anchor(nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0.5)
+    profileImageView.anchor(
+        safeAreaLayoutGuide.topAnchor,
+        left: safeAreaLayoutGuide.leftAnchor,
+        bottom: nil,
+        right: nil,
+        topConstant: 16,
+        leftConstant: 16,
+        bottomConstant: 0,
+        rightConstant: 0,
+        widthConstant: profileImageViewHeight,
+        heightConstant: profileImageViewHeight)
+    
+    nameLabel.anchor(
+        profileImageView.bottomAnchor,
+        left: profileImageView.leftAnchor,
+        bottom: nil,
+        right: safeAreaLayoutGuide.rightAnchor,
+        topConstant: 8,
+        leftConstant: 0,
+        bottomConstant: 0,
+        rightConstant: 16,
+        widthConstant: 0,
+        heightConstant: 18)
+    
+    userStatsStackView.anchor(
+        safeAreaLayoutGuide.topAnchor,
+        left: profileImageView.rightAnchor,
+        bottom: nil,
+        right: safeAreaLayoutGuide.rightAnchor,
+        topConstant: 16,
+        leftConstant: 16,
+        bottomConstant: 0,
+        rightConstant: 16,
+        widthConstant: 0,
+        heightConstant: 0)
+    
+    settingsButton.anchor(
+        userStatsStackView.bottomAnchor,
+        left: userStatsStackView.leftAnchor,
+        bottom: nil,
+        right: userStatsStackView.rightAnchor,
+        topConstant: 8,
+        leftConstant: 0,
+        bottomConstant: 0,
+        rightConstant: 0,
+        widthConstant: 0,
+        heightConstant: 24)
+    
+    bioLabel.anchor(
+        nameLabel.bottomAnchor,
+        left: nameLabel.leftAnchor,
+        bottom: bottomAnchor,
+        right: nameLabel.rightAnchor,
+        topConstant: 0,
+        leftConstant: 0,
+        bottomConstant: 8,
+        rightConstant: 0,
+        widthConstant: 0,
+        heightConstant: 0)
+    
+    dividerView.anchor(
+        nil,
+        left: leftAnchor,
+        bottom: bottomAnchor,
+        right: rightAnchor,
+        topConstant: 0,
+        leftConstant: 0,
+        bottomConstant: 0,
+        rightConstant: 0,
+        widthConstant: 0,
+        heightConstant: 0.5)
   }
   
 }

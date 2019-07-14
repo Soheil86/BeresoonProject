@@ -6,11 +6,19 @@ target 'CoffeeBreakExample' do
   use_frameworks!
 
   # Pods for CoffeeBreakExample
+
 pod 'LBTAComponents'
 pod 'IQKeyboardManagerSwift'
 pod 'JGProgressHUD'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'Firebase/Storage'
+pod 'Firebase/Core'
+pod 'Firebase/Firestore'
+pod 'JGProgressHUD'
+pod 'FacebookCore'
+pod 'FacebookLogin'
+pod 'SwiftyJSON'
+pod 'TinyConstraints'
 
 end
