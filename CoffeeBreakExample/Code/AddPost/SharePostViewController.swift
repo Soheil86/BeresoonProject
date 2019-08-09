@@ -73,7 +73,7 @@ class SharePostViewController: UIViewController {
     }
   }
   
-  lazy var cancelBarButtonItem: UIBarButtonItem = {
+   var cancelBarButtonItem: UIBarButtonItem = {
     var item = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancelBarButtonItemTapped))
     return item
   }()

@@ -7,14 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5BEF9CA922D7ACE600815ED3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEF9CA822D7ACE600815ED3 /* GoogleService-Info.plist */; };
-		5BEF9CAA22D7ACE600815ED3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEF9CA822D7ACE600815ED3 /* GoogleService-Info.plist */; };
+		5B05899022F8966D00C9C837 /* AddingOrderChoosingDestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B05898F22F8966D00C9C837 /* AddingOrderChoosingDestinationController.swift */; };
+		5B05899122F8966D00C9C837 /* AddingOrderChoosingDestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B05898F22F8966D00C9C837 /* AddingOrderChoosingDestinationController.swift */; };
+		5B05899322F9D13400C9C837 /* ConfirmOrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B05899222F9D13400C9C837 /* ConfirmOrderController.swift */; };
+		5B05899422F9D13400C9C837 /* ConfirmOrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B05899222F9D13400C9C837 /* ConfirmOrderController.swift */; };
+		5B05899622FA34F600C9C837 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B05899522FA34F600C9C837 /* GoogleService-Info.plist */; };
+		5B05899722FA34F600C9C837 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B05899522FA34F600C9C837 /* GoogleService-Info.plist */; };
+		5B26319822E0705B00D63912 /* OrderDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B26319722E0705B00D63912 /* OrderDatasourceController.swift */; };
+		5B26319922E0705B00D63912 /* OrderDatasourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B26319722E0705B00D63912 /* OrderDatasourceController.swift */; };
+		5B26319B22E070C400D63912 /* OrderDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B26319A22E070C400D63912 /* OrderDataSource.swift */; };
+		5B26319C22E070C400D63912 /* OrderDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B26319A22E070C400D63912 /* OrderDataSource.swift */; };
+		5B26319E22E070E500D63912 /* OrderDataSourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B26319D22E070E500D63912 /* OrderDataSourceCell.swift */; };
+		5B26319F22E070E500D63912 /* OrderDataSourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B26319D22E070E500D63912 /* OrderDataSourceCell.swift */; };
+		5B2631A122E3642300D63912 /* HomeOrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631A022E3642300D63912 /* HomeOrderController.swift */; };
+		5B2631A222E3642300D63912 /* HomeOrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631A022E3642300D63912 /* HomeOrderController.swift */; };
+		5B2631D422EC9A0D00D63912 /* OrderListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631D322EC9A0D00D63912 /* OrderListController.swift */; };
+		5B2631D522EC9A0D00D63912 /* OrderListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631D322EC9A0D00D63912 /* OrderListController.swift */; };
+		5B2631DA22F2F3FA00D63912 /* AddingOrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631D922F2F3FA00D63912 /* AddingOrderController.swift */; };
+		5B2631DB22F2F3FA00D63912 /* AddingOrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631D922F2F3FA00D63912 /* AddingOrderController.swift */; };
+		5B2631DD22F594D400D63912 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631DC22F594D400D63912 /* ProductCell.swift */; };
+		5B2631DE22F594D500D63912 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631DC22F594D400D63912 /* ProductCell.swift */; };
+		5B2631E022F5951500D63912 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631DF22F5951500D63912 /* Product.swift */; };
+		5B2631E122F5951500D63912 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631DF22F5951500D63912 /* Product.swift */; };
 		5BEF9CB522D9F9A900815ED3 /* Spark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF9CAF22D9F9A900815ED3 /* Spark.swift */; };
 		5BEF9CB622D9F9A900815ED3 /* SparkKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF9CB022D9F9A900815ED3 /* SparkKeys.swift */; };
 		5BEF9CB722D9F9A900815ED3 /* SparkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF9CB122D9F9A900815ED3 /* SparkModels.swift */; };
 		5BEF9CB822D9F9A900815ED3 /* SparkSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF9CB222D9F9A900815ED3 /* SparkSetup.swift */; };
 		5BEF9CBC22D9FAB300815ED3 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF9CBB22D9FAB300815ED3 /* Service.swift */; };
 		5BEF9CBE22D9FD8000815ED3 /* SparkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF9CBD22D9FD8000815ED3 /* SparkService.swift */; };
+		5BEF9CC322DBAAAE00815ED3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEF9CC222DBAAAE00815ED3 /* Info.plist */; };
+		5BEF9CC422DBAAAE00815ED3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEF9CC222DBAAAE00815ED3 /* Info.plist */; };
 		A0895C999051C522D905DC9F /* Pods_CoffeeBreakExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */; };
 		C973F51520E77BAC0034F953 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */; };
 		C973F51620E77BAC0034F953 /* SearchDatasourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A139320BACB1B00AA26CF /* SearchDatasourceCell.swift */; };
@@ -84,13 +106,24 @@
 
 /* Begin PBXFileReference section */
 		12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoffeeBreakExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5BEF9CA822D7ACE600815ED3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5B05898F22F8966D00C9C837 /* AddingOrderChoosingDestinationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingOrderChoosingDestinationController.swift; sourceTree = "<group>"; };
+		5B05899222F9D13400C9C837 /* ConfirmOrderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderController.swift; sourceTree = "<group>"; };
+		5B05899522FA34F600C9C837 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5B26319722E0705B00D63912 /* OrderDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDatasourceController.swift; sourceTree = "<group>"; };
+		5B26319A22E070C400D63912 /* OrderDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDataSource.swift; sourceTree = "<group>"; };
+		5B26319D22E070E500D63912 /* OrderDataSourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDataSourceCell.swift; sourceTree = "<group>"; };
+		5B2631A022E3642300D63912 /* HomeOrderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOrderController.swift; sourceTree = "<group>"; };
+		5B2631D322EC9A0D00D63912 /* OrderListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListController.swift; sourceTree = "<group>"; };
+		5B2631D922F2F3FA00D63912 /* AddingOrderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingOrderController.swift; sourceTree = "<group>"; };
+		5B2631DC22F594D400D63912 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		5B2631DF22F5951500D63912 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		5BEF9CAF22D9F9A900815ED3 /* Spark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spark.swift; sourceTree = "<group>"; };
 		5BEF9CB022D9F9A900815ED3 /* SparkKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparkKeys.swift; sourceTree = "<group>"; };
 		5BEF9CB122D9F9A900815ED3 /* SparkModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparkModels.swift; sourceTree = "<group>"; };
 		5BEF9CB222D9F9A900815ED3 /* SparkSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparkSetup.swift; sourceTree = "<group>"; };
 		5BEF9CBB22D9FAB300815ED3 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		5BEF9CBD22D9FD8000815ED3 /* SparkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparkService.swift; sourceTree = "<group>"; };
+		5BEF9CC222DBAAAE00815ED3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C973F53D20E77BAC0034F953 /* CoffeeBreakExampleDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeBreakExampleDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileDatasource.swift; sourceTree = "<group>"; };
 		C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePostDatasourceCell.swift; sourceTree = "<group>"; };
@@ -113,7 +146,6 @@
 		C9A1808220B2AB470044A6D0 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		C9A1808720B2AB490044A6D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9A1808A20B2AB490044A6D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C9A1808C20B2AB490044A6D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9A1809720B2B33A0044A6D0 /* HomeDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDatasourceController.swift; sourceTree = "<group>"; };
 		C9A1809D20B2BD560044A6D0 /* SearchDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDatasourceController.swift; sourceTree = "<group>"; };
 		C9A1809F20B2BD910044A6D0 /* ActivityDatasourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDatasourceController.swift; sourceTree = "<group>"; };
@@ -156,6 +188,23 @@
 				12E4133C26ABAF8F70BF5982 /* Pods_CoffeeBreakExample.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5B26319622E06F6F00D63912 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				5B26319722E0705B00D63912 /* OrderDatasourceController.swift */,
+				5B26319A22E070C400D63912 /* OrderDataSource.swift */,
+				5B26319D22E070E500D63912 /* OrderDataSourceCell.swift */,
+				5B2631A022E3642300D63912 /* HomeOrderController.swift */,
+				5B2631D322EC9A0D00D63912 /* OrderListController.swift */,
+				5B2631D922F2F3FA00D63912 /* AddingOrderController.swift */,
+				5B2631DC22F594D400D63912 /* ProductCell.swift */,
+				5B2631DF22F5951500D63912 /* Product.swift */,
+				5B05898F22F8966D00C9C837 /* AddingOrderChoosingDestinationController.swift */,
+				5B05899222F9D13400C9C837 /* ConfirmOrderController.swift */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 		5BEF9CAE22D9F9A900815ED3 /* Spark */ = {
@@ -204,6 +253,7 @@
 		C97A13F320BC299400AA26CF /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				5B26319622E06F6F00D63912 /* Order */,
 				C9A1809620B2B3010044A6D0 /* Main */,
 				C9A180A920B2DE410044A6D0 /* Onboard */,
 				C9A1809420B2B2BE0044A6D0 /* Home */,
@@ -260,8 +310,8 @@
 			children = (
 				C97A13F220BC296300AA26CF /* FirebaseMagic */,
 				C9A1808720B2AB490044A6D0 /* Assets.xcassets */,
-				5BEF9CA822D7ACE600815ED3 /* GoogleService-Info.plist */,
-				C9A1808C20B2AB490044A6D0 /* Info.plist */,
+				5B05899522FA34F600C9C837 /* GoogleService-Info.plist */,
+				5BEF9CC222DBAAAE00815ED3 /* Info.plist */,
 				C97A13F420BD200B00AA26CF /* Dev-Info.plist */,
 			);
 			path = Setup;
@@ -365,6 +415,7 @@
 				C9A1807A20B2AB470044A6D0 /* Frameworks */,
 				C9A1807B20B2AB470044A6D0 /* Resources */,
 				9C168305DD8F1CA1BA9A6759 /* [CP] Embed Pods Frameworks */,
+				81FE60CA05C666F31C312303 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -415,8 +466,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C973F53520E77BAC0034F953 /* Dev-Info.plist in Resources */,
-				5BEF9CAA22D7ACE600815ED3 /* GoogleService-Info.plist in Resources */,
 				C973F53720E77BAC0034F953 /* LaunchScreen.storyboard in Resources */,
+				5B05899722FA34F600C9C837 /* GoogleService-Info.plist in Resources */,
+				5BEF9CC422DBAAAE00815ED3 /* Info.plist in Resources */,
 				C973F53820E77BAC0034F953 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -426,8 +478,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97A13F520BD200B00AA26CF /* Dev-Info.plist in Resources */,
-				5BEF9CA922D7ACE600815ED3 /* GoogleService-Info.plist in Resources */,
 				C9A1808B20B2AB490044A6D0 /* LaunchScreen.storyboard in Resources */,
+				5B05899622FA34F600C9C837 /* GoogleService-Info.plist in Resources */,
+				5BEF9CC322DBAAAE00815ED3 /* Info.plist in Resources */,
 				C9A1808820B2AB490044A6D0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,6 +504,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81FE60CA05C666F31C312303 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoffeeBreakExample/Pods-CoffeeBreakExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9C168305DD8F1CA1BA9A6759 /* [CP] Embed Pods Frameworks */ = {
@@ -477,6 +547,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B26319922E0705B00D63912 /* OrderDatasourceController.swift in Sources */,
+				5B2631D522EC9A0D00D63912 /* OrderListController.swift in Sources */,
 				C973F51520E77BAC0034F953 /* MainTabBarController.swift in Sources */,
 				C973F51620E77BAC0034F953 /* SearchDatasourceCell.swift in Sources */,
 				C973F51720E77BAC0034F953 /* UserProfileHeaderDatasourceCell.swift in Sources */,
@@ -485,24 +557,32 @@
 				C973F51A20E77BAC0034F953 /* SignUpController.swift in Sources */,
 				C973F51B20E77BAC0034F953 /* ForgotPasswordController.swift in Sources */,
 				C973F51C20E77BAC0034F953 /* LoginController.swift in Sources */,
+				5B26319C22E070C400D63912 /* OrderDataSource.swift in Sources */,
 				C973F51D20E77BAC0034F953 /* UserProfilePostDatasourceCell.swift in Sources */,
+				5B2631DE22F594D500D63912 /* ProductCell.swift in Sources */,
 				C973F51E20E77BAC0034F953 /* UserStatsDatasource.swift in Sources */,
 				C973F51F20E77BAC0034F953 /* FirebaseMagicExtensions.swift in Sources */,
 				C973F52020E77BAC0034F953 /* Setup.swift in Sources */,
 				C973F52120E77BAC0034F953 /* SearchDatasource.swift in Sources */,
+				5B26319F22E070E500D63912 /* OrderDataSourceCell.swift in Sources */,
 				C973F52220E77BAC0034F953 /* SharePostViewController.swift in Sources */,
 				C973F52320E77BAC0034F953 /* FirebaseMagicModels.swift in Sources */,
 				C973F52420E77BAC0034F953 /* HomePostDatasourceCell.swift in Sources */,
 				C973F52520E77BAC0034F953 /* DummyAddPostViewController.swift in Sources */,
 				C973F52620E77BAC0034F953 /* HomeDatasourceController.swift in Sources */,
 				C973F52720E77BAC0034F953 /* AppDelegate.swift in Sources */,
+				5B05899122F8966D00C9C837 /* AddingOrderChoosingDestinationController.swift in Sources */,
+				5B05899422F9D13400C9C837 /* ConfirmOrderController.swift in Sources */,
 				C973F52820E77BAC0034F953 /* UserStatsDatasourceCell.swift in Sources */,
 				C973F52920E77BAC0034F953 /* UserProfileDatasource.swift in Sources */,
 				C973F52A20E77BAC0034F953 /* ScreenSize.swift in Sources */,
 				C973F52B20E77BAC0034F953 /* HomeDatasource.swift in Sources */,
 				C973F52C20E77BAC0034F953 /* FirebaseMagicSetup.swift in Sources */,
+				5B2631E122F5951500D63912 /* Product.swift in Sources */,
 				C973F52D20E77BAC0034F953 /* UserStatsDatasourceController.swift in Sources */,
 				C973F52E20E77BAC0034F953 /* ActivityDatasourceController.swift in Sources */,
+				5B2631A222E3642300D63912 /* HomeOrderController.swift in Sources */,
+				5B2631DB22F2F3FA00D63912 /* AddingOrderController.swift in Sources */,
 				C973F52F20E77BAC0034F953 /* SearchDatasourceController.swift in Sources */,
 				C973F53020E77BAC0034F953 /* FirebaseMagic.swift in Sources */,
 			);
@@ -513,9 +593,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9A1808320B2AB470044A6D0 /* MainTabBarController.swift in Sources */,
+				5B05899322F9D13400C9C837 /* ConfirmOrderController.swift in Sources */,
+				5B26319822E0705B00D63912 /* OrderDatasourceController.swift in Sources */,
 				C97A139420BACB1B00AA26CF /* SearchDatasourceCell.swift in Sources */,
 				C978CF5120B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift in Sources */,
 				5BEF9CB722D9F9A900815ED3 /* SparkModels.swift in Sources */,
+				5B2631DA22F2F3FA00D63912 /* AddingOrderController.swift in Sources */,
 				C9A180A220B2BDC50044A6D0 /* UserProfileDatasourceController.swift in Sources */,
 				C985238820E0068900237DA9 /* FirebaseMagicService.swift in Sources */,
 				C9A180AB20B2DE550044A6D0 /* SignUpController.swift in Sources */,
@@ -523,7 +606,9 @@
 				C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */,
 				C978CF4F20B44E0D003863AF /* UserProfilePostDatasourceCell.swift in Sources */,
 				C97A139920BB3AB900AA26CF /* UserStatsDatasource.swift in Sources */,
+				5B2631DD22F594D400D63912 /* ProductCell.swift in Sources */,
 				C985238220E001AE00237DA9 /* FirebaseMagicExtensions.swift in Sources */,
+				5B2631D422EC9A0D00D63912 /* OrderListController.swift in Sources */,
 				5BEF9CB622D9F9A900815ED3 /* SparkKeys.swift in Sources */,
 				C9A180AD20B2DEA80044A6D0 /* Setup.swift in Sources */,
 				C97A139220BACB0800AA26CF /* SearchDatasource.swift in Sources */,
@@ -536,8 +621,12 @@
 				5BEF9CB522D9F9A900815ED3 /* Spark.swift in Sources */,
 				5BEF9CBC22D9FAB300815ED3 /* Service.swift in Sources */,
 				C97A139B20BB3AD500AA26CF /* UserStatsDatasourceCell.swift in Sources */,
+				5B2631A122E3642300D63912 /* HomeOrderController.swift in Sources */,
 				C978CF4D20B44DFE003863AF /* UserProfileDatasource.swift in Sources */,
 				5BEF9CBE22D9FD8000815ED3 /* SparkService.swift in Sources */,
+				5B26319E22E070E500D63912 /* OrderDataSourceCell.swift in Sources */,
+				5B05899022F8966D00C9C837 /* AddingOrderChoosingDestinationController.swift in Sources */,
+				5B26319B22E070C400D63912 /* OrderDataSource.swift in Sources */,
 				C9A180B120B2DFE80044A6D0 /* ScreenSize.swift in Sources */,
 				C97A138E20BABBAD00AA26CF /* HomeDatasource.swift in Sources */,
 				C985238520E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */,
@@ -546,6 +635,7 @@
 				5BEF9CB822D9F9A900815ED3 /* SparkSetup.swift in Sources */,
 				C9A1809E20B2BD560044A6D0 /* SearchDatasourceController.swift in Sources */,
 				C9A180AF20B2DF220044A6D0 /* FirebaseMagic.swift in Sources */,
+				5B2631E022F5951500D63912 /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
+
 class FirebaseMagic {
   
   // MARK: -
@@ -80,6 +81,8 @@ class FirebaseMagic {
     #endif
     print("Started FirebaseMagic in environment: \(environment)")
     FirebaseApp.configure()
+    
+    
     
     Auth.auth().addStateDidChangeListener { auth, user in
       if let user = user {
@@ -413,6 +416,7 @@ class FirebaseMagic {
         completion(false, nil)
         return
       }
+        
       let values = [currentUserUid : 1]
       updateValues(atPath: Database_UserFollowers.child(currentUserUid), with: values, completion: { (result, err) in
         completion(result, err)

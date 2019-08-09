@@ -20,5 +20,6 @@ pod 'FacebookCore'
 pod 'FacebookLogin'
 pod 'SwiftyJSON'
 pod 'TinyConstraints'
-
+pod 'GoogleSignIn'
+pod 'LBTATools'
 end

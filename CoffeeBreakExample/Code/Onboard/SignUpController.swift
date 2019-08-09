@@ -8,8 +8,10 @@
 
 import LBTAComponents
 import JGProgressHUD
+import Firebase
+import GoogleSignIn
 
-class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SignUpController: UIViewController, GIDSignInUIDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let hud: JGProgressHUD = {
         let hud = JGProgressHUD(style: .light)
@@ -24,17 +26,17 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     
     let headerImageView: UIImageView = {
         let view = UIImageView()
-        view.image = #imageLiteral(resourceName: "IconBG")
+        view.image = #imageLiteral(resourceName: "logo")
         view.contentMode = .scaleToFill
         return view
     }()
     
-    let headerIconImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = #imageLiteral(resourceName: "IconBW")
-        view.contentMode = .scaleAspectFill
-        return view
-    }()
+    //    let headerIconImageView: UIImageView = {
+    //        let view = UIImageView()
+    //        view.image = #imageLiteral(resourceName: "IconBW")
+    //        view.contentMode = .scaleAspectFill
+    //        return view
+    //    }()
     
     lazy var addProfilePictureButton: UIButton = {
         var button = UIButton(type: .system)
@@ -124,7 +126,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     
     lazy var signInWithFacebookButton: UIButton = {
         var button = UIButton(type: .system)
-        button.setTitle("Login with Facebook", for: .normal)
+        button.setTitle("LOGIN WITH FACEBOOK", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: Service.buttonTitleFontSize)
         button.setTitleColor(Service.buttonTitleColor, for: .normal)
         button.backgroundColor = Service.buttonBackgroundColorSignInWithFacebook
@@ -169,6 +171,85 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         let homeController = HomeDatasourceController()
         navigationController?.pushViewController(homeController, animated: true)
     }
+    
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
+                withError error: NSError!) {
+        if (error == nil) {
+            // Perform any operations on signed in user here.
+            // ...
+        } else {
+            print("\(error.localizedDescription)")
+        }
+    }
+    
+    
+    
+    
+    
+    let signInWithGoogleButton: UIButton = {
+        let GoogleButton = UIButton(type: .custom)
+        
+        GoogleButton.setTitle("LOGIN WITH GOOGLE",for:.normal)
+        GoogleButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: Service.buttonTitleFontSize)
+        GoogleButton.setTitleColor(Service.buttonTitleColor, for: .normal)
+        GoogleButton.backgroundColor = Service.buttonBackgroundColorSignInWithGmail
+        GoogleButton.layer.masksToBounds = true
+        GoogleButton.layer.cornerRadius = Service.buttonCornerRadius
+        
+        GoogleButton.setImage(
+            UIImage(named:"icons8-google_logo"),
+            for: UIControlState.normal)
+        //GoogleButton.setImage(UIAccessibilityTraitImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        
+        
+        // GoogleButton.tintColor = .white
+        GoogleButton.contentMode = .scaleAspectFit
+        
+        GoogleButton.addTarget(self, action: #selector(handleSignInWithGoogleButtonTapped), for: .touchUpInside)
+        return GoogleButton
+    }()
+    
+    
+    @objc func handleSignInWithGoogleButtonTapped() {
+        
+        GIDSignIn.sharedInstance().signIn()
+        self.dismissSignUpController()
+        let homeController = HomeDatasourceController()
+        navigationController?.pushViewController(homeController, animated: true)
+    }
+    
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        
+        print("Google Sing In didSignInForUser")
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: (authentication.idToken)!, accessToken: (authentication.accessToken)!)
+        // When user is signed in
+        Auth.auth().signIn(with: credential, completion: { (user, error) in
+            if let error = error {
+                print("Login error: \(error.localizedDescription)")
+                return
+            }
+        })
+    }
+    // Start Google OAuth2 Authentication
+    func sign(_ signIn: GIDSignIn?, present viewController: UIViewController?) {
+        
+        // Showing OAuth2 authentication window
+        if let aController = viewController {
+            present(aController, animated: true) {() -> Void in }
+        }
+    }
+    // After Google OAuth2 authentication
+    func sign(_ signIn: GIDSignIn?, dismiss viewController: UIViewController?) {
+        // Close OAuth2 authentication window
+        dismiss(animated: true) {() -> Void in }
+    }
+    
     
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
@@ -253,10 +334,16 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        GIDSignIn.sharedInstance().uiDelegate = self
+        // GIDSignIn.sharedInstance().signIn()
+        
         view.backgroundColor = .white
         navigationItem.title = "Create Account"
         
         navigationItem.setRightBarButton(nextBarButtonItem, animated: false)
+        
         
         setupViews()
     }
@@ -264,13 +351,14 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     fileprivate func setupViews() {
         
         view.addSubview(headerImageView)
-        headerImageView.addSubview(headerIconImageView)
+        // headerImageView.addSubview(headerIconImageView)
         view.addSubview(addProfilePictureButton)
         view.addSubview(nameTextField)
         view.addSubview(emailTextField)
         view.addSubview(usernameTextField)
         view.addSubview(passwordTextField)
         view.addSubview(signInWithFacebookButton)
+        view.addSubview(signInWithGoogleButton)
         view.addSubview(loginButton)
         
         headerImageView.anchor(
@@ -285,18 +373,18 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
             widthConstant: 0,
             heightConstant: headerImageViewHeight)
         
-        headerIconImageView.anchor(
-            nil,
-            left: nil,
-            bottom: nil,
-            right: nil,
-            topConstant: 0,
-            leftConstant: 0,
-            bottomConstant: 0,
-            rightConstant: 0,
-            widthConstant: headerImageViewHeight * 0.5,
-            heightConstant: headerImageViewHeight * 0.5)
-        headerIconImageView.anchorCenterSuperview()
+        //        headerIconImageView.anchor(
+        //            nil,
+        //            left: nil,
+        //            bottom: nil,
+        //            right: nil,
+        //            topConstant: 0,
+        //            leftConstant: 0,
+        //            bottomConstant: 0,
+        //            rightConstant: 0,
+        //            widthConstant: headerImageViewHeight * 0.5,
+        //            heightConstant: headerImageViewHeight * 0.5)
+        //        headerIconImageView.anchorCenterSuperview()
         
         addProfilePictureButton.anchor(
             view.safeAreaLayoutGuide.topAnchor,
@@ -361,6 +449,19 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         
         signInWithFacebookButton.anchor(
             passwordTextField.bottomAnchor,
+            left:view.safeAreaLayoutGuide.leftAnchor,
+            bottom: nil,
+            right: view.safeAreaLayoutGuide.rightAnchor,
+            topConstant: 32,
+            leftConstant: 12,
+            bottomConstant: 0,
+            rightConstant: 12,
+            widthConstant: 0,
+            heightConstant: 50
+        )
+        
+        signInWithGoogleButton.anchor(
+            signInWithFacebookButton.bottomAnchor,
             left:view.safeAreaLayoutGuide.leftAnchor,
             bottom: nil,
             right: view.safeAreaLayoutGuide.rightAnchor,

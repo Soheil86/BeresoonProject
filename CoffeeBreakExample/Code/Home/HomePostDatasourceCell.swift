@@ -92,9 +92,42 @@ class HomePostDatasourceCell: DatasourceCell {
     addSubview(captionLabel)
     addSubview(timeStampLabel)
     
-    profileImageView.anchor(safeAreaLayoutGuide.topAnchor, left: safeAreaLayoutGuide.leftAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: profileImageViewHeight, heightConstant: profileImageViewHeight)
-    nameLabel.anchor(safeAreaLayoutGuide.topAnchor, left: profileImageView.rightAnchor, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, topConstant: 14, leftConstant: 8, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 18)
-    imageView.anchor(profileImageView.bottomAnchor, left: safeAreaLayoutGuide.leftAnchor, bottom: nil, right: safeAreaLayoutGuide.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: imageViewHeight, heightConstant: imageViewHeight)
+    profileImageView.anchor(
+        safeAreaLayoutGuide.topAnchor,
+        left: safeAreaLayoutGuide.leftAnchor,
+        bottom: nil,
+        right: nil,
+        topConstant: 8,
+        leftConstant: 16,
+        bottomConstant: 0,
+        rightConstant: 0,
+        widthConstant: profileImageViewHeight,
+        heightConstant: profileImageViewHeight)
+    
+    nameLabel.anchor(
+        safeAreaLayoutGuide.topAnchor,
+        left: profileImageView.rightAnchor,
+        bottom: nil,
+        right: safeAreaLayoutGuide.rightAnchor,
+        topConstant: 14,
+        leftConstant: 8,
+        bottomConstant: 0,
+        rightConstant: 16,
+        widthConstant: 0,
+        heightConstant: 18)
+    
+    imageView.anchor(
+        profileImageView.bottomAnchor,
+        left: safeAreaLayoutGuide.leftAnchor,
+        bottom: nil,
+        right: safeAreaLayoutGuide.rightAnchor,
+        topConstant: 8,
+        leftConstant: 0,
+        bottomConstant: 0,
+        rightConstant: 0,
+        widthConstant: imageViewHeight,
+        heightConstant: imageViewHeight)
+    
     captionLabel.anchor(imageView.bottomAnchor, left: leftAnchor, bottom: timeStampLabel.topAnchor, right: rightAnchor, topConstant: 8, leftConstant: 8, bottomConstant: 8, rightConstant: 8, widthConstant: 0, heightConstant: 0)
     timeStampLabel.anchor(captionLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 8, bottomConstant: 8, rightConstant: 8, widthConstant: 0, heightConstant: 18)
   }

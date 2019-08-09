@@ -20,6 +20,7 @@ class FirebaseMagicService {
   static let notificationNameFollowedUser = Notification.Name(rawValue: "followedUser")
   static let notificationNameUnfollowedUser = Notification.Name(rawValue: "unfollowedUser")
   static let notificationNameShowFollowers = Notification.Name(rawValue: "showFollowers")
+  static let notificationAddingOrder = Notification.Name(rawValue: "AddingOrder")
   static let notificationNameShowFollowing = Notification.Name(rawValue: "showFollowing")
   
   // MARK: -
