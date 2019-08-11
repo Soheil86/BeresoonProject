@@ -29,6 +29,12 @@
 		5B2631DE22F594D500D63912 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631DC22F594D400D63912 /* ProductCell.swift */; };
 		5B2631E022F5951500D63912 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631DF22F5951500D63912 /* Product.swift */; };
 		5B2631E122F5951500D63912 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2631DF22F5951500D63912 /* Product.swift */; };
+		5B78E1ED22FD7F0000120E74 /* NewProfileControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B78E1EC22FD7F0000120E74 /* NewProfileControllerViewController.swift */; };
+		5B78E1EE22FD7F0000120E74 /* NewProfileControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B78E1EC22FD7F0000120E74 /* NewProfileControllerViewController.swift */; };
+		5B78E1F022FDF2A900120E74 /* VeryNewProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B78E1EF22FDF2A900120E74 /* VeryNewProfileController.swift */; };
+		5B78E1F122FDF2A900120E74 /* VeryNewProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B78E1EF22FDF2A900120E74 /* VeryNewProfileController.swift */; };
+		5B78E1F62300972200120E74 /* userProfileEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B78E1F52300972200120E74 /* userProfileEditController.swift */; };
+		5B78E1F72300972200120E74 /* userProfileEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B78E1F52300972200120E74 /* userProfileEditController.swift */; };
 		5BEF9CB522D9F9A900815ED3 /* Spark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF9CAF22D9F9A900815ED3 /* Spark.swift */; };
 		5BEF9CB622D9F9A900815ED3 /* SparkKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF9CB022D9F9A900815ED3 /* SparkKeys.swift */; };
 		5BEF9CB722D9F9A900815ED3 /* SparkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF9CB122D9F9A900815ED3 /* SparkModels.swift */; };
@@ -117,6 +123,9 @@
 		5B2631D922F2F3FA00D63912 /* AddingOrderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingOrderController.swift; sourceTree = "<group>"; };
 		5B2631DC22F594D400D63912 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		5B2631DF22F5951500D63912 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		5B78E1EC22FD7F0000120E74 /* NewProfileControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProfileControllerViewController.swift; sourceTree = "<group>"; };
+		5B78E1EF22FDF2A900120E74 /* VeryNewProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeryNewProfileController.swift; sourceTree = "<group>"; };
+		5B78E1F52300972200120E74 /* userProfileEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userProfileEditController.swift; sourceTree = "<group>"; };
 		5BEF9CAF22D9F9A900815ED3 /* Spark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spark.swift; sourceTree = "<group>"; };
 		5BEF9CB022D9F9A900815ED3 /* SparkKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparkKeys.swift; sourceTree = "<group>"; };
 		5BEF9CB122D9F9A900815ED3 /* SparkModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparkModels.swift; sourceTree = "<group>"; };
@@ -362,6 +371,9 @@
 				C978CF4C20B44DFE003863AF /* UserProfileDatasource.swift */,
 				C978CF4E20B44E0D003863AF /* UserProfilePostDatasourceCell.swift */,
 				C978CF5020B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift */,
+				5B78E1EC22FD7F0000120E74 /* NewProfileControllerViewController.swift */,
+				5B78E1EF22FDF2A900120E74 /* VeryNewProfileController.swift */,
+				5B78E1F52300972200120E74 /* userProfileEditController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -553,6 +565,7 @@
 				C973F51620E77BAC0034F953 /* SearchDatasourceCell.swift in Sources */,
 				C973F51720E77BAC0034F953 /* UserProfileHeaderDatasourceCell.swift in Sources */,
 				C973F51820E77BAC0034F953 /* UserProfileDatasourceController.swift in Sources */,
+				5B78E1F122FDF2A900120E74 /* VeryNewProfileController.swift in Sources */,
 				C973F51920E77BAC0034F953 /* FirebaseMagicService.swift in Sources */,
 				C973F51A20E77BAC0034F953 /* SignUpController.swift in Sources */,
 				C973F51B20E77BAC0034F953 /* ForgotPasswordController.swift in Sources */,
@@ -573,8 +586,10 @@
 				C973F52720E77BAC0034F953 /* AppDelegate.swift in Sources */,
 				5B05899122F8966D00C9C837 /* AddingOrderChoosingDestinationController.swift in Sources */,
 				5B05899422F9D13400C9C837 /* ConfirmOrderController.swift in Sources */,
+				5B78E1F72300972200120E74 /* userProfileEditController.swift in Sources */,
 				C973F52820E77BAC0034F953 /* UserStatsDatasourceCell.swift in Sources */,
 				C973F52920E77BAC0034F953 /* UserProfileDatasource.swift in Sources */,
+				5B78E1EE22FD7F0000120E74 /* NewProfileControllerViewController.swift in Sources */,
 				C973F52A20E77BAC0034F953 /* ScreenSize.swift in Sources */,
 				C973F52B20E77BAC0034F953 /* HomeDatasource.swift in Sources */,
 				C973F52C20E77BAC0034F953 /* FirebaseMagicSetup.swift in Sources */,
@@ -599,9 +614,11 @@
 				C978CF5120B44E3E003863AF /* UserProfileHeaderDatasourceCell.swift in Sources */,
 				5BEF9CB722D9F9A900815ED3 /* SparkModels.swift in Sources */,
 				5B2631DA22F2F3FA00D63912 /* AddingOrderController.swift in Sources */,
+				5B78E1F62300972200120E74 /* userProfileEditController.swift in Sources */,
 				C9A180A220B2BDC50044A6D0 /* UserProfileDatasourceController.swift in Sources */,
 				C985238820E0068900237DA9 /* FirebaseMagicService.swift in Sources */,
 				C9A180AB20B2DE550044A6D0 /* SignUpController.swift in Sources */,
+				5B78E1ED22FD7F0000120E74 /* NewProfileControllerViewController.swift in Sources */,
 				C9A180B520B2EE980044A6D0 /* ForgotPasswordController.swift in Sources */,
 				C9A180B320B2EC270044A6D0 /* LoginController.swift in Sources */,
 				C978CF4F20B44E0D003863AF /* UserProfilePostDatasourceCell.swift in Sources */,
@@ -631,6 +648,7 @@
 				C97A138E20BABBAD00AA26CF /* HomeDatasource.swift in Sources */,
 				C985238520E0023D00237DA9 /* FirebaseMagicSetup.swift in Sources */,
 				C97A139720BB3A9A00AA26CF /* UserStatsDatasourceController.swift in Sources */,
+				5B78E1F022FDF2A900120E74 /* VeryNewProfileController.swift in Sources */,
 				C9A180A020B2BD910044A6D0 /* ActivityDatasourceController.swift in Sources */,
 				5BEF9CB822D9F9A900815ED3 /* SparkSetup.swift in Sources */,
 				C9A1809E20B2BD560044A6D0 /* SearchDatasourceController.swift in Sources */,

@@ -55,7 +55,8 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, UIIm
         let searchController = SearchDatasourceController()
         let dummyAddPostController = DummyAddPostViewController()
         let activityController = ActivityDatasourceController()
-        let userProfileController = UserProfileDatasourceController()
+        let userProfileController = VeryNewProfileController()//NewProfileControllerViewController()
+       // UserProfileDatasourceController()
         
         let homeNavController = UINavigationController(rootViewController: homeController)
           let orderNavController = UINavigationController(rootViewController: orderController)
