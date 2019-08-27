@@ -41,10 +41,10 @@ class SharePostViewController: UIViewController {
   }()
   
   @objc func handleShareBarButtonItemTapped() {
-    sharePost(image: imageView.image, caption: captionTextView.text)
+    shareOrder(image: imageView.image, caption: captionTextView.text)
   }
   
-  fileprivate func sharePost(image: UIImage?, caption: String?) {
+  fileprivate func shareOrder(image: UIImage?, caption: String?) {
     guard let image = image, let caption = caption else {
       FirebaseMagicService.showAlert(style: .alert, title: "Share error", message: "Invalid image or caption")
       return
@@ -56,7 +56,7 @@ class SharePostViewController: UIViewController {
       // Mark: FirebaseMagic - Share post
       let hud = JGProgressHUD(style: .light)
       FirebaseMagicService.showHud(hud, text: "Sharing...")
-      FirebaseMagic.sharePost(withCaption: caption, image: image) { (result, err) in
+      FirebaseMagic.shareOrder(withProductName: caption, image: image) { (result, err) in
         if let err = err {
           FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
           FirebaseMagicService.showAlert(style: .alert, title: "Share error", message: err.localizedDescription)
@@ -67,7 +67,7 @@ class SharePostViewController: UIViewController {
         }
         print("Successfully shared post.")
         FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
-        NotificationCenter.default.post(name: FirebaseMagicService.notificationNameUserSharedAPost, object: nil, userInfo: nil)
+        NotificationCenter.default.post(name: FirebaseMagicService.notificationNameUserSharedAOrder, object: nil, userInfo: nil)
         self.dismiss(animated: true, completion: nil)
       }
     }

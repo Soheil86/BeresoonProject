@@ -289,7 +289,7 @@ class SignUpController: UIViewController, GIDSignInUIDelegate,UIImagePickerContr
     
     @objc fileprivate func handleNextBarButtonItemTapped() {
         
-        guard let email = emailTextField.text, email.count > 0,
+        guard let emailAddress = emailTextField.text, emailAddress.count > 0,
             let password = passwordTextField.text, password.count > 5,
             let name = nameTextField.text, name.count > 0,
             let username = usernameTextField.text, username.count > 2,
@@ -298,7 +298,7 @@ class SignUpController: UIViewController, GIDSignInUIDelegate,UIImagePickerContr
                 return
         }
         
-        let userCredentials = [FirebaseMagicKeys.User.email: email,
+        let userCredentials = [FirebaseMagicKeys.User.emailAddress: emailAddress,
                                FirebaseMagicKeys.User.password: password,
                                FirebaseMagicKeys.User.username: username] as [String : Any]
         

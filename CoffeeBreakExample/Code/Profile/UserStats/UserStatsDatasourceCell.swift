@@ -111,7 +111,7 @@ class UserStatsDatasourceCell: DatasourceCell {
       guard let user = datasourceItem as? CurrentUser else { return }
       profileImageView.loadImage(urlString: user.profileImageUrl)
       usernameLabel.text = user.username
-      postsCountLabel.text = "\(user.postsCount) posts"
+      postsCountLabel.text = "\(user.ordersCount) orders"
       
       setupFollowUnfollowButton(with: user.uid)
     }

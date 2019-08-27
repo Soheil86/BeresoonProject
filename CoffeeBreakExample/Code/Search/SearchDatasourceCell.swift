@@ -112,7 +112,7 @@ class SearchDatasourceCell: DatasourceCell {
       guard let user = datasourceItem as? CurrentUser else { return }
       profileImageView.loadImage(urlString: user.profileImageUrl)
       usernameLabel.text = user.username
-      postsCountLabel.text = "\(user.postsCount) posts"
+      postsCountLabel.text = "\(user.ordersCount) ordersCount"
       
       setupFollowUnfollowButton(with: user.uid)
     }

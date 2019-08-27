@@ -47,10 +47,10 @@ class UserProfileDatasourceController: DatasourceController {
     FirebaseMagicService.showAlert(style: .actionSheet, title: nil, message: nil, actions: [logOutAction, cancelAction], completion: nil)
   }
   
-  @objc fileprivate func handleUserSharedAPost() {
+  @objc fileprivate func handleUserSharedAOrder() {
     fetchCurrentUser() { (currentUser) in
-      self.reloadAllPosts { (result) in
-        print("Reloaded posts after user have shared a new post with result:", result)
+      self.reloadAllOrders { (result) in
+        print("Reloaded orders after user have shared a new order with result:", result)
       }
     }
   }
@@ -70,7 +70,7 @@ class UserProfileDatasourceController: DatasourceController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NotificationCenter.default.addObserver(self, selector: #selector(handleUserSharedAPost), name: FirebaseMagicService.notificationNameUserSharedAPost, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleUserSharedAOrder), name: FirebaseMagicService.notificationNameUserSharedAOrder, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(handleFollowersButtonTapped), name: FirebaseMagicService.notificationNameShowFollowers, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(handleFollowingButtonTapped), name: FirebaseMagicService.notificationNameShowFollowing, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(handleFollowedUser), name: FirebaseMagicService.notificationNameFollowedUser, object: nil)
@@ -82,9 +82,10 @@ class UserProfileDatasourceController: DatasourceController {
     setupController()
     
     fetchCurrentUser() { (currentUser) in
+        
       self.navigationItem.title = currentUser.username
-      self.reloadAllPosts(completion: { (result) in
-        print("Fetched post with result:", result)
+      self.reloadAllOrders(completion: { (result) in
+        print("Fetched user with result:", result)
       })
     }
   }
@@ -127,22 +128,22 @@ class UserProfileDatasourceController: DatasourceController {
     collectionView?.backgroundView?.alpha = 0.0
   }
   
-  fileprivate func clearPosts() {
-    // MARK: FirebaseMagic - Remove current user posts if any
-    FirebaseMagic.fetchedUserPosts.removeAll()
-    FirebaseMagic.fetchedUserPostsCurrentKey = nil
+  fileprivate func clearOrders() {
+    // MARK: FirebaseMagic - Remove current user orders if any
+    FirebaseMagic.fetchedUserOrders.removeAll()
+    FirebaseMagic.fetchedUserOrdersCurrentKey = nil
     collectionView?.reloadData()
   }
   
-  fileprivate func fetchPosts(completion: @escaping (_ result: Bool) -> ()) {
-    // MARK: FirebaseMagic - Fetch current user posts
+  fileprivate func fetchOrders(completion: @escaping (_ result: Bool) -> ()) {
+    // MARK: FirebaseMagic - Fetch current user orders
     let hud = JGProgressHUD(style: .light)
-    FirebaseMagicService.showHud(hud, text: "Fetching user posts...")
-    FirebaseMagic.fetchUserPosts(forUid: FirebaseMagic.currentUserUid(), fetchType: .onUserProfile, in: self, completion: { (result, err) in
+    FirebaseMagicService.showHud(hud, text: "Fetching user orders...")
+    FirebaseMagic.fetchUserOrders(forUid: FirebaseMagic.currentUserUid(), fetchType: .onUserProfile, in: self, completion: { (result, err) in
       if let err = err {
-        print("Failed to fetch user posts with err:", err)
+        print("Failed to fetch user orders with err:", err)
         FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
-        FirebaseMagicService.showAlert(style: .alert, title: "Fetch error", message: "Failed to fetch user posts with err: \(err)")
+        FirebaseMagicService.showAlert(style: .alert, title: "Fetch error", message: "Failed to fetch user orders with err: \(err)")
         completion(false)
         return
       } else if result == false {
@@ -150,22 +151,22 @@ class UserProfileDatasourceController: DatasourceController {
         completion(false)
         return
       }
-      print("Successfully fetched user posts")
+      print("Successfully fetched user orders")
       FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
       completion(true)
     })
   }
   
-  fileprivate func reloadAllPosts(completion: @escaping (_ result: Bool) -> ()) {
-    clearPosts()
-    fetchPosts { (result) in
+  fileprivate func reloadAllOrders(completion: @escaping (_ result: Bool) -> ()) {
+    clearOrders()
+    fetchOrders { (result) in
       completion(result)
     }
   }
   
   override func handleRefresh() {
     fetchCurrentUser() { (currentUser) in
-      self.reloadAllPosts { (result) in
+      self.reloadAllOrders { (result) in
         self.refreshControl.endRefreshing()
       }
     }
@@ -192,10 +193,10 @@ class UserProfileDatasourceController: DatasourceController {
   override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
     
     // MARK: FirebaseMagic - Trigger pagination when last item will be displayed on user profile
-    if FirebaseMagic.fetchedUserPosts.count > FirebaseMagic.paginationElementsLimitUserPosts - 1 {
-      if indexPath.row == FirebaseMagic.fetchedUserPosts.count - 1 {
-        fetchPosts { (result) in
-          print("Paginated user posts with result:", result)
+    if FirebaseMagic.fetchedUserOrders.count > FirebaseMagic.paginationElementsLimitUserOrders - 1 {
+      if indexPath.row == FirebaseMagic.fetchedUserOrders.count - 1 {
+        fetchOrders { (result) in
+          print("Paginated user orders with result:", result)
         }
       }
     }

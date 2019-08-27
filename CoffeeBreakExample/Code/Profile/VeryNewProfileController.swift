@@ -7,12 +7,41 @@
 //
 
 import TinyConstraints
+import LBTAComponents
+import Firebase
+import JGProgressHUD
 
 class VeryNewProfileController: UIViewController {
     
-    // MARK:- Properties
     
-    // MARK:- Views
+    
+    lazy var logoutBarButtonItem: UIBarButtonItem = {
+        var item = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(handleLogoutBarButtonItemTapped))
+        return item
+    }()
+    
+    @objc func handleLogoutBarButtonItemTapped() {
+        let logOutAction = UIAlertAction(title: "Logout", style: .destructive) { (action) in
+            // MARK: FirebaseMagic - Log out
+            let hud = JGProgressHUD(style: .light)
+            FirebaseMagicService.showHud(hud, text: "Logging out...")
+            FirebaseMagic.logout(completion: { (err) in
+                FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+                
+                if let err = err {
+                    FirebaseMagicService.showAlert(style: .alert, title: "Logout Error", message: err.localizedDescription)
+                    return
+                }
+                
+                let controller = SignUpController()
+                let navController = UINavigationController(rootViewController: controller)
+                self.present(navController, animated: true, completion: nil)
+            })
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        FirebaseMagicService.showAlert(style: .actionSheet, title: nil, message: nil, actions: [logOutAction, cancelAction], completion: nil)
+    }
+    
     
     lazy var timeBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "icons8-settings.png"), style: .plain, target: self, action: #selector(timeBarButtonItemTapped))
     
@@ -48,8 +77,18 @@ class VeryNewProfileController: UIViewController {
         let lable  = UILabel()
         lable.text = " CITY : "
         lable.textAlignment = .left
+        lable.font = UIFont.boldSystemFont(ofSize: 18)
+        lable.textColor  = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        lable.numberOfLines = 0
+        return lable
+    }()
+    
+    lazy var cityResultLable : UILabel = {
+        let lable  = UILabel()
+        lable.text = " "
+        lable.textAlignment = .left
         lable.font = UIFont.boldSystemFont(ofSize: 17)
-        lable.textColor  = .black
+        lable.textColor  = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         lable.numberOfLines = 0
         return lable
     }()
@@ -72,8 +111,18 @@ class VeryNewProfileController: UIViewController {
         let lable  = UILabel()
         lable.text = " Mobile Number : "
         lable.textAlignment = .left
+        lable.font = UIFont.boldSystemFont(ofSize: 18)
+        lable.textColor  = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        lable.numberOfLines = 0
+        return lable
+    }()
+    
+    lazy var mobileNumberResultLabel : UILabel = {
+        let lable  = UILabel()
+        lable.text = " "
+        lable.textAlignment = .left
         lable.font = UIFont.boldSystemFont(ofSize: 17)
-        lable.textColor  = .black
+        lable.textColor  = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         lable.numberOfLines = 0
         return lable
     }()
@@ -97,8 +146,18 @@ class VeryNewProfileController: UIViewController {
         let lable  = UILabel()
         lable.text = " Email Address : "
         lable.textAlignment = .left
+        lable.font = UIFont.boldSystemFont(ofSize: 18)
+        lable.textColor  = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        lable.numberOfLines = 0
+        return lable
+    }()
+    
+    lazy var emailAddressResultLabel : UILabel = {
+        let lable  = UILabel()
+        lable.text = " "
+        lable.textAlignment = .left
         lable.font = UIFont.boldSystemFont(ofSize: 17)
-        lable.textColor  = .black
+        lable.textColor  = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         lable.numberOfLines = 0
         return lable
     }()
@@ -120,8 +179,18 @@ class VeryNewProfileController: UIViewController {
         let lable  = UILabel()
         lable.text = " Linkdin : "
         lable.textAlignment = .left
+        lable.font = UIFont.boldSystemFont(ofSize: 18)
+        lable.textColor  = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        lable.numberOfLines = 0
+        return lable
+    }()
+    
+    lazy var linkdinResultLabel : UILabel = {
+        let lable  = UILabel()
+        lable.text = " "
+        lable.textAlignment = .left
         lable.font = UIFont.boldSystemFont(ofSize: 17)
-        lable.textColor  = .black
+        lable.textColor  = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         lable.numberOfLines = 0
         return lable
     }()
@@ -145,15 +214,26 @@ class VeryNewProfileController: UIViewController {
         let lable  = UILabel()
         lable.text = " Facebook : "
         lable.textAlignment = .left
-        lable.font = UIFont.boldSystemFont(ofSize: 17)
-        lable.textColor  = .black
+        lable.font = UIFont.boldSystemFont(ofSize: 18)
+        lable.textColor  = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         lable.numberOfLines = 0
         return lable
     }()
     
+    lazy var facebookResultLabel : UILabel = {
+        let lable  = UILabel()
+        lable.text = " "
+        lable.textAlignment = .left
+        lable.font = UIFont.boldSystemFont(ofSize: 17)
+        lable.textColor  = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        lable.numberOfLines = 0
+        return lable
+    }()
+    
+    
     let profileImageViewHeight : CGFloat = 88
-    lazy var profileImageView: UIImageView = {
-        let iv = UIImageView()
+    lazy var profileImageView: CachedImageView = {
+        let iv = CachedImageView()
         iv.contentMode = .scaleAspectFill
         iv.image = #imageLiteral(resourceName: "profilePicture").withRenderingMode(.alwaysOriginal)
         iv.layer.cornerRadius = profileImageViewHeight / 2
@@ -176,11 +256,7 @@ class VeryNewProfileController: UIViewController {
     
     lazy var descriptionUserLabel : UILabel = {
         let lable  = UILabel()
-        lable.text = """
-        Joined in March 2019
-        Traveller Rating
-        Each time I go to Buenos Aires using Grabr.
-        """
+        lable.text = ""
         lable.textAlignment = .left
         lable.font = UIFont.systemFont(ofSize: 18)
         //  lable.font = UIFont.boldSystemFont(ofSize: 22)
@@ -197,7 +273,7 @@ class VeryNewProfileController: UIViewController {
     
     lazy var fullNameLabel : UILabel = {
         let lable  = UILabel()
-        lable.text = " SOHEIL GHANBARI "
+        lable.text = " "
         lable.textAlignment = .center
         lable.font = UIFont.systemFont(ofSize: 22)
         lable.textColor  = .black
@@ -228,16 +304,12 @@ class VeryNewProfileController: UIViewController {
     
     @objc func editButtonTapped() {
         let userprofileController = userProfileEditController()
-        
-        
-//        userprofileController.userImage = productimage
-//        userprofileController.userFirstName = productName
-//        userprofileController.userLastName = deliverFromTextField.text
-//        userprofileController.userCity = deliverToTextField.text
-//        userprofileController.userMobileNumber = deliverydate.text
-//        userprofileController.userEmailAddress
-//        userprofileController.userLinkdin
-        
+        userprofileController.userImage = profileImageView.image
+        userprofileController.userCity = cityResultLable.text
+        userprofileController.userMobileNumber = mobileNumberResultLabel.text
+        userprofileController.userEmailAddress = emailAddressResultLabel.text
+        userprofileController.userLinkdin = linkdinResultLabel.text
+        userprofileController.userFacebook = facebookResultLabel.text
         navigationController?.pushViewController(userprofileController, animated: true)
     }
     
@@ -251,15 +323,57 @@ class VeryNewProfileController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
         setupNavigation()
         setupViews()
+        
+        
+        fetchCurrentUser() { (currentUser) in
+            
+            self.navigationItem.title = currentUser.username
+            self.fullNameLabel.text = currentUser.name + " " + currentUser.lastName
+            self.profileImageView.loadImage(urlString: currentUser.profileImageUrl)
+            self.descriptionUserLabel.text = currentUser.description
+            self.cityResultLable.text = currentUser.cityName
+            self.mobileNumberResultLabel.text = currentUser.mobileNumber
+            self.emailAddressResultLabel.text = currentUser.emailAddress
+            self.linkdinResultLabel.text = currentUser.linkedin
+            self.facebookResultLabel.text = currentUser.facebook
+           // self.reloadAllOrders(completion: { (result) in
+           //     print("Fetched user with result:", result)
+          //  })
+        }
+    }
+    
+    
+    
+    func fetchCurrentUser(completion: @escaping (CurrentUser) -> ()) {
+        // MARK: FirebaseMagic - Fetch current user
+        guard let uid = FirebaseMagic.currentUserUid() else { return }
+        let hud = JGProgressHUD(style: .light)
+        FirebaseMagicService.showHud(hud, text: "Fetching user...")
+        FirebaseMagic.fetchUser(withUid: uid) { (user, err) in
+            if let err = err {
+                FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+                FirebaseMagicService.showAlert(style: .alert, title: "Error fetching user", message: err.localizedDescription)
+                return
+            }
+            guard let user = user else {
+                FirebaseMagicService.dismiss(hud, afterDelay: nil, text: "Could not fetch...")
+                return
+            }
+            print("Successfully fetched user:", user.username)
+            
+            FirebaseMagicService.dismiss(hud, afterDelay: nil, text: nil)
+            
+            completion(user)
+        }
     }
     
     // MARK:- Setup Navigation
     fileprivate func setupNavigation(){
         title = "Profile"
-        self.navigationItem.setLeftBarButton(timeBarButtonItem, animated: false)
+        navigationItem.setRightBarButton(logoutBarButtonItem, animated: false)
+       // CollectionView.showsVerticalScrollIndicator = false
     }
     
     // MARK:- Setup Views
@@ -275,14 +389,19 @@ class VeryNewProfileController: UIViewController {
         view.addSubview(detailProfileStatsContainerView)
         view.addSubview(cityImageView)
         view.addSubview(cityLabel)
+        view.addSubview(cityResultLable)
         view.addSubview(mobileNumberImageView)
         view.addSubview(mobileNumberLabel)
+        view.addSubview(mobileNumberResultLabel)
         view.addSubview(emailImageView)
         view.addSubview(emailAddressLabel)
+        view.addSubview(emailAddressResultLabel)
         view.addSubview(linkdinImageView)
         view.addSubview(linkdinLabel)
+        view.addSubview(linkdinResultLabel)
         view.addSubview(facebookImageView)
         view.addSubview(facebookLabel)
+        view.addSubview(facebookResultLabel)
         view.addSubview(statsContainerView) //the main stacks on the right of profile image
         view.addSubview(statsFullNameContainerView)
         view.addSubview(fullNameLabel)
@@ -297,7 +416,7 @@ class VeryNewProfileController: UIViewController {
         
         containerView.height(1000)
         mainProfileStatsContainerView.height(230)
-        detailProfileStatsContainerView.height(400)
+        detailProfileStatsContainerView.height(500)
         containerView.stack([mainProfileStatsContainerView,detailProfileStatsContainerView,UIView()], axis: .vertical, spacing: 0.5)
         statsContainerView.stack([statsFullNameContainerView,statsEditProfileContainerView,UIView()],
                                  axis: .vertical, spacing : 5)
@@ -346,40 +465,50 @@ class VeryNewProfileController: UIViewController {
         cityImageView.width(50)
         cityImageView.height(50)
         cityLabel.top(to: cityStatsContainerView, offset : 25)
-        cityLabel.leftToRight(of: cityImageView, offset: 12)
+        cityLabel.leftToRight(of: cityImageView, offset: 0)
         cityLabel.right(to: cityStatsContainerView )
+        
+//        cityResultLable.edges(to: cityStatsContainerView, insets:TinyEdgeInsets(top:5,left:80,bottom:0,right:0))
+        cityResultLable.top(to: cityStatsContainerView,offset: -7)
+        cityResultLable.left(to: cityStatsContainerView, offset: 135)
+        cityResultLable.right(to: cityStatsContainerView )
+        cityResultLable.bottom(to: cityStatsContainerView )
         
         mobileNumberImageView.top(to: mobileNumberStatsContainerView, offset : 5)
         mobileNumberImageView.left(to: mobileNumberStatsContainerView, offset : 12)
         mobileNumberImageView.width(50)
         mobileNumberImageView.height(50)
         mobileNumberLabel.top(to: mobileNumberStatsContainerView, offset : 25)
-        mobileNumberLabel.leftToRight(of: mobileNumberImageView, offset: 12)
+        mobileNumberLabel.leftToRight(of: mobileNumberImageView, offset: 0)
         mobileNumberLabel.right(to: mobileNumberStatsContainerView )
+        mobileNumberResultLabel.edges(to: mobileNumberStatsContainerView, insets:TinyEdgeInsets(top:-6,left:230,bottom:0,right:0))
         
         emailImageView.top(to: emailAddressStatsContainerView, offset : 5)
         emailImageView.left(to: emailAddressStatsContainerView, offset : 12)
         emailImageView.width(50)
         emailImageView.height(50)
         emailAddressLabel.top(to: emailAddressStatsContainerView, offset : 25)
-        emailAddressLabel.leftToRight(of: emailImageView, offset: 12)
+        emailAddressLabel.leftToRight(of: emailImageView, offset: 0)
         emailAddressLabel.right(to: emailAddressStatsContainerView )
+        emailAddressResultLabel.edges(to: emailAddressStatsContainerView, insets:TinyEdgeInsets(top:0,left:230,bottom:0,right:0))
         
         linkdinImageView.top(to: linkdinStatsContainerView, offset : 5)
         linkdinImageView.left(to: linkdinStatsContainerView, offset : 12)
         linkdinImageView.width(50)
         linkdinImageView.height(50)
         linkdinLabel.top(to: linkdinStatsContainerView, offset : 25)
-        linkdinLabel.leftToRight(of: linkdinImageView, offset: 12)
+        linkdinLabel.leftToRight(of: linkdinImageView, offset: 0)
         linkdinLabel.right(to: linkdinStatsContainerView )
+        linkdinResultLabel.edges(to: linkdinStatsContainerView, insets:TinyEdgeInsets(top:-6,left:170,bottom:0,right:0))
         
         facebookImageView.top(to: facebookContainerView, offset : 5)
         facebookImageView.left(to: facebookContainerView, offset : 12)
         facebookImageView.width(50)
         facebookImageView.height(50)
         facebookLabel.top(to: facebookContainerView, offset : 25)
-        facebookLabel.leftToRight(of: facebookImageView, offset: 12)
+        facebookLabel.leftToRight(of: facebookImageView, offset: 0)
         facebookLabel.right(to: facebookContainerView )
+        facebookResultLabel.edges(to: facebookContainerView, insets:TinyEdgeInsets(top:-110,left:190,bottom:0,right:0))
         
         
     }

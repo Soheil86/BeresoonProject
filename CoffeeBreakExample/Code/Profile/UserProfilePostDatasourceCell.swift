@@ -27,7 +27,7 @@ class UserProfilePostDatasourceCell: DatasourceCell {
   
   override var datasourceItem: Any? {
     didSet {
-      guard let post = datasourceItem as? Post else { return }
+      guard let post = datasourceItem as? Order else { return }
       imageView.loadImage(urlString: post.imageUrl) {
         
       }

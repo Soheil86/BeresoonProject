@@ -17,26 +17,26 @@ class FirebaseMagic {
   // MARK: -
   // MARK: Firebase Database paths
   static let Database_Users = Database.database().reference().child(environment.rawValue).child("users")
-  static let Database_Posts = Database.database().reference().child(environment.rawValue).child("posts")
-  static let Database_UserPosts = Database.database().reference().child(environment.rawValue).child("userPosts")
-  static let Database_UserFeed = Database.database().reference().child(environment.rawValue).child("userFeed")
+  static let Database_Orders = Database.database().reference().child(environment.rawValue).child("orders")
+  static let Database_UserOrders = Database.database().reference().child(environment.rawValue).child("userOrders")
+  static let Database_UserTravel = Database.database().reference().child(environment.rawValue).child("userTravel")
   static let Database_UserFollowers = Database.database().reference().child(environment.rawValue).child("userFollowers")
   static let Database_UserFollowing = Database.database().reference().child(environment.rawValue).child("userFollowing")
   
   // MARK: -
   // MARK: Firebase Storage paths
   static let Storage_ProfileImages = Storage.storage().reference().child(environment.rawValue).child("profile_images")
-  static let Storage_PostImages = Storage.storage().reference().child(environment.rawValue).child("post_images")
+  static let Storage_OrderImages = Storage.storage().reference().child(environment.rawValue).child("order_images")
   
   // MARK: -
   // MARK: Fetched containers
-  static var fetchedPosts = [Post]()
-  static var fetchedPostsCurrentKey: String?
-  static let paginationElementsLimitPosts: UInt = FirebaseMagicSetup.paginationElementsLimitPosts
+  static var fetchedOrders = [Order]()
+  static var fetchedOrdersCurrentKey: String?
+  static let paginationElementsLimitOrders: UInt = FirebaseMagicSetup.paginationElementsLimitOrders
   
-  static var fetchedUserPosts = [Post]()
-  static var fetchedUserPostsCurrentKey: String?
-  static let paginationElementsLimitUserPosts: UInt = FirebaseMagicSetup.paginationElementsLimitUserPosts
+  static var fetchedUserOrders = [Order]()
+  static var fetchedUserOrdersCurrentKey: String?
+  static let paginationElementsLimitUserOrders: UInt = FirebaseMagicSetup.paginationElementsLimitUserOrders
   
   static var fetchedFollowerUsers = [CurrentUser]()
   static var fetchedFollowerUsersCurrentKey: String?
@@ -48,7 +48,7 @@ class FirebaseMagic {
   
   // MARK: -
   // MARK: Enums
-  enum PostFetchType: Int {
+  enum OrderFetchType: Int {
     case onHome = 0
     case onUserProfile = 1
   }
@@ -67,7 +67,7 @@ class FirebaseMagic {
   // MARK: -
   // MARK: Miscellaneous
   static var environment: Environment = .none
-  static var currentlyFetchingPosts = false
+  static var currentlyFetchingOrders = false
   static var searchUsersFetchLimit = 10
   fileprivate static var currentUserId: String? = nil
 
@@ -176,7 +176,7 @@ class FirebaseMagic {
         return
       }
       
-      resetPassword(withEmail: user.email) { (result, err) in
+      resetPassword(withEmail: user.emailAddress) { (result, err) in
         completion(result, err)
       }
       
@@ -234,7 +234,7 @@ class FirebaseMagic {
         return
       }
       
-      signIn(withEmail: user.email, password: password) { (result, err) in
+      signIn(withEmail: user.emailAddress, password: password) { (result, err) in
         completion(result, err)
       }
     }
@@ -318,7 +318,7 @@ class FirebaseMagic {
   }
   
   fileprivate static func signUpUniqueUserWithEmail(userCredentials: [String : Any], userDetails: [String : Any]?, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
-    guard let email = userCredentials[FirebaseMagicKeys.User.email] as? String,
+    guard let email = userCredentials[FirebaseMagicKeys.User.emailAddress] as? String,
       let password = userCredentials[FirebaseMagicKeys.User.password] as? String else {
         completion(false, nil)
         return
@@ -360,7 +360,7 @@ class FirebaseMagic {
     }
     
     let uid = user.uid
-    var mutableUserDetails: [String : Any] = [FirebaseMagicKeys.User.username: username.firebaseKeyCompatible(), FirebaseMagicKeys.User.email : email.lowercased()]
+    var mutableUserDetails: [String : Any] = [FirebaseMagicKeys.User.username: username.firebaseKeyCompatible(), FirebaseMagicKeys.User.emailAddress : email.lowercased()]
     
     if let userDetails = userDetails {
       mutableUserDetails.update(with: userDetails)
@@ -406,7 +406,7 @@ class FirebaseMagic {
   
   // MARK: -
   // MARK: Firebase Actions
-  fileprivate static func updateUserValues(forCurrentUserUid currentUserUid: String, with dictionary: [String : Any], username: String, email: String,  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+   fileprivate static func updateUserValues(forCurrentUserUid currentUserUid: String, with dictionary: [String : Any], username: String, email: String,  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     
     updateValues(atPath: Database_Users.child(currentUserUid), with: dictionary, completion: { (result, err) in
       if let err = err {
@@ -423,6 +423,24 @@ class FirebaseMagic {
       })
     })
   }
+    
+    static func updateUser(forCurrentUserUid currentUserUid: String, with dictionary: [String : Any],  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+        
+        updateValues(atPath: Database_Users.child(currentUserUid), with: dictionary, completion: { (result, err) in
+            if let err = err {
+                completion(false, err)
+                return
+            } else if result == false {
+                completion(false, nil)
+                return
+            }
+            
+            let values = [currentUserUid : 1]
+            updateValues(atPath: Database_UserFollowers.child(currentUserUid), with: values, completion: { (result, err) in
+                completion(result, err)
+            })
+        })
+    }
   
   fileprivate static func updateValues(atPath path: DatabaseReference, with dictionary: [String : Any],  completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     path.updateChildValues(dictionary) { (err, ref) in
@@ -554,35 +572,37 @@ class FirebaseMagic {
         return
       }
       var mutableDictionary = dictionary
-      getUserStats(forUid: uid, completion: { (userStats, err) in
-        if let err = err {
-          print("Failed to fetch user stats:", err)
-          completion(nil, err)
-          return
-        }
-        if let userStats = userStats {
-          mutableDictionary.update(with: userStats)
+        
+     // getUserStats(forUid: uid, completion: { (userStats, err) in
+//        if let err = err {
+//          print("Failed to fetch user stats:", err)
+//          completion(nil, err)
+//          return
+//        }
+//        if let userStats = userStats {
+//          mutableDictionary.update(with: userStats)
           let user = CurrentUser(uid: uid, dictionary: mutableDictionary)
           completion(user, nil)
           return
-        } else {
-          print("Failed to fetch user stats.")
-          completion(nil, nil)
-        }
-        
+        //}
+//        else {
+//          print("Failed to fetch user stats.")
+//          completion(nil, nil)
+//        }
+    
       })
-      
-    }) { (err) in
-      print("Failed to fetch user:", err)
-      completion(nil, err)
-    }
+//
+//    }) { (err) in
+//      print("Failed to fetch user:", err)
+//      completion(nil, err)
+//    }
   }
   
   fileprivate static func getUserStats(forUid uid: String, completion: @escaping (_ userStatsDictionary: [String : Any]?, _ error: Error?) -> ()) {
     var userStats: [String : Any] = [:]
-    Database_UserPosts.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-      let postsCount = snapshot.childrenCount
-      userStats.update(with: [FirebaseMagicKeys.User.postsCount: postsCount])
+    Database_UserOrders.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+      let ordersCount = snapshot.childrenCount
+      userStats.update(with: [FirebaseMagicKeys.User.ordersCount: ordersCount])
       
       Database_UserFollowers.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
         let followersCount = snapshot.childrenCount
@@ -592,7 +612,7 @@ class FirebaseMagic {
         if rectifiedFollowersCount <= 0 {
           rectifiedFollowersCount = 0
         }
-        userStats.update(with: [FirebaseMagicKeys.User.followersCount: UInt(rectifiedFollowersCount)])
+//        userStats.update(with: [FirebaseMagicKeys.User.followersCount: UInt(rectifiedFollowersCount)])
         
         Database_UserFollowing.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
           let followingCount = snapshot.childrenCount
@@ -601,8 +621,8 @@ class FirebaseMagic {
           if rectifiedFollowingCount <= 0 {
             rectifiedFollowingCount = 0
           }
-          userStats.update(with: [FirebaseMagicKeys.User.followingCount: UInt(rectifiedFollowingCount)])
-          completion(userStats, nil)
+//          userStats.update(with: [FirebaseMagicKeys.User.followingCount: UInt(rectifiedFollowingCount)])
+//          completion(userStats, nil)
           
         }, withCancel: { (err) in
           print("Failed to fetch user following for count:", err)
@@ -615,16 +635,16 @@ class FirebaseMagic {
       })
       
     }, withCancel:{ (err) in
-      print("Failed to fetch user posts for count:", err)
+      print("Failed to fetch user orders for count:", err)
       completion(nil, err)
     })
   }
   
   // MARK: -
-  // MARK: Share post
-  static func sharePost(withCaption caption: String, image: UIImage, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
+  // MARK: Share order
+  static func shareOrder(withProductName productName: String, image: UIImage, completion: @escaping (_ result: Bool, _ error: Error?) ->()) {
     if !hasFirebaseMagicBeenStarted() { return }
-    saveImage(image, atPath: Storage_PostImages) { (imageUrl, result, err) in
+    saveImage(image, atPath: Storage_OrderImages) { (imageUrl, result, err) in
       if let err = err {
         completion(false, err)
         return
@@ -636,15 +656,15 @@ class FirebaseMagic {
         completion(false, nil)
         return
       }
-      let postRef = Database_Posts.childByAutoId()
-      let postId = postRef.key
-      let values = [FirebaseMagicKeys.Post.caption: caption,
-                    FirebaseMagicKeys.Post.imageUrl: imageUrl,
-                    FirebaseMagicKeys.Post.ownerId: currentUserUid,
-                    FirebaseMagicKeys.Post.id: postId,
-                    FirebaseMagicKeys.Post.creationDate : Date().timeIntervalSince1970] as [String : Any]
+      let orderRef = Database_Orders.childByAutoId()
+      let orderId = orderRef.key
+      let values = [FirebaseMagicKeys.Order.productName: productName,
+                    FirebaseMagicKeys.Order.imageUrl: imageUrl,
+                    FirebaseMagicKeys.Order.ownerId: currentUserUid,
+                    FirebaseMagicKeys.Order.id: orderId,
+                    FirebaseMagicKeys.Order.creationDate : Date().timeIntervalSince1970] as [String : Any]
       
-      updateValues(atPath: postRef, with: values, completion: { (result, err) in
+      updateValues(atPath: orderRef, with: values, completion: { (result, err) in
         if let err = err {
           completion(false, err)
           return
@@ -653,8 +673,8 @@ class FirebaseMagic {
           return
         }
         
-        let values = [postId : 1]
-        updateValues(atPath: Database_UserPosts.child(currentUserUid), with: values, completion: { (result, err) in
+        let values = [orderId : 1]
+        updateValues(atPath: Database_UserOrders.child(currentUserUid), with: values, completion: { (result, err) in
           if let err = err {
             completion(false, err)
             return
@@ -691,8 +711,8 @@ class FirebaseMagic {
               }
               
               let followerUid = snapshot.key
-              let values = [postId : 1]
-              updateValues(atPath: Database_UserFeed.child(followerUid), with: values, completion: { (result, err) in
+              let values = [orderId : 1]
+              updateValues(atPath: Database_UserTravel.child(followerUid), with: values, completion: { (result, err) in
                 followersCount -= 1
                 if followersCount == 0 {
                   print("Updated all follower's user feed.")
@@ -709,158 +729,160 @@ class FirebaseMagic {
   }
   
   // MARK: -
-  // MARK: Fetch user posts
-  static func fetchUserPosts(forUid uid: String?, fetchType: PostFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
+  // MARK: Fetch user orders
+  static func fetchUserOrders(forUid uid: String?, fetchType: OrderFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
     if !hasFirebaseMagicBeenStarted() { return }
     
     collectionViewController.collectionView?.backgroundView?.alpha = 0.0
-    if currentlyFetchingPosts {
-      completion(false, nil)
-      return
+    if currentlyFetchingOrders {
+        completion(false, nil)
+        return
     }
-    currentlyFetchingPosts = true
+    currentlyFetchingOrders = true
     
     guard let uid = uid else {
-      currentlyFetchingPosts = false
-      completion(false, nil)
-      return
+        currentlyFetchingOrders = false
+        completion(false, nil)
+        return
     }
     print("Started fetching (\(fetchType)) posts for current user with id:", uid)
-
-    if  (fetchType == .onHome ? fetchedPostsCurrentKey : fetchedUserPostsCurrentKey) == nil {
-      // initial pull
-      let ref = fetchType == .onHome ? Database_UserFeed : Database_UserPosts
-      ref.child(uid).queryLimited(toLast: fetchType == .onHome ? paginationElementsLimitPosts : paginationElementsLimitUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
-        
-        if snapshot.childrenCount == 0 {
-          print("No posts to fetch for user.")
-          currentlyFetchingPosts = false
-          collectionViewController.collectionView?.backgroundView?.alpha = 1.0
-          collectionViewController.collectionView?.reloadData()
-          completion(false, nil)
-        }
-
-        guard let allObjects = snapshot.children.allObjects as? [DataSnapshot], let first = snapshot.children.allObjects.first as? DataSnapshot else {
-          currentlyFetchingPosts = false
-          completion(false, nil)
-          return
-        }
-        
-        allObjects.forEach({ (snapshot) in
-          let postId = snapshot.key
-          fetchUserPost(withPostId: postId, fetchType: fetchType, in: collectionViewController, completion: { (result, err) in
-            if let err = err {
-              currentlyFetchingPosts = false
-              completion(result, err)
-            } else if result == false {
-              currentlyFetchingPosts = false
-              completion(result, err)
-            }
-            // not completing when (true, nil) because of pagination
-          })
-        })
-        
-        if fetchType == .onHome {
-          fetchedPostsCurrentKey = first.key
-        } else {
-          fetchedUserPostsCurrentKey = first.key
-        }
-        
-        currentlyFetchingPosts = false
-        completion(true, nil)
-      }) { (err) in
-        print("Failed to query current user posts: ", err)
-        currentlyFetchingPosts = false
-        completion(false, err)
-      }
-
-    } else {
-      // paginate here
-      let ref = fetchType == .onHome ? Database_UserFeed : Database_UserPosts
-      ref.child(uid).queryOrderedByKey().queryEnding(atValue: fetchType == .onHome ? fetchedPostsCurrentKey : fetchedUserPostsCurrentKey).queryLimited(toLast: fetchType == .onHome ? paginationElementsLimitPosts : paginationElementsLimitUserPosts).observeSingleEvent(of: .value, with: { (snapshot) in
-        
-        if snapshot.childrenCount == 0 {
-          print("No posts to fetch for user.")
-          currentlyFetchingPosts = false
-          completion(false, nil)
-        }
-
-        guard let allObjects = snapshot.children.allObjects as? [DataSnapshot], let first = snapshot.children.allObjects.first as? DataSnapshot else {
-          currentlyFetchingPosts = false
-          completion(false, nil)
-          return
-        }
-        
-        allObjects.forEach({ (snapshot) in
-
-          if snapshot.key != (fetchType == .onHome ? fetchedPostsCurrentKey : fetchedUserPostsCurrentKey) {
-            let postId = snapshot.key
-            fetchUserPost(withPostId: postId, fetchType: fetchType, in: collectionViewController, completion: { (result, err) in
-              if let err = err {
-                currentlyFetchingPosts = false
-                completion(result, err)
-              } else if result == false {
-                currentlyFetchingPosts = false
-                completion(result, err)
-              }
-              // not completing when (true, nil) because of pagination
-            })
-          }
-
-        })
-        
-        if fetchType == .onHome {
-          fetchedPostsCurrentKey = first.key
-        } else {
-          fetchedUserPostsCurrentKey = first.key
-        }
-        
-        currentlyFetchingPosts = false
-        completion(true, nil)
-      }) { (err) in
-        print("Failed to query and paginate current user: ", err)
-        currentlyFetchingPosts = false
-        completion(false, err)
-      }
-    }
-
-  }
-  
-  fileprivate static func fetchUserPost(withPostId postId: String, fetchType: PostFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
     
-    fetchPost(withPostId: postId) { (post, err) in
+    if  (fetchType == .onHome ? fetchedOrdersCurrentKey : fetchedUserOrdersCurrentKey) == nil {
+        // initial pull
+        let ref = Database_Orders
+        let uid = "-LmPE1xIHYjRNZRxTxKK"
+        ref.child(uid).queryLimited(toLast: fetchType == .onHome ? paginationElementsLimitOrders : paginationElementsLimitUserOrders).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.childrenCount == 0 {
+                print("No posts to fetch for user.")
+                currentlyFetchingOrders = false
+                collectionViewController.collectionView?.backgroundView?.alpha = 1.0
+                collectionViewController.collectionView?.reloadData()
+                completion(false, nil)
+            }
+            
+            guard let allObjects = snapshot.children.allObjects as? [DataSnapshot], let first = snapshot.children.allObjects.first as? DataSnapshot else {
+                currentlyFetchingOrders = false
+                completion(false, nil)
+                return
+            }
+            
+            allObjects.forEach({ (snapshot) in
+                let orderId = snapshot.key
+                fetchUserOrder(withOrderId: orderId, fetchType: fetchType, in: collectionViewController, completion: { (result, err) in
+                    if let err = err {
+                        currentlyFetchingOrders = false
+                        completion(result, err)
+                    } else if result == false {
+                        currentlyFetchingOrders = false
+                        completion(result, err)
+                    }
+                    // not completing when (true, nil) because of pagination
+                })
+            })
+            
+            if fetchType == .onHome {
+                fetchedOrdersCurrentKey = first.key
+            } else {
+                fetchedOrdersCurrentKey = first.key
+            }
+            
+            currentlyFetchingOrders = false
+            completion(true, nil)
+        }) { (err) in
+            print("Failed to query current user posts: ", err)
+            currentlyFetchingOrders = false
+            completion(false, err)
+        }
+        
+    } else {
+        // paginate here
+        let ref =  Database_Orders
+        ref.child(uid).queryOrderedByKey().queryEnding(atValue: fetchType == .onHome ? fetchedOrdersCurrentKey : fetchedUserOrdersCurrentKey).queryLimited(toLast: fetchType == .onHome ? paginationElementsLimitOrders : paginationElementsLimitUserOrders).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.childrenCount == 0 {
+                print("No posts to fetch for user.")
+                currentlyFetchingOrders = false
+                completion(false, nil)
+            }
+            
+            guard let allObjects = snapshot.children.allObjects as? [DataSnapshot], let first = snapshot.children.allObjects.first as? DataSnapshot else {
+                currentlyFetchingOrders = false
+                completion(false, nil)
+                return
+            }
+            
+            allObjects.forEach({ (snapshot) in
+                
+                if snapshot.key != (fetchType == .onHome ? fetchedOrdersCurrentKey : fetchedUserOrdersCurrentKey) {
+                    let orderId = snapshot.key
+                    fetchUserOrder(withOrderId: orderId, fetchType: fetchType, in: collectionViewController, completion: { (result, err) in
+                        if let err = err {
+                            currentlyFetchingOrders = false
+                            completion(result, err)
+                        } else if result == false {
+                            currentlyFetchingOrders = false
+                            completion(result, err)
+                        }
+                        // not completing when (true, nil) because of pagination
+                    })
+                }
+                
+            })
+            
+            if fetchType == .onHome {
+                fetchedOrdersCurrentKey = first.key
+            } else {
+                fetchedUserOrdersCurrentKey = first.key
+            }
+            
+            currentlyFetchingOrders = false
+            completion(true, nil)
+        }) { (err) in
+            print("Failed to query and paginate current user: ", err)
+            currentlyFetchingOrders = false
+            completion(false, err)
+        }
+    }
+    
+    }
+  fileprivate static func fetchUserOrder(withOrderId orderId: String, fetchType: OrderFetchType, in collectionViewController: UICollectionViewController, completion: @escaping (_ result: Bool, _ error: Error?) -> ()) {
+    
+    fetchOrder(withOrderId: orderId) { (order, err) in
       if let err = err {
         completion(false, err)
         return
       }
-      guard let post = post else {
+      guard let order = order else {
         completion(false, nil)
         return
       }
       
       switch fetchType {
       case .onHome:
-        fetchedPosts.insert(post, at: 0)
-        self.fetchedPosts.sort(by: { (p1, p2) -> Bool in
+        fetchedOrders.insert(order, at: 0)
+        self.fetchedOrders.sort(by: { (p1, p2) -> Bool in
           return p1.creationDate.compare(p2.creationDate) == .orderedDescending
         })
       case .onUserProfile:
-        fetchedUserPosts.insert(post, at: 0)
-        self.fetchedUserPosts.sort(by: { (p1, p2) -> Bool in
+        fetchedUserOrders.insert(order, at: 0)
+        self.fetchedUserOrders.sort(by: { (p1, p2) -> Bool in
           return p1.creationDate.compare(p2.creationDate) == .orderedDescending
         })
       }
       
       collectionViewController.collectionView?.reloadData()
-      print("Fetched current user post with id:", postId)
+      print("Fetched current user order with id:", orderId)
       
       completion(true, nil)
     }
   }
   
-  fileprivate static func fetchPost(withPostId postId: String, completion: @escaping(_ post: Post?, _ error: Error?) -> ()) {
-    Database_Posts.child(postId).observeSingleEvent(of: .value) { (snapshot) in
-      guard let dictionary = snapshot.value as? Dictionary<String, AnyObject>, let ownerUid = dictionary[FirebaseMagicKeys.Post.ownerId] as? String else {
+  fileprivate static func fetchOrder(withOrderId orderId: String, completion: @escaping(_ order: Order?, _ error: Error?) -> ()) {
+    
+   let orderId = "-LmPE1xIHYjRNZRxTxKK"
+    Database_Orders.child(orderId).observeSingleEvent(of: .value) { (snapshot) in
+      guard let dictionary = snapshot.value as? Dictionary<String, AnyObject>, let ownerUid = dictionary[FirebaseMagicKeys.Order.ownerId] as? String else {
         completion(nil, nil)
         return
       }
@@ -874,9 +896,9 @@ class FirebaseMagic {
           completion(nil, nil)
           return
         }
-        var post = Post(user: user, dictionary: dictionary)
-        post.id = postId
-        completion(post, nil)
+        var order = Order(user: user, dictionary: dictionary)
+        order.id = orderId
+        completion(order, nil)
       })
     }
   }
@@ -921,13 +943,13 @@ class FirebaseMagic {
         }
         print("Successfully saved new follower id:", followingUserId)
         
-        // add followed user post into current user feed
-        Database_UserPosts.child(followedUserId).observe(.childAdded, with: { (snapshot) in
-          let postId = snapshot.key
-          let values = [postId: 1]
-          Database_UserFeed.child(followingUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
+        // add followed user order into current user feed
+        Database_UserOrders.child(followedUserId).observe(.childAdded, with: { (snapshot) in
+          let orderId = snapshot.key
+          let values = [orderId: 1]
+          Database_UserTravel.child(followingUserId).updateChildValues(values, withCompletionBlock: { (err, ref) in
             if let err = err {
-              print("Failed to add followed user post into current user feed with error:", err)
+              print("Failed to add followed user order into current user Travel with error:", err)
               completion(false, err)
               return
             }
@@ -967,12 +989,12 @@ class FirebaseMagic {
         }
         print("Successfully removed follower id:", currentLoggedInUserId)
         
-        // remove unfollowed user posts from current user feed
-        Database_UserPosts.child(userId).observe(.childAdded, with: { (snapshot) in
-          let postId = snapshot.key
-          Database_UserFeed.child(currentLoggedInUserId).child(postId).removeValue()
+        // remove unfollowed user orders from current user feed
+        Database_UserOrders.child(userId).observe(.childAdded, with: { (snapshot) in
+          let orderId = snapshot.key
+          Database_UserTravel.child(currentLoggedInUserId).child(orderId).removeValue()
         }, withCancel: { (err) in
-          print("Failed to remove followed user post into current user feed with error:", err)
+          print("Failed to remove followed user order into current user Traveller with error:", err)
           completion(false, err)
           return
         })
@@ -1130,5 +1152,76 @@ class FirebaseMagic {
       })
     }
   }
+    
+    static func fetchUserOrders2(forUid uid: String?, fetchType: OrderFetchType, in collectionViewController: UICollectionViewController, completion: @escaping ( _ result: [String : Any]?, _ error: Error?) -> ()) {
+        if !hasFirebaseMagicBeenStarted() { return }
+        
+//        collectionViewController.collectionView?.backgroundView?.alpha = 0.0
+//        if currentlyFetchingOrders {
+//            completion(nil, nil)
+//            return
+//        }
+//        currentlyFetchingOrders = true
+        
+//        guard let uid = uid else {
+//            currentlyFetchingOrders = false
+//            completion(nil, nil)
+//            return
+//        }
+//        print("Started fetching (\(fetchType)) orders for current user with id:", uid)
+//
+        if  (fetchType == .onHome ? fetchedOrdersCurrentKey : fetchedUserOrdersCurrentKey) == nil {
+            // initial pull
+            let ref = fetchType == .onHome ? Database_Orders : Database_Orders
+            
+            
+            ref.observe(DataEventType.childAdded) { (snapshot) in
+                print(snapshot)
+                return
+            }
+            
+            
+            ref.observe(.value , with :{ (snapshot ) in
+                 if !hasFirebaseMagicBeenStarted() { return }
+                guard let result = snapshot.value as? [String : Any] else {
+                    completion(nil, nil)
+                    return
+                }
+                
+                completion(result,nil)
+                return
+//                if snapshot.childrenCount == 0 {
+//                    print("No orders to fetch for user.")
+//                    currentlyFetchingOrders = false
+//                    collectionViewController.collectionView?.backgroundView?.alpha = 1.0
+//                    collectionViewController.collectionView?.reloadData()
+//                    completion(false, nil)
+//                }
+                
+//                guard let allObjects = snapshot.children.allObjects as? [DataSnapshot], let first = snapshot.children.allObjects.first as? DataSnapshot else {
+//                    currentlyFetchingOrders = false
+//                    completion(false, nil)
+//                    return
+//                }
+                
+//                allObjects.forEach({ (snapshot) in
+//                    let orderId = snapshot.key
+//                    fetchUserOrder(withOrderId: orderId, fetchType: fetchType, in: collectionViewController, completion: { (result, err) in
+//                        if let err = err {
+//                            currentlyFetchingOrders = false
+//                            completion(result, err)
+//                        } else if result == false {
+//                            currentlyFetchingOrders = false
+//                            completion(result, err)
+//                        }
+//                        // not completing when (true, nil) because of pagination
+//                    })
+               // })
+                })
+            }
+        }
+    }
+    
+    
   
-}
+

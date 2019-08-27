@@ -15,7 +15,7 @@ class FirebaseMagicService {
   // MARK: Notification names
   
   static let notificationNameShouldDismissViewController = Notification.Name(rawValue: "shouldDismissViewController")
-  static let notificationNameUserSharedAPost = Notification.Name(rawValue: "userSharedAPost")
+  static let notificationNameUserSharedAOrder = Notification.Name(rawValue: "userSharedAOrder")
   static let notificationNameUpdateSearchDatasourceController = Notification.Name(rawValue: "updateSearchDatasourceController")
   static let notificationNameFollowedUser = Notification.Name(rawValue: "followedUser")
   static let notificationNameUnfollowedUser = Notification.Name(rawValue: "unfollowedUser")
